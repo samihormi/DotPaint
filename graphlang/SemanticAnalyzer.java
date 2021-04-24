@@ -242,7 +242,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                         break;
                     }
                     case "DOWN" : {
-                        if (curY + z > window.getY()) {
+                        if (curY + z > frameY) {
                             JOptionPane.showMessageDialog(null,
                                     "\"DOWN\" command goes beyond the frame size",
                                     "DOWN eroro",
@@ -264,7 +264,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                         break;
                     }
                     case "RIGHT" : {
-                        if (curX + z > window.getX()) {
+                        if (curX + z > frameX) {
                             JOptionPane.showMessageDialog(null,
                                     "\"RIGHT\" command goes beyond the frame size",
                                     "RIGHT error",
@@ -396,8 +396,8 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 }
                 callStack = newStack;
                 initPoints();
-                curX = 0;
-                curY = 0;
+                curX = frameX / 2;
+                curY = frameY / 2;
                 repaint();
             }
         };
