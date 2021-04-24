@@ -436,20 +436,17 @@ public class Parser
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
         @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
         @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
         PMove pmoveNode1;
         {
             // Block
-        TKeywordmove tkeywordmoveNode2;
-        TDirection tdirectionNode3;
-        TNumber tnumberNode4;
-        tkeywordmoveNode2 = (TKeywordmove)nodeArrayList1.get(0);
-        tdirectionNode3 = (TDirection)nodeArrayList2.get(0);
-        tnumberNode4 = (TNumber)nodeArrayList3.get(0);
+        TDirection tdirectionNode2;
+        TNumber tnumberNode3;
+        tdirectionNode2 = (TDirection)nodeArrayList1.get(0);
+        tnumberNode3 = (TNumber)nodeArrayList2.get(0);
 
-        pmoveNode1 = new AMoveMove(tkeywordmoveNode2, tdirectionNode3, tnumberNode4);
+        pmoveNode1 = new AMoveMove(tdirectionNode2, tnumberNode3);
         }
 	nodeList.add(pmoveNode1);
         return nodeList;
@@ -700,16 +697,16 @@ public class Parser
 			{{-1, ERROR, 0}, {0, SHIFT, 1}, },
 			{{-1, ERROR, 1}, {10, SHIFT, 4}, },
 			{{-1, ERROR, 2}, {14, ACCEPT, -1}, },
-			{{-1, ERROR, 3}, {1, SHIFT, 5}, {2, SHIFT, 6}, {3, SHIFT, 7}, {4, SHIFT, 8}, {5, SHIFT, 9}, {6, SHIFT, 10}, },
+			{{-1, ERROR, 3}, {2, SHIFT, 5}, {3, SHIFT, 6}, {4, SHIFT, 7}, {5, SHIFT, 8}, {6, SHIFT, 9}, {7, SHIFT, 10}, },
 			{{-1, REDUCE, 5}, },
-			{{-1, ERROR, 5}, {7, SHIFT, 21}, },
 			{{-1, REDUCE, 16}, },
+			{{-1, ERROR, 6}, {8, SHIFT, 21}, },
 			{{-1, ERROR, 7}, {8, SHIFT, 22}, },
 			{{-1, ERROR, 8}, {8, SHIFT, 23}, },
 			{{-1, ERROR, 9}, {8, SHIFT, 24}, },
-			{{-1, ERROR, 10}, {8, SHIFT, 25}, },
+			{{-1, ERROR, 10}, {10, SHIFT, 25}, },
 			{{-1, REDUCE, 0}, },
-			{{-1, REDUCE, 1}, {1, SHIFT, 5}, {2, SHIFT, 6}, {3, SHIFT, 7}, {4, SHIFT, 8}, {5, SHIFT, 9}, {6, SHIFT, 10}, },
+			{{-1, REDUCE, 1}, {2, SHIFT, 5}, {3, SHIFT, 6}, {4, SHIFT, 7}, {5, SHIFT, 8}, {6, SHIFT, 9}, {7, SHIFT, 10}, },
 			{{-1, REDUCE, 3}, },
 			{{-1, REDUCE, 4}, },
 			{{-1, REDUCE, 8}, },
@@ -718,13 +715,12 @@ public class Parser
 			{{-1, REDUCE, 13}, },
 			{{-1, REDUCE, 11}, },
 			{{-1, REDUCE, 9}, },
-			{{-1, ERROR, 21}, {10, SHIFT, 27}, },
 			{{-1, REDUCE, 15}, },
-			{{-1, ERROR, 23}, {9, SHIFT, 28}, },
-			{{-1, ERROR, 24}, {10, SHIFT, 29}, },
+			{{-1, ERROR, 22}, {9, SHIFT, 27}, },
+			{{-1, ERROR, 23}, {10, SHIFT, 28}, },
 			{{-1, REDUCE, 17}, },
-			{{-1, REDUCE, 2}, },
 			{{-1, REDUCE, 6}, },
+			{{-1, REDUCE, 2}, },
 			{{-1, REDUCE, 14}, },
 			{{-1, REDUCE, 10}, },
         };*/
@@ -748,15 +744,14 @@ public class Parser
 			"expecting: keywordgrid",
 			"expecting: number",
 			"expecting: EOF",
-			"expecting: keywordmove, keywordmark, keywordchoose, keywordconnect, keywordcircle, keyworderase",
-			"expecting: direction",
-			"expecting: keywordmove, keywordmark, keywordchoose, keywordconnect, keywordcircle, keyworderase, EOF",
+			"expecting: keywordmark, keywordchoose, keywordconnect, keywordcircle, keyworderase, direction",
+			"expecting: keywordmark, keywordchoose, keywordconnect, keywordcircle, keyworderase, direction, EOF",
 			"expecting: color",
 			"expecting: shape",
         };*/
     private static int[] errors;
 /*      {
-			0, 1, 2, 3, 3, 4, 5, 6, 6, 6, 6, 2, 5, 5, 5, 5, 5, 5, 5, 5, 5, 1, 5, 7, 1, 5, 2, 5, 5, 5, 
+			0, 1, 2, 3, 3, 4, 5, 5, 5, 5, 1, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6, 1, 4, 4, 2, 4, 4, 
         };*/
 
     static 

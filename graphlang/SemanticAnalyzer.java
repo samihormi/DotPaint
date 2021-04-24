@@ -160,8 +160,9 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 for (int i = 0; i < callStack.size(); i++) {
                     String cur = callStack.get(i);
                     StringTokenizer st = new StringTokenizer(cur, " ");
+                    String current_token = st.nextToken().toUpperCase();
 
-                    switch (st.nextToken().toUpperCase()) {
+                    switch (current_token) {
                         case "CONNECT": {
                             String col = st.nextToken();
                             String type = st.nextToken();
@@ -176,8 +177,11 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                             MarkPoint();
                             break;
                         }
-                        case "MOVE": {
-                            Move(st.nextToken(), st.nextToken());
+                        case "LEFT":
+                        case "DOWN":
+                        case "UP":
+                        case "RIGHT": {
+                            Move(current_token, st.nextToken());
                             break;
                         }
                         case "CHOOSE": {
@@ -197,10 +201,10 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 }
                 // Show current position
                 g2.setColor(Color.BLACK);
-                g2.setStroke(new BasicStroke(3.0f));
+                g2.setStroke(new  BasicStroke(8.0f,BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
                 g2.drawLine(curX, curY, curX, curY);
                 g2.setColor(curColor.getCol());
-                g2.setStroke(new BasicStroke(2.0f));
+                g2.setStroke(new BasicStroke(6.0f));
 
                 //callStack = new ArrayList<>();
             }

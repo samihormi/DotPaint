@@ -196,10 +196,6 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getDirection().apply(this);
         }
-        if(node.getKeywordmove() != null)
-        {
-            node.getKeywordmove().apply(this);
-        }
         outAMoveMove(node);
     }
 

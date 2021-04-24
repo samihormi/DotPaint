@@ -188,10 +188,6 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseAMoveMove(AMoveMove node)
     {
         inAMoveMove(node);
-        if(node.getKeywordmove() != null)
-        {
-            node.getKeywordmove().apply(this);
-        }
         if(node.getDirection() != null)
         {
             node.getDirection().apply(this);

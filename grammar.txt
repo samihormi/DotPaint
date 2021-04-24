@@ -59,7 +59,7 @@ Productions
  stmtlist = {stmt} stmt | {list} stmt stmtlist;
  stmt = {move} move | {draw} draw;
  definegrid = {define} keywordgrid number;
- move = {move} keywordmove direction number;
+ move = {move} direction number;
  draw = {conn} connect | {circ} circle | {erasecol} erase;
  circle = {makecircle} keywordcircle color number;
  connect = {mark} markpoint | {connectcol} connectcolor | {choosecol} choosecolor;
