@@ -1,0 +1,41 @@
+Package graphlang;
+
+Helpers
+lc_letter = ['a'..'z'];
+uc_letter = ['A'..'Z'];
+letter = lc_letter | uc_letter;
+
+Tokens
+        keywordmove = 'MOVE';
+	keywordmake = 'MAKE';
+	keywordmark = 'MARK';
+	keywordchoose = 'CHOOSE';
+	keywordconnect = 'CONNECT';
+	keywordcircle = 'CIRCLE';
+	keyworderase = 'ERASE';
+	direction = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
+	color = 'RED' | 'BLUE' | 'GREEN';
+	shape = 'STRAIGHT' | 'CURVED';
+        number = ['0'..'9']+;
+        identifier =  letter+;
+        opsemicolon = ';';
+        opequal = '=';
+        blank = (' ' | 13 | 10)+;
+
+
+Ignored Tokens
+ blank;
+
+Productions
+ program = definegrid stmtlist;
+ stmtlist = {stmt} stmt | {list} stmt stmtlist;
+ stmt = {move} move | {draw} draw; 
+ definegrid = {define} keywordmake number;
+ move = {move} keywordmove direction number;
+ draw = {conn} connect | {circ} circle | {erasecol} erase;
+ circle = {makecircle} keywordcircle color number;
+ connect = {mark} markpoint | {connectcol} connectcolor | {choosecol} choosecolor;
+ connectcolor = {connectcolor} keywordconnect color shape;
+ choosecolor = {choose} keywordchoose color;
+ markpoint = keywordmark;
+ erase = {erasecolor} keyworderase color;

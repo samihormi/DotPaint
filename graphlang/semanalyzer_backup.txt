@@ -1,0 +1,268 @@
+package graphlang;
+
+import graphlang.node.*;
+import graphlang.analysis.*;
+
+import java.util.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Ellipse2D;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class SemanticAnalyzer extends DepthFirstAdapter {
+
+    static class Coordinate{
+        int x,y;
+
+        Coordinate(int x, int y){
+            this.x = x;
+            this.y = y;
+        }
+
+        public int getX() {
+            return x;
+        }
+
+        public int getY() {
+            return y;
+        }
+    }
+
+    enum Direction{
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT
+    }
+
+    enum Shape{
+        STRAIGHT,
+        CURVED
+    }
+
+    enum Colors{
+        RED(0, Color.RED),
+        BLUE(1, Color.BLUE),
+        GREEN(2, Color.GREEN);
+
+        private int num;
+        private Color col;
+
+        public int getNum()
+        {
+            return this.num;
+        }
+
+        public Color getCol()
+        {
+            return this.col;
+        }
+
+        Colors(int num, Color col)
+        {
+            this.num = num;
+            this.col = col;
+        }
+    }
+
+    private static int curX = 0;
+    private static int curY = 0;
+    public static int frameX = 0;
+    public static int frameY = 0;
+    public static JFrame window;
+
+    public static Colors curColor = Colors.RED;
+	public static boolean up = false;
+
+    static ArrayList<ArrayList<Coordinate>> points = new ArrayList<>(); // Colors, Coordinates
+    static ArrayList<String> callStack = new ArrayList<>();
+    static Graphics2D g2;
+
+    public void outAConnectcolorConnectcolor(AConnectcolorConnectcolor node){
+		callStack.add(node.toString());	
+    }
+
+    public void outAMarkpoint(AMarkpoint node){
+		callStack.add(node.toString());	
+    }
+
+    public void outAMoveMove(AMoveMove node){
+		callStack.add(node.toString());
+    }
+	
+	public void outAChooseChoosecolor(AChooseChoosecolor node){
+		callStack.add(node.toString());
+	}
+
+	public void outAMakecircleCircle(AMakecircleCircle node){
+		callStack.add(node.toString());
+	}
+
+    public void outADefineDefinegrid(ADefineDefinegrid node){
+        initPoints();
+		
+		window = new JFrame();
+		JComponent jComponent = new JComponent() {
+
+            @Override
+            protected void paintComponent(Graphics g) {
+				
+                g2 = (Graphics2D) g;
+				
+				if(!up){
+					up = true;
+				}
+				else{
+					update();
+				}
+				
+            }
+			
+			public void update(){
+				
+				g2.setColor(curColor.getCol());
+               
+				for (int i = 0; i < callStack.size(); i++) {
+                    String cur = callStack.get(i);
+					StringTokenizer st = new StringTokenizer(cur, " ");
+					
+                    switch(st.nextToken()){ 
+						case "CONNECT":{
+							ConnectStraight(st.nextToken()); 
+							break;
+						}
+						case "MARK":{
+							MarkPoint();
+							break;
+						}
+						case "MOVE":{
+							Move(st.nextToken(), st.nextToken());
+							break;
+						}
+						case "CHOOSE":{
+							ChooseColor(st.nextToken());
+							break;
+						}
+						case "CIRCLE":{
+							DrawCircle(st.nextToken(),st.nextToken());
+							break;
+						}
+                        
+                    }
+                }
+				callStack = new ArrayList<>();
+			}
+			
+			public void ChooseColor(String str){
+				curColor = Colors.valueOf(str);
+				g2.setColor(curColor.getCol());
+			}
+
+            public void Move(String dir, String s){
+				
+				int z = Integer.parseInt(s);
+			
+				int newX = curX;
+				int newY = curY;
+				switch (dir){
+				case "UP": {
+					newY = curY - z;
+					break;
+				}
+				case "DOWN": {
+					newY = curY + z;
+					break;
+				}
+				case "LEFT": {
+					newX = curX - z;
+					break;
+				}
+				case "RIGHT": {
+					newX = curX + z;
+					break;
+				}
+				}
+				if(newX > frameX || newY > frameY){
+						System.out.println("Index out of frame");
+				}
+				else{
+						curX = newX;
+						curY = newY;
+				}
+            }
+
+            public void MarkPoint(){
+                points.get(curColor.getNum()).add(new Coordinate(curX,curY));
+            }
+
+            public void ConnectStraight(String str){
+				Colors color = Colors.valueOf(str);
+                if(points.get(color.getNum()).size() != 0){
+                    //g2.setColor(curColor);
+                    g2.setStroke(new BasicStroke(2.0f));
+                    GeneralPath path = new GeneralPath(GeneralPath.WIND_NON_ZERO);
+
+                    path.moveTo(points.get(color.getNum()).get(0).getX(), points.get(color.getNum()).get(0).getY());
+                    for (int i = 1; i < points.get(color.getNum()).size(); i++) {
+                        path.lineTo(points.get(color.getNum()).get(i).getX(),points.get(color.getNum()).get(i).getY());
+                    }
+
+                    path.closePath();
+                    g2.draw(path);
+                }
+            }
+			
+			public void DrawCircle(String col, String di){
+				Colors color = Colors.valueOf(col);
+				int diameter = Integer.parseInt(di);
+                if(!points.get(color.getNum()).isEmpty()){
+                    Coordinate position = points.get(color.getNum()).get(0);
+					int half_diameter = diameter/2;
+                    Ellipse2D.Double circle = new Ellipse2D.Double(position.getX() - half_diameter, position.getY() - half_diameter, diameter, diameter);
+                    g2.draw(circle);
+                }
+            }
+			
+			public void EraseShape(Colors color){
+				g2.setColor(new Color(0, 0, 0,0));
+                g2.setComposite(AlphaComposite.Clear);
+
+                ConnectStraight(color);
+                g2.setColor(curColor.getCol());
+				repaint();
+			}
+        };
+        window.add(jComponent);
+	
+	String s = node.getNumber().toString();
+	s = s.replaceAll("\\s", "");
+	int size = Integer.parseInt(s);
+	make(size,size);
+	
+	window.setTitle("Drawing");
+	window.setLocationRelativeTo(null); 
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setVisible(true);
+        window.setResizable(false);
+
+    }
+
+    public static void make(int x, int y){
+        frameX = x;
+        frameY = y;
+        window.setSize(frameX,frameY);
+    }
+	
+	public void initPoints(){
+        int i = 0;
+        for (Colors c: Colors.values()) {
+            points.add(i, new ArrayList<>(Arrays.asList()));
+            i++;
+        }
+    }
+}

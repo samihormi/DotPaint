@@ -1,0 +1,122 @@
+class Coordinate{
+    int x,y;
+
+    Coordinate(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+}
+
+enum Direction{
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
+}
+
+enum Shape{
+    STRAIGHT,
+    CURVED
+}
+
+enum Colors{
+    RED,
+    BLUE
+}
+
+class Drawing extends JComponent {
+    private int curX = 0;
+    private int curY = 0;
+    private Color curColor = Color.blue;
+
+    ArrayList<Coordinate> points = new ArrayList<>();
+    Graphics2D g2;
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        g2 = (Graphics2D) g;
+
+        Move(Direction.DOWN, 10);
+        Move(Direction.RIGHT, 10);
+        MarkPoint();
+
+        Move(Direction.RIGHT, 10);
+        MarkPoint();
+
+        Move(Direction.DOWN, 10);
+        MarkPoint();
+
+        Move(Direction.LEFT, 10);
+        MarkPoint();
+
+        //Connect();
+
+        //Stroke();
+
+        ConnectStraight(Colors.RED);
+    }
+
+    public void Move(Direction dir, int z){
+        int newX = curX;
+        int newY = curY;
+
+        switch (dir){
+            case UP: {
+                newY = curY - z;
+                break;
+            }
+            case DOWN: {
+                newY = curY + z;
+                break;
+            }
+            case LEFT: {
+                newX = curX - z;
+                break;
+            }
+            case RIGHT: {
+                newX = curX + z;
+                break;
+            }
+        }
+
+        if(newX > SemanticAnalyzer.frameX || newY > SemanticAnalyzer.frameY){
+            System.out.println("Index out of frame");
+        }
+        else{
+            curX = newX;
+            curY = newY;
+        }
+    }
+
+    public void MarkPoint(){
+        points.add(new Coordinate(curX,curY));
+    }
+
+    public void ClearPoints(){
+        points = new ArrayList<>();
+    }
+
+    public void ConnectStraight(Colors color){
+        if(points.size() != 0){
+            g2.setColor(curColor);
+            g2.setStroke(new BasicStroke(2.0f));
+            GeneralPath path = new GeneralPath(GeneralPath.WIND_NON_ZERO);
+
+            path.moveTo(points.get(0).getX(), points.get(0).getY());
+            for (int i = 1; i < points.size(); i++) {
+                path.lineTo(points.get(i).getX(),points.get(i).getY());
+            }
+
+            path.closePath();
+            g2.draw(path);
+        }
+    }
+}
