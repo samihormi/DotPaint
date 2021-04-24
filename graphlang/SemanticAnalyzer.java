@@ -239,7 +239,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                         break;
                     }
                     case "DOWN" -> {
-                        if (curY + z > window.getY()) {
+                        if (curY + z > frameY) {
                             JOptionPane.showMessageDialog(null,
                                     "\"MOVE DOWN\" command goes beyond the frame size",
                                     "DOWN eroro",
@@ -261,7 +261,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                         break;
                     }
                     case "RIGHT" -> {
-                        if (curX + z > window.getX()) {
+                        if (curX + z > frameX) {
                             JOptionPane.showMessageDialog(null,
                                     "\"MOVE RIGHT\" command goes beyond the frame size",
                                     "RIGHT error",
