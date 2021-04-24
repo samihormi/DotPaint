@@ -104,6 +104,10 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
     static ArrayList<String> callStack = new ArrayList<>();
     static Graphics2D g2;
 
+//    public void outAFillFill(AFillFill node){
+//        callStack.add(node.toString());
+//    }
+
     public void outAConnectcolorConnectcolor(AConnectcolorConnectcolor node){
 		callStack.add(node.toString());	
     }
@@ -179,6 +183,10 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                             MarkPoint();
                             break;
                         }
+                        case "FILL":{
+                            Fill(st.nextToken());
+                            break;
+                        }
                         case "LEFT":
                         case "DOWN":
                         case "UP":
@@ -191,9 +199,12 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                             break;
                         }
                         case "CIRCLE": {
-                            System.out.println("as "+st.countTokens());
+//                            System.out.println("as "+st.countTokens());
+//                            System.out.println("too"+current_token);
+//                            System.out.println("ne"+st.nextToken());
                             if (st.countTokens() == 1){
                                 DrawCircle(curColor,st.nextToken());
+                                break;
                             }else {
                                 DrawCircle(st.nextToken(), st.nextToken());
                                 break;
@@ -286,8 +297,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
             public void MarkPoint() {
                 points.get(curColor.getNum()).add(new Coordinate(curX, curY));
             }
-
-            public void ConnectStraight(String str) {
+            public void Fill(String str) {
                 Colors color = Colors.valueOf(str);
                 g2.setColor(color.getCol());
                 if (points.get(color.getNum()).size() != 0) {
@@ -307,40 +317,58 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 g2.setColor(curColor.getCol());
             }
 
+            public void ConnectStraight(String str) {
+                Colors color = Colors.valueOf(str);
+                g2.setColor(color.getCol());
+                if (points.get(color.getNum()).size() != 0) {
+                    //g2.setColor(curColor);
+                    g2.setStroke(new BasicStroke(2.0f));
+                    GeneralPath path = new GeneralPath(GeneralPath.WIND_NON_ZERO);
+
+                    path.moveTo(points.get(color.getNum()).get(0).getX(), points.get(color.getNum()).get(0).getY());
+
+                    for (int i = 1; i < points.get(color.getNum()).size(); i++) {
+                        path.lineTo(points.get(color.getNum()).get(i).getX(), points.get(color.getNum()).get(i).getY());
+                    }
+
+                    path.closePath();
+                    g2.draw(path);
+                    g2.fill(path);
+                }
+                g2.setColor(curColor.getCol());
+            }
             public void ConnectCurved(String str) {
                 Colors color = Colors.valueOf(str);
                 g2.setStroke(new BasicStroke(2.0f));
                 g2.setColor(color.getCol());
-				
-		QuadCurve2D q = new QuadCurve2D.Float();
 
-		Coordinate cord1, cord2, cord3;
-		
-		int len = points.get(color.getNum()).size();
-		if(len != 0){
-			cord1 = points.get(color.getNum()).get(0);
-			if(len == 1){
-				g2.drawLine(cord1.getX(), cord1.getY(), cord1.getX(), cord1.getY());
-			}
-			else{
-				for (int i = 1; i < points.get(color.getNum()).size(); i++) {
-					if(i % 2 == 0){
-						cord2 = points.get(color.getNum()).get(i-1);
-						cord3 = points.get(color.getNum()).get(i);
-						q.setCurve(cord1.getX(), cord1.getY(), cord2.getX(), cord2.getY(), cord3.getX(), cord3.getY());
-						g2.draw(q);
-				
-						cord1 = cord3;
-					}
-				}
-			}
-		}
-		else{
-			System.out.println("No points of this color");
-		}
-		
-		g2.setColor(curColor.getCol());
-                
+                QuadCurve2D q = new QuadCurve2D.Float();
+
+                Coordinate cord1, cord2, cord3;
+
+                int len = points.get(color.getNum()).size();
+                if (len != 0) {
+                    cord1 = points.get(color.getNum()).get(0);
+                    if (len == 1) {
+                        g2.drawLine(cord1.getX(), cord1.getY(), cord1.getX(), cord1.getY());
+                    } else {
+                        for (int i = 1; i < points.get(color.getNum()).size(); i++) {
+                            if (i % 2 == 0) {
+                                cord2 = points.get(color.getNum()).get(i - 1);
+                                cord3 = points.get(color.getNum()).get(i);
+                                q.setCurve(cord1.getX(), cord1.getY(), cord2.getX(), cord2.getY(), cord3.getX(), cord3.getY());
+                                g2.draw(q);
+
+                                cord1 = cord3;
+                            }
+                        }
+                    }
+                } else {
+                    System.out.println("No points of this color");
+                }
+
+                g2.setColor(curColor.getCol());
+
             }
 
             public void DrawCircle(String col, String di) {
@@ -350,15 +378,16 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
 
             public void DrawCircle(Colors color, String di) {
                 int diameter = Integer.parseInt(di) * init_size;
-                System.out.printf("values are %d %d %d %d %d", diameter, curY, curX, frameY, frameX);
+                System.out.printf("values are %d %d %d %d %d\n", diameter, curY, curX, frameY, frameX);
                 if ((curY + diameter >= 0 && curY + diameter <= frameY) && (curX + diameter >= 0 && curX + diameter <= frameX)) {
-
-//                        if (!points.get(color.getNum()).isEmpty()) {
-//                            Coordinate position = points.get(color.getNum()).get(0);
-                    int half_diameter = diameter / 2;
-                    Ellipse2D.Double circle = new Ellipse2D.Double(curX - half_diameter, curY - half_diameter, diameter, diameter);
-                    g2.draw(circle);
-                    return;
+                    MarkPoint();
+                    if(!points.get(color.getNum()).isEmpty()) {
+                        Coordinate position = points.get(color.getNum()).get(0);
+                        int half_diameter = diameter / 2;
+                        System.out.printf("values are %d %d %d\n", half_diameter, position.getX(), position.getY());
+                        Ellipse2D.Double circle = new Ellipse2D.Double(position.getX() - half_diameter, position.getY() - half_diameter, diameter, diameter);
+                        g2.draw(circle);
+                    }
 
                 } else {
                     JOptionPane.showMessageDialog(null,
@@ -415,7 +444,8 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                     JOptionPane.WARNING_MESSAGE);
         }
         if (size > 100){
-            init_size = 1;
+            init_size = 10;
+            size = 100;
         }
         else {
             init_size = 10;
@@ -429,6 +459,8 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
         window.setResizable(false);
 
     }
+
+
 
     public static void grid(int x, int y){
         frameX = x;

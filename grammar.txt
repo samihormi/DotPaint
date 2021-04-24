@@ -40,6 +40,7 @@ Tokens
 	keywordchoose = c h o o s e;
 	keywordconnect = c o n n e c t;
 	keywordcircle = c i r c l e;
+	keywordfill = f i l l;
 	keyworderase = e r a s e;
 	direction = u p | d o w n | l e f t | r i g h t;
 	color = r e d | b l u e | g r e e n |;
@@ -59,10 +60,11 @@ Ignored Tokens
 Productions
  program = definegrid stmtlist;
  stmtlist = {stmt} stmt | {list} stmt stmtlist;
- stmt = {move} move | {draw} draw;
+ stmt = {move} move | {draw} draw | {fill} fill;
  definegrid = {define} keywordgrid number;
  move = {move} direction number;
  draw = {conn} connect | {circ} circle | {erasecol} erase;
+ fill = {fill} color color?;
  circle = {makecircle} keywordcircle color? number;
  connect = {mark} markpoint | {connectcol} connectcolor | {choosecol} choosecolor;
  connectcolor = {connectcolor} keywordconnect color shape;
