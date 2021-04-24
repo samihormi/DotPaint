@@ -7,14 +7,14 @@ import graphlang.analysis.*;
 @SuppressWarnings("nls")
 public final class TKeywordmove extends Token
 {
-    public TKeywordmove()
+    public TKeywordmove(String text)
     {
-        super.setText("MOVE");
+        setText(text);
     }
 
-    public TKeywordmove(int line, int pos)
+    public TKeywordmove(String text, int line, int pos)
     {
-        super.setText("MOVE");
+        setText(text);
         setLine(line);
         setPos(pos);
     }
@@ -22,17 +22,11 @@ public final class TKeywordmove extends Token
     @Override
     public Object clone()
     {
-      return new TKeywordmove(getLine(), getPos());
+      return new TKeywordmove(getText(), getLine(), getPos());
     }
 
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTKeywordmove(this);
-    }
-
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
-        throw new RuntimeException("Cannot change TKeywordmove text.");
     }
 }

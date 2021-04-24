@@ -7,14 +7,14 @@ import graphlang.analysis.*;
 @SuppressWarnings("nls")
 public final class TKeywordchoose extends Token
 {
-    public TKeywordchoose()
+    public TKeywordchoose(String text)
     {
-        super.setText("CHOOSE");
+        setText(text);
     }
 
-    public TKeywordchoose(int line, int pos)
+    public TKeywordchoose(String text, int line, int pos)
     {
-        super.setText("CHOOSE");
+        setText(text);
         setLine(line);
         setPos(pos);
     }
@@ -22,17 +22,11 @@ public final class TKeywordchoose extends Token
     @Override
     public Object clone()
     {
-      return new TKeywordchoose(getLine(), getPos());
+      return new TKeywordchoose(getText(), getLine(), getPos());
     }
 
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTKeywordchoose(this);
-    }
-
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
-        throw new RuntimeException("Cannot change TKeywordchoose text.");
     }
 }

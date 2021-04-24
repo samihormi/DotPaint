@@ -7,14 +7,14 @@ import graphlang.analysis.*;
 @SuppressWarnings("nls")
 public final class TKeywordmark extends Token
 {
-    public TKeywordmark()
+    public TKeywordmark(String text)
     {
-        super.setText("MARK");
+        setText(text);
     }
 
-    public TKeywordmark(int line, int pos)
+    public TKeywordmark(String text, int line, int pos)
     {
-        super.setText("MARK");
+        setText(text);
         setLine(line);
         setPos(pos);
     }
@@ -22,17 +22,11 @@ public final class TKeywordmark extends Token
     @Override
     public Object clone()
     {
-      return new TKeywordmark(getLine(), getPos());
+      return new TKeywordmark(getText(), getLine(), getPos());
     }
 
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTKeywordmark(this);
-    }
-
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
-        throw new RuntimeException("Cannot change TKeywordmark text.");
     }
 }

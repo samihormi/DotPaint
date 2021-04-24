@@ -7,14 +7,14 @@ import graphlang.analysis.*;
 @SuppressWarnings("nls")
 public final class TKeyworderase extends Token
 {
-    public TKeyworderase()
+    public TKeyworderase(String text)
     {
-        super.setText("ERASE");
+        setText(text);
     }
 
-    public TKeyworderase(int line, int pos)
+    public TKeyworderase(String text, int line, int pos)
     {
-        super.setText("ERASE");
+        setText(text);
         setLine(line);
         setPos(pos);
     }
@@ -22,17 +22,11 @@ public final class TKeyworderase extends Token
     @Override
     public Object clone()
     {
-      return new TKeyworderase(getLine(), getPos());
+      return new TKeyworderase(getText(), getLine(), getPos());
     }
 
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTKeyworderase(this);
-    }
-
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
-        throw new RuntimeException("Cannot change TKeyworderase text.");
     }
 }

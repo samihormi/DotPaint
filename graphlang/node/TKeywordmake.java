@@ -7,14 +7,14 @@ import graphlang.analysis.*;
 @SuppressWarnings("nls")
 public final class TKeywordmake extends Token
 {
-    public TKeywordmake()
+    public TKeywordmake(String text)
     {
-        super.setText("MAKE");
+        setText(text);
     }
 
-    public TKeywordmake(int line, int pos)
+    public TKeywordmake(String text, int line, int pos)
     {
-        super.setText("MAKE");
+        setText(text);
         setLine(line);
         setPos(pos);
     }
@@ -22,17 +22,11 @@ public final class TKeywordmake extends Token
     @Override
     public Object clone()
     {
-      return new TKeywordmake(getLine(), getPos());
+      return new TKeywordmake(getText(), getLine(), getPos());
     }
 
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTKeywordmake(this);
-    }
-
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
-        throw new RuntimeException("Cannot change TKeywordmake text.");
     }
 }

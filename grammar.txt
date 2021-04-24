@@ -4,23 +4,51 @@ Helpers
 lc_letter = ['a'..'z'];
 uc_letter = ['A'..'Z'];
 letter = lc_letter | uc_letter;
+a = ['a' + 'A'];
+b = ['b' + 'B'];
+c = ['c' + 'C'];
+d = ['d' + 'D'];
+e = ['e' + 'E'];
+f = ['f' + 'F'];
+g = ['g' + 'G'];
+h = ['h' + 'H'];
+i = ['i' + 'I'];
+j = ['j' + 'J'];
+k = ['k' + 'K'];
+l = ['l' + 'L'];
+m = ['m' + 'M'];
+n = ['n' + 'N'];
+o = ['o' + 'O'];
+p = ['p' + 'P'];
+q = ['q' + 'Q'];
+r = ['r' + 'R'];
+s = ['s' + 'S'];
+t = ['t' + 'T'];
+u = ['u' + 'U'];
+v = ['v' + 'V'];
+w = ['w' + 'W'];
+x = ['x' + 'X'];
+y = ['y' + 'Y'];
+z = ['z' + 'Z'];
+
+
 
 Tokens
-        keywordmove = 'MOVE';
-	keywordmake = 'MAKE';
-	keywordmark = 'MARK';
-	keywordchoose = 'CHOOSE';
-	keywordconnect = 'CONNECT';
-	keywordcircle = 'CIRCLE';
-	keyworderase = 'ERASE';
-	direction = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
-	color = 'RED' | 'BLUE' | 'GREEN';
-	shape = 'STRAIGHT' | 'CURVED';
-        number = ['0'..'9']+;
-        identifier =  letter+;
-        opsemicolon = ';';
-        opequal = '=';
-        blank = (' ' | 13 | 10)+;
+    keywordmake = m a k e;
+    keywordmove = m o v e;
+	keywordmark = m a r k;
+	keywordchoose = c h o o s e;
+	keywordconnect = c o n n e c t;
+	keywordcircle = c i r c l e;
+	keyworderase = e r a s e;
+	direction = u p | d o w n | l e f t | r i g h t;
+	color = r e d | b l u e | g r e e n;
+	shape = s t r a i g h t | c u r v e d;
+    number = ['0'..'9']+;
+    identifier =  letter+;
+    opsemicolon = ';';
+    opequal = '=';
+    blank = (' ' | 13 | 10)+;
 
 
 Ignored Tokens
@@ -29,7 +57,7 @@ Ignored Tokens
 Productions
  program = definegrid stmtlist;
  stmtlist = {stmt} stmt | {list} stmt stmtlist;
- stmt = {move} move | {draw} draw; 
+ stmt = {move} move | {draw} draw;
  definegrid = {define} keywordmake number;
  move = {move} keywordmove direction number;
  draw = {conn} connect | {circ} circle | {erasecol} erase;

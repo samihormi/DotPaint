@@ -31,8 +31,8 @@ public interface Analysis extends Switch
     void caseAMarkpoint(AMarkpoint node);
     void caseAErasecolorErase(AErasecolorErase node);
 
-    void caseTKeywordmove(TKeywordmove node);
     void caseTKeywordmake(TKeywordmake node);
+    void caseTKeywordmove(TKeywordmove node);
     void caseTKeywordmark(TKeywordmark node);
     void caseTKeywordchoose(TKeywordchoose node);
     void caseTKeywordconnect(TKeywordconnect node);

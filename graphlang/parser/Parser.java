@@ -697,10 +697,10 @@ public class Parser
 
     private static int[][][] actionTable;
 /*      {
-			{{-1, ERROR, 0}, {1, SHIFT, 1}, },
+			{{-1, ERROR, 0}, {0, SHIFT, 1}, },
 			{{-1, ERROR, 1}, {10, SHIFT, 4}, },
 			{{-1, ERROR, 2}, {14, ACCEPT, -1}, },
-			{{-1, ERROR, 3}, {0, SHIFT, 5}, {2, SHIFT, 6}, {3, SHIFT, 7}, {4, SHIFT, 8}, {5, SHIFT, 9}, {6, SHIFT, 10}, },
+			{{-1, ERROR, 3}, {1, SHIFT, 5}, {2, SHIFT, 6}, {3, SHIFT, 7}, {4, SHIFT, 8}, {5, SHIFT, 9}, {6, SHIFT, 10}, },
 			{{-1, REDUCE, 5}, },
 			{{-1, ERROR, 5}, {7, SHIFT, 21}, },
 			{{-1, REDUCE, 16}, },
@@ -709,7 +709,7 @@ public class Parser
 			{{-1, ERROR, 9}, {8, SHIFT, 24}, },
 			{{-1, ERROR, 10}, {8, SHIFT, 25}, },
 			{{-1, REDUCE, 0}, },
-			{{-1, REDUCE, 1}, {0, SHIFT, 5}, {2, SHIFT, 6}, {3, SHIFT, 7}, {4, SHIFT, 8}, {5, SHIFT, 9}, {6, SHIFT, 10}, },
+			{{-1, REDUCE, 1}, {1, SHIFT, 5}, {2, SHIFT, 6}, {3, SHIFT, 7}, {4, SHIFT, 8}, {5, SHIFT, 9}, {6, SHIFT, 10}, },
 			{{-1, REDUCE, 3}, },
 			{{-1, REDUCE, 4}, },
 			{{-1, REDUCE, 8}, },
@@ -745,12 +745,12 @@ public class Parser
         };*/
     private static String[] errorMessages;
 /*      {
-			"expecting: 'MAKE'",
+			"expecting: keywordmake",
 			"expecting: number",
 			"expecting: EOF",
-			"expecting: 'MOVE', 'MARK', 'CHOOSE', 'CONNECT', 'CIRCLE', 'ERASE'",
+			"expecting: keywordmove, keywordmark, keywordchoose, keywordconnect, keywordcircle, keyworderase",
 			"expecting: direction",
-			"expecting: 'MOVE', 'MARK', 'CHOOSE', 'CONNECT', 'CIRCLE', 'ERASE', EOF",
+			"expecting: keywordmove, keywordmark, keywordchoose, keywordconnect, keywordcircle, keyworderase, EOF",
 			"expecting: color",
 			"expecting: shape",
         };*/

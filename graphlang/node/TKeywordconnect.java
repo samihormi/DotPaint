@@ -7,14 +7,14 @@ import graphlang.analysis.*;
 @SuppressWarnings("nls")
 public final class TKeywordconnect extends Token
 {
-    public TKeywordconnect()
+    public TKeywordconnect(String text)
     {
-        super.setText("CONNECT");
+        setText(text);
     }
 
-    public TKeywordconnect(int line, int pos)
+    public TKeywordconnect(String text, int line, int pos)
     {
-        super.setText("CONNECT");
+        setText(text);
         setLine(line);
         setPos(pos);
     }
@@ -22,17 +22,11 @@ public final class TKeywordconnect extends Token
     @Override
     public Object clone()
     {
-      return new TKeywordconnect(getLine(), getPos());
+      return new TKeywordconnect(getText(), getLine(), getPos());
     }
 
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTKeywordconnect(this);
-    }
-
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
-        throw new RuntimeException("Cannot change TKeywordconnect text.");
     }
 }

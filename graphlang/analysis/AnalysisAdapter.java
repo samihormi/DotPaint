@@ -159,12 +159,12 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseTKeywordmove(TKeywordmove node)
+    public void caseTKeywordmake(TKeywordmake node)
     {
         defaultCase(node);
     }
 
-    public void caseTKeywordmake(TKeywordmake node)
+    public void caseTKeywordmove(TKeywordmove node)
     {
         defaultCase(node);
     }

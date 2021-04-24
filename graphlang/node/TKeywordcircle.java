@@ -7,14 +7,14 @@ import graphlang.analysis.*;
 @SuppressWarnings("nls")
 public final class TKeywordcircle extends Token
 {
-    public TKeywordcircle()
+    public TKeywordcircle(String text)
     {
-        super.setText("CIRCLE");
+        setText(text);
     }
 
-    public TKeywordcircle(int line, int pos)
+    public TKeywordcircle(String text, int line, int pos)
     {
-        super.setText("CIRCLE");
+        setText(text);
         setLine(line);
         setPos(pos);
     }
@@ -22,17 +22,11 @@ public final class TKeywordcircle extends Token
     @Override
     public Object clone()
     {
-      return new TKeywordcircle(getLine(), getPos());
+      return new TKeywordcircle(getText(), getLine(), getPos());
     }
 
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTKeywordcircle(this);
-    }
-
-    @Override
-    public void setText(@SuppressWarnings("unused") String text)
-    {
-        throw new RuntimeException("Cannot change TKeywordcircle text.");
     }
 }

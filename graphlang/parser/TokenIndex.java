@@ -10,13 +10,13 @@ class TokenIndex extends AnalysisAdapter
     int index;
 
     @Override
-    public void caseTKeywordmove(@SuppressWarnings("unused") TKeywordmove node)
+    public void caseTKeywordmake(@SuppressWarnings("unused") TKeywordmake node)
     {
         this.index = 0;
     }
 
     @Override
-    public void caseTKeywordmake(@SuppressWarnings("unused") TKeywordmake node)
+    public void caseTKeywordmove(@SuppressWarnings("unused") TKeywordmove node)
     {
         this.index = 1;
     }

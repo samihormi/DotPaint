@@ -33,7 +33,6 @@ import java.util.Arrays;
 // https://stackoverflow.com/questions/19386951/how-to-draw-a-circle-with-given-x-and-y-coordinates-as-the-middle-spot-of-the-ci
 // http://www.java2s.com/Tutorial/Java/0261__2D-Graphics/Catalog0261__2D-Graphics.htm
 
-import javafx.*;
 
 public class SemanticAnalyzer extends DepthFirstAdapter {
 
@@ -160,7 +159,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                     String cur = callStack.get(i);
 					StringTokenizer st = new StringTokenizer(cur, " ");
 					
-                    switch(st.nextToken()){ 
+                    switch(st.nextToken().toUpperCase()){
 						case "CONNECT":{
 							String col = st.nextToken();
 							String type = st.nextToken();
@@ -220,7 +219,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
 				int newX = curX;
 				int newY = curY;
 
-                switch (dir) {
+                switch (dir.toUpperCase()) {
                     case "UP" -> {
                         if (curY - z < 0) {
                             JOptionPane.showMessageDialog(null,

@@ -1,2 +1,2 @@
-MAKE 500
-MOVE LEFT 500
+make 700
+move left 100
