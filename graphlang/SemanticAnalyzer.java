@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.QuadCurve2D;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -302,42 +303,37 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
             public void ConnectCurved(String str) {
                 Colors color = Colors.valueOf(str);
                 g2.setStroke(new BasicStroke(2.0f));
+                g2.setColor(color.getCol());
+				
+		QuadCurve2D q = new QuadCurve2D.Float();
 
-                GeneralPath path = new GeneralPath(GeneralPath.WIND_EVEN_ODD);
-
-                path.moveTo(points.get(color.getNum()).get(0).getX(), points.get(color.getNum()).get(0).getY());
-
-                for (int i = 1; i < points.get(color.getNum()).size(); i++) {
-                    int posX = points.get(color.getNum()).get(i).getX();
-                    int posY = points.get(color.getNum()).get(i).getY();
-                    path.lineTo(posX, posY);
-
-                }
-
-                int p1X = 0, p1Y = 0, p2X = 0, p2Y = 0, p3X = 0, p3Y = 0;
-                int count = 0;
-                for (int i = 1; i < points.get(color.getNum()).size(); i++) {
-                    int posX = points.get(color.getNum()).get(i).getX();
-                    int posY = points.get(color.getNum()).get(i).getY();
-                    if (count == 0) {
-                        p1X = posX;
-                        p1Y = posY;
-                        count++;
-                    } else if (count == 1) {
-                        p2X = posX;
-                        p2Y = posY;
-                        count++;
-                    } else if (count == 2) {
-                        p3X = posX;
-                        p3Y = posY;
-                        count = 0;
-                        path.curveTo(p1X, p1Y, p2X, p2Y, p3X, p3Y);
-                    }
-                }
-
-                path.curveTo(150, 150, 300, 300, 50, 250);
-                path.closePath();
-                g2.draw(path);
+		Coordinate cord1, cord2, cord3;
+		
+		int len = points.get(color.getNum()).size();
+		if(len != 0){
+			cord1 = points.get(color.getNum()).get(0);
+			if(len == 1){
+				g2.drawLine(cord1.getX(), cord1.getY(), cord1.getX(), cord1.getY());
+			}
+			else{
+				for (int i = 1; i < points.get(color.getNum()).size(); i++) {
+					if(i % 2 == 0){
+						cord2 = points.get(color.getNum()).get(i-1);
+						cord3 = points.get(color.getNum()).get(i);
+						q.setCurve(cord1.getX(), cord1.getY(), cord2.getX(), cord2.getY(), cord3.getX(), cord3.getY());
+						g2.draw(q);
+				
+						cord1 = cord3;
+					}
+				}
+			}
+		}
+		else{
+			System.out.println("No points of this color");
+		}
+		
+		g2.setColor(curColor.getCol());
+                
             }
 
             public void DrawCircle(String col, String di) {
