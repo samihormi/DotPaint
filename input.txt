@@ -1,2 +1,2 @@
-make 700
+grid 1000
 move left 100

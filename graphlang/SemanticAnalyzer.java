@@ -6,8 +6,6 @@ import graphlang.analysis.*;
 import java.util.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Ellipse2D;
 
@@ -128,96 +126,100 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
 		callStack.add(node.toString());
 	}
 
-    public void outADefineDefinegrid(ADefineDefinegrid node){
+    public void outADefineDefinegrid(ADefineDefinegrid node) {
         initPoints();
-		
-		window = new JFrame();
-		JComponent jComponent = new JComponent() {
+
+        window = new JFrame();
+        JComponent jComponent = new JComponent() {
 
             @Override
             protected void paintComponent(Graphics g) {
-				
+
                 g2 = (Graphics2D) g;
-				
-				calls++;
+                // Vertical / Horizontal axis
+                g2.drawLine(frameX / 2, 0, frameX / 2, frameY);
+                g2.drawLine(0, frameY / 2, frameX, frameY / 2);
+
+                calls++;
 				
 				/*if(calls % 2 == 0){
 					update();
 				}*/
-				curX = 0;
-				curY = 0;
-				update();
-				
-				
+                // Start from the center of the graph
+                curX = frameX / 2;
+                curY = frameY / 2;
+                update();
+
+
             }
-			
-			public void update(){
-				
-				g2.setColor(curColor.getCol());
-               
-				for (int i = 0; i < callStack.size(); i++) {
+
+            public void update() {
+
+                g2.setColor(curColor.getCol());
+
+                for (int i = 0; i < callStack.size(); i++) {
                     String cur = callStack.get(i);
-					StringTokenizer st = new StringTokenizer(cur, " ");
-					
-                    switch(st.nextToken().toUpperCase()){
-						case "CONNECT":{
-							String col = st.nextToken();
-							String type = st.nextToken();
-							if(type.equals("CURVED")){
-								ConnectCurved(col);
-							}
-							else{
-								ConnectStraight(col); 
-							}
-							break;
-						}
-						case "MARK":{
-							MarkPoint();
-							break;
-						}
-						case "MOVE":{
-							Move(st.nextToken(), st.nextToken());
-							break;
-						}
-						case "CHOOSE":{
-							ChooseColor(st.nextToken());
-							break;
-						}
-						case "CIRCLE":{
-							DrawCircle(st.nextToken(),st.nextToken());
-							break;
-						}
-						case "ERASE":{
-							EraseShape(st.nextToken());
-							break;
-						}
-                        
+                    StringTokenizer st = new StringTokenizer(cur, " ");
+
+                    switch (st.nextToken().toUpperCase()) {
+                        case "CONNECT": {
+                            String col = st.nextToken();
+                            String type = st.nextToken();
+                            if (type.equals("CURVED")) {
+                                ConnectCurved(col);
+                            } else {
+                                ConnectStraight(col);
+                            }
+                            break;
+                        }
+                        case "MARK": {
+                            MarkPoint();
+                            break;
+                        }
+                        case "MOVE": {
+                            Move(st.nextToken(), st.nextToken());
+                            break;
+                        }
+                        case "CHOOSE": {
+                            ChooseColor(st.nextToken());
+                            break;
+                        }
+                        case "CIRCLE": {
+                            DrawCircle(st.nextToken(), st.nextToken());
+                            break;
+                        }
+                        case "ERASE": {
+                            EraseShape(st.nextToken());
+                            break;
+                        }
+
                     }
                 }
-				// Show current position
-				g2.setColor(Color.BLACK);
-				g2.setStroke(new BasicStroke(3.0f));
-				g2.drawLine(curX, curY, curX, curY);
-				g2.setColor(curColor.getCol());
-				g2.setStroke(new BasicStroke(2.0f));
-				
-				//callStack = new ArrayList<>();
-			}
-			
-			public void ChooseColor(String str){
-				curColor = Colors.valueOf(str);
-				g2.setColor(curColor.getCol());
-			}
-			void isValid(int cur, int future){
+                // Show current position
+                g2.setColor(Color.BLACK);
+                g2.setStroke(new BasicStroke(3.0f));
+                g2.drawLine(curX, curY, curX, curY);
+                g2.setColor(curColor.getCol());
+                g2.setStroke(new BasicStroke(2.0f));
+
+                //callStack = new ArrayList<>();
+            }
+
+            public void ChooseColor(String str) {
+                curColor = Colors.valueOf(str);
+                g2.setColor(curColor.getCol());
+            }
+
+            void isValid(int cur, int future) {
 
             }
 
-            public void Move(String dir, String s){
-				
-				int z = Integer.parseInt(s);
-			
-				int newX = curX;
-				int newY = curY;
+            public void Move(String dir, String s) {
+
+                int z = Integer.parseInt(s);
+
+                int newX = curX;
+                int newY = curY;
 
                 switch (dir.toUpperCase()) {
                     case "UP" -> {
@@ -265,23 +267,22 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                         break;
                     }
                 }
-				if(newX > frameX || newY > frameY){
-						System.out.println("Index out of frame");
-				}
-				else{
-						curX = newX;
-						curY = newY;
-				}
+                if (newX > frameX || newY > frameY) {
+                    System.out.println("Index out of frame");
+                } else {
+                    curX = newX;
+                    curY = newY;
+                }
             }
 
-            public void MarkPoint(){
-                points.get(curColor.getNum()).add(new Coordinate(curX,curY));
+            public void MarkPoint() {
+                points.get(curColor.getNum()).add(new Coordinate(curX, curY));
             }
 
-            public void ConnectStraight(String str){
-				Colors color = Colors.valueOf(str);
-				g2.setColor(color.getCol());
-                if(points.get(color.getNum()).size() != 0){
+            public void ConnectStraight(String str) {
+                Colors color = Colors.valueOf(str);
+                g2.setColor(color.getCol());
+                if (points.get(color.getNum()).size() != 0) {
                     //g2.setColor(curColor);
                     g2.setStroke(new BasicStroke(2.0f));
                     GeneralPath path = new GeneralPath(GeneralPath.WIND_NON_ZERO);
@@ -289,19 +290,19 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                     path.moveTo(points.get(color.getNum()).get(0).getX(), points.get(color.getNum()).get(0).getY());
 
                     for (int i = 1; i < points.get(color.getNum()).size(); i++) {
-                        path.lineTo(points.get(color.getNum()).get(i).getX(),points.get(color.getNum()).get(i).getY());
+                        path.lineTo(points.get(color.getNum()).get(i).getX(), points.get(color.getNum()).get(i).getY());
                     }
 
                     path.closePath();
                     g2.draw(path);
                 }
-				g2.setColor(curColor.getCol());
+                g2.setColor(curColor.getCol());
             }
-			
-			public void ConnectCurved(String str){
-				Colors color = Colors.valueOf(str);
+
+            public void ConnectCurved(String str) {
+                Colors color = Colors.valueOf(str);
                 g2.setStroke(new BasicStroke(2.0f));
-                
+
                 GeneralPath path = new GeneralPath(GeneralPath.WIND_EVEN_ODD);
 
                 path.moveTo(points.get(color.getNum()).get(0).getX(), points.get(color.getNum()).get(0).getY());
@@ -309,8 +310,8 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 for (int i = 1; i < points.get(color.getNum()).size(); i++) {
                     int posX = points.get(color.getNum()).get(i).getX();
                     int posY = points.get(color.getNum()).get(i).getY();
-                    path.lineTo(posX,posY);
-                
+                    path.lineTo(posX, posY);
+
                 }
 
                 int p1X = 0, p1Y = 0, p2X = 0, p2Y = 0, p3X = 0, p3Y = 0;
@@ -318,17 +319,15 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 for (int i = 1; i < points.get(color.getNum()).size(); i++) {
                     int posX = points.get(color.getNum()).get(i).getX();
                     int posY = points.get(color.getNum()).get(i).getY();
-                    if(count == 0){
+                    if (count == 0) {
                         p1X = posX;
                         p1Y = posY;
                         count++;
-                    }
-                    else if(count == 1){
+                    } else if (count == 1) {
                         p2X = posX;
                         p2Y = posY;
                         count++;
-                    }
-                    else if(count == 2){
+                    } else if (count == 2) {
                         p3X = posX;
                         p3Y = posY;
                         count = 0;
@@ -340,72 +339,70 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 path.closePath();
                 g2.draw(path);
             }
-			
-			public void DrawCircle(String col, String di){
-				Colors color = Colors.valueOf(col);
-				int diameter = Integer.parseInt(di);
-                if(!points.get(color.getNum()).isEmpty()){
+
+            public void DrawCircle(String col, String di) {
+                Colors color = Colors.valueOf(col);
+                int diameter = Integer.parseInt(di);
+                if (!points.get(color.getNum()).isEmpty()) {
                     Coordinate position = points.get(color.getNum()).get(0);
-					int half_diameter = diameter/2;
+                    int half_diameter = diameter / 2;
                     Ellipse2D.Double circle = new Ellipse2D.Double(position.getX() - half_diameter, position.getY() - half_diameter, diameter, diameter);
                     g2.draw(circle);
                 }
             }
-			
-			public void EraseShape(String col){
-				//Colors color = Colors.valueOf(col);
-				g2.setColor(new Color(0, 0, 0,0));
+
+            public void EraseShape(String col) {
+                //Colors color = Colors.valueOf(col);
+                g2.setColor(new Color(0, 0, 0, 0));
                 g2.setComposite(AlphaComposite.Clear);
 
                 ConnectStraight(col);
                 g2.setColor(curColor.getCol());
-				
-				ArrayList<String> newStack = new ArrayList<>();
-				boolean in = false;
-				
-				for (String s: callStack){
-					if(s.contains(col) && s.contains("ERASE")){
-						continue;
-					}
-					else if(s.contains(col)){
-						in = true;
-					}
-					else if(in && s.contains("MARK")){
-						in = true;
-					}
-					else{
-						if(s.contains("CHOOSE") || s.contains("CONNECT")){
-							in = false;
-						}
-						newStack.add(s);
-					}
-				}
-				callStack = newStack;
-				initPoints();
-				curX = 0;
-				curY = 0;
-				repaint();
-			}
+
+                ArrayList<String> newStack = new ArrayList<>();
+                boolean in = false;
+
+                for (String s : callStack) {
+                    if (s.contains(col) && s.contains("ERASE")) {
+                        continue;
+                    } else if (s.contains(col)) {
+                        in = true;
+                    } else if (in && s.contains("MARK")) {
+                        in = true;
+                    } else {
+                        if (s.contains("CHOOSE") || s.contains("CONNECT")) {
+                            in = false;
+                        }
+                        newStack.add(s);
+                    }
+                }
+                callStack = newStack;
+                initPoints();
+                curX = 0;
+                curY = 0;
+                repaint();
+            }
         };
         window.add(jComponent);
-	
-	String s = node.getNumber().toString();
-	s = s.replaceAll("\\s", "");
-	int size = Integer.parseInt(s);
-	make(size,size);
-	
-	window.setTitle("Drawing");
-	window.setLocationRelativeTo(null); 
+
+        String s = node.getNumber().toString();
+        s = s.replaceAll("\\s", "");
+        int size = Integer.parseInt(s);
+        grid(size, size);
+
+        window.setTitle("Drawing");
+        window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setVisible(true);
         window.setResizable(false);
 
     }
 
-    public static void make(int x, int y){
+    public static void grid(int x, int y){
         frameX = x;
         frameY = y;
         window.setSize(frameX,frameY);
+
     }
 	
 	public void initPoints(){

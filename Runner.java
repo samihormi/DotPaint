@@ -70,13 +70,18 @@ public class Runner {
                 }
             }
         });
-        JMenuItem empty = new JMenuItem(new AbstractAction("New File") {
+        run.setAccelerator(KeyStroke.getKeyStroke('R', Toolkit.getDefaultToolkit ().getMenuShortcutKeyMask()));
+
+        JMenuItem new_file = new JMenuItem(new AbstractAction("New File") {
             public void actionPerformed(ActionEvent e) {
                 textArea.setText("");
             }
         });
-        menu.add(empty);
+        new_file.setAccelerator(KeyStroke.getKeyStroke('N', Toolkit.getDefaultToolkit ().getMenuShortcutKeyMask()));
+
+
         menu.add(run);
+        menu.add(new_file);
 
         JMenu info = new JMenu("About");
         JMenuItem help = new JMenuItem("Help");

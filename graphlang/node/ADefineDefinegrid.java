@@ -7,7 +7,7 @@ import graphlang.analysis.*;
 @SuppressWarnings("nls")
 public final class ADefineDefinegrid extends PDefinegrid
 {
-    private TKeywordmake _keywordmake_;
+    private TKeywordgrid _keywordgrid_;
     private TNumber _number_;
 
     public ADefineDefinegrid()
@@ -16,11 +16,11 @@ public final class ADefineDefinegrid extends PDefinegrid
     }
 
     public ADefineDefinegrid(
-        @SuppressWarnings("hiding") TKeywordmake _keywordmake_,
+        @SuppressWarnings("hiding") TKeywordgrid _keywordgrid_,
         @SuppressWarnings("hiding") TNumber _number_)
     {
         // Constructor
-        setKeywordmake(_keywordmake_);
+        setKeywordgrid(_keywordgrid_);
 
         setNumber(_number_);
 
@@ -30,7 +30,7 @@ public final class ADefineDefinegrid extends PDefinegrid
     public Object clone()
     {
         return new ADefineDefinegrid(
-            cloneNode(this._keywordmake_),
+            cloneNode(this._keywordgrid_),
             cloneNode(this._number_));
     }
 
@@ -39,16 +39,16 @@ public final class ADefineDefinegrid extends PDefinegrid
         ((Analysis) sw).caseADefineDefinegrid(this);
     }
 
-    public TKeywordmake getKeywordmake()
+    public TKeywordgrid getKeywordgrid()
     {
-        return this._keywordmake_;
+        return this._keywordgrid_;
     }
 
-    public void setKeywordmake(TKeywordmake node)
+    public void setKeywordgrid(TKeywordgrid node)
     {
-        if(this._keywordmake_ != null)
+        if(this._keywordgrid_ != null)
         {
-            this._keywordmake_.parent(null);
+            this._keywordgrid_.parent(null);
         }
 
         if(node != null)
@@ -61,7 +61,7 @@ public final class ADefineDefinegrid extends PDefinegrid
             node.parent(this);
         }
 
-        this._keywordmake_ = node;
+        this._keywordgrid_ = node;
     }
 
     public TNumber getNumber()
@@ -93,7 +93,7 @@ public final class ADefineDefinegrid extends PDefinegrid
     public String toString()
     {
         return ""
-            + toString(this._keywordmake_)
+            + toString(this._keywordgrid_)
             + toString(this._number_);
     }
 
@@ -101,9 +101,9 @@ public final class ADefineDefinegrid extends PDefinegrid
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._keywordmake_ == child)
+        if(this._keywordgrid_ == child)
         {
-            this._keywordmake_ = null;
+            this._keywordgrid_ = null;
             return;
         }
 
@@ -120,9 +120,9 @@ public final class ADefineDefinegrid extends PDefinegrid
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._keywordmake_ == oldChild)
+        if(this._keywordgrid_ == oldChild)
         {
-            setKeywordmake((TKeywordmake) newChild);
+            setKeywordgrid((TKeywordgrid) newChild);
             return;
         }
 

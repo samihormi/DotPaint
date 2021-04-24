@@ -167,9 +167,9 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getNumber().apply(this);
         }
-        if(node.getKeywordmake() != null)
+        if(node.getKeywordgrid() != null)
         {
-            node.getKeywordmake().apply(this);
+            node.getKeywordgrid().apply(this);
         }
         outADefineDefinegrid(node);
     }

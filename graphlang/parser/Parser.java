@@ -418,12 +418,12 @@ public class Parser
         PDefinegrid pdefinegridNode1;
         {
             // Block
-        TKeywordmake tkeywordmakeNode2;
+        TKeywordgrid tkeywordgridNode2;
         TNumber tnumberNode3;
-        tkeywordmakeNode2 = (TKeywordmake)nodeArrayList1.get(0);
+        tkeywordgridNode2 = (TKeywordgrid)nodeArrayList1.get(0);
         tnumberNode3 = (TNumber)nodeArrayList2.get(0);
 
-        pdefinegridNode1 = new ADefineDefinegrid(tkeywordmakeNode2, tnumberNode3);
+        pdefinegridNode1 = new ADefineDefinegrid(tkeywordgridNode2, tnumberNode3);
         }
 	nodeList.add(pdefinegridNode1);
         return nodeList;
@@ -745,7 +745,7 @@ public class Parser
         };*/
     private static String[] errorMessages;
 /*      {
-			"expecting: keywordmake",
+			"expecting: keywordgrid",
 			"expecting: number",
 			"expecting: EOF",
 			"expecting: keywordmove, keywordmark, keywordchoose, keywordconnect, keywordcircle, keyworderase",

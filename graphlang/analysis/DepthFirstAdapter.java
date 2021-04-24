@@ -163,9 +163,9 @@ public class DepthFirstAdapter extends AnalysisAdapter
     public void caseADefineDefinegrid(ADefineDefinegrid node)
     {
         inADefineDefinegrid(node);
-        if(node.getKeywordmake() != null)
+        if(node.getKeywordgrid() != null)
         {
-            node.getKeywordmake().apply(this);
+            node.getKeywordgrid().apply(this);
         }
         if(node.getNumber() != null)
         {

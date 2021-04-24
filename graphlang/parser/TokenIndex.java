@@ -10,7 +10,7 @@ class TokenIndex extends AnalysisAdapter
     int index;
 
     @Override
-    public void caseTKeywordmake(@SuppressWarnings("unused") TKeywordmake node)
+    public void caseTKeywordgrid(@SuppressWarnings("unused") TKeywordgrid node)
     {
         this.index = 0;
     }
