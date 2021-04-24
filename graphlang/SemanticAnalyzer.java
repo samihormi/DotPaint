@@ -196,8 +196,9 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                                 DrawCircle(curColor,st.nextToken());
                             }else {
                                 DrawCircle(st.nextToken(), st.nextToken());
-                                break;
+                             
                             }
+			    break;
                         }
                         case "ERASE": {
                             EraseShape(st.nextToken());
