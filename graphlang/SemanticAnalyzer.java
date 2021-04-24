@@ -378,8 +378,8 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 }
                 callStack = newStack;
                 initPoints();
-                curX = 0;
-                curY = 0;
+                curX = frameX / 2;
+                curY = frameY / 2;
                 repaint();
             }
         };
