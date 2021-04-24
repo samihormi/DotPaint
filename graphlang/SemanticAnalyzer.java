@@ -93,6 +93,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
     private static int curY = 0;
     public static int frameX = 0;
     public static int frameY = 0;
+    public static int init_size = 1;
     public static JFrame window;
 
     public static Colors curColor = Colors.RED;
@@ -106,7 +107,6 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
     public void outAConnectcolorConnectcolor(AConnectcolorConnectcolor node){
 		callStack.add(node.toString());	
     }
-
     public void outAMarkpoint(AMarkpoint node){
 		callStack.add(node.toString());	
     }
@@ -163,6 +163,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                     StringTokenizer st = new StringTokenizer(cur, " ");
                     String current_token = st.nextToken().toUpperCase();
 
+
                     switch (current_token) {
                         case "CONNECT": {
                             String col = st.nextToken();
@@ -190,8 +191,13 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                             break;
                         }
                         case "CIRCLE": {
-                            DrawCircle(st.nextToken(), st.nextToken());
-                            break;
+                            System.out.println("as "+st.countTokens());
+                            if (st.countTokens() == 1){
+                                DrawCircle(curColor,st.nextToken());
+                            }else {
+                                DrawCircle(st.nextToken(), st.nextToken());
+                                break;
+                            }
                         }
                         case "ERASE": {
                             EraseShape(st.nextToken());
@@ -211,26 +217,23 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
             }
 
             public void ChooseColor(String str) {
-                curColor = Colors.valueOf(str);
+                System.out.println("co "+str);
+                curColor = Colors.valueOf(str.toUpperCase());
                 g2.setColor(curColor.getCol());
             }
 
-            void isValid(int cur, int future) {
-
-            }
 
             public void Move(String dir, String s) {
-
-                int z = Integer.parseInt(s);
+                int z = Integer.parseInt(s) * init_size ;
 
                 int newX = curX;
                 int newY = curY;
 
                 switch (dir.toUpperCase()) {
-                    case "UP" -> {
+                    case "UP" : {
                         if (curY - z < 0) {
                             JOptionPane.showMessageDialog(null,
-                                    "\"MOVE UP\" command goes beyond the frame size",
+                                    "\"UP\" command goes beyond the frame size",
                                     "UP error",
                                     JOptionPane.WARNING_MESSAGE);
                             break;
@@ -238,10 +241,10 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                         newY = curY - z;
                         break;
                     }
-                    case "DOWN" -> {
+                    case "DOWN" : {
                         if (curY + z > window.getY()) {
                             JOptionPane.showMessageDialog(null,
-                                    "\"MOVE DOWN\" command goes beyond the frame size",
+                                    "\"DOWN\" command goes beyond the frame size",
                                     "DOWN eroro",
                                     JOptionPane.WARNING_MESSAGE);
                             break;
@@ -249,10 +252,10 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                         newY = curY + z;
                         break;
                     }
-                    case "LEFT" -> {
+                    case "LEFT" : {
                         if (curY - z < 0) {
                             JOptionPane.showMessageDialog(null,
-                                    "\"MOVE LEFT\" command goes beyond the frame size",
+                                    "\"LEFT\" command goes beyond the frame size",
                                     "DOWN error",
                                     JOptionPane.WARNING_MESSAGE);
                             break;
@@ -260,10 +263,10 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                         newX = curX - z;
                         break;
                     }
-                    case "RIGHT" -> {
+                    case "RIGHT" : {
                         if (curX + z > window.getX()) {
                             JOptionPane.showMessageDialog(null,
-                                    "\"MOVE RIGHT\" command goes beyond the frame size",
+                                    "\"RIGHT\" command goes beyond the frame size",
                                     "RIGHT error",
                                     JOptionPane.WARNING_MESSAGE);
                             break;
@@ -342,12 +345,27 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
 
             public void DrawCircle(String col, String di) {
                 Colors color = Colors.valueOf(col);
-                int diameter = Integer.parseInt(di);
-                if (!points.get(color.getNum()).isEmpty()) {
-                    Coordinate position = points.get(color.getNum()).get(0);
+                DrawCircle(color,di);
+            }
+
+            public void DrawCircle(Colors color, String di) {
+                int diameter = Integer.parseInt(di) * init_size;
+                System.out.printf("values are %d %d %d %d %d", diameter, curY, curX, frameY, frameX);
+                if ((curY + diameter >= 0 && curY + diameter <= frameY) && (curX + diameter >= 0 && curX + diameter <= frameX)) {
+
+//                        if (!points.get(color.getNum()).isEmpty()) {
+//                            Coordinate position = points.get(color.getNum()).get(0);
                     int half_diameter = diameter / 2;
-                    Ellipse2D.Double circle = new Ellipse2D.Double(position.getX() - half_diameter, position.getY() - half_diameter, diameter, diameter);
+                    Ellipse2D.Double circle = new Ellipse2D.Double(curX - half_diameter, curY - half_diameter, diameter, diameter);
                     g2.draw(circle);
+                    return;
+
+                } else {
+                    JOptionPane.showMessageDialog(null,
+                            "\"Circle\" is beyond the window boundaries ",
+                            "RIGHT error",
+                            JOptionPane.WARNING_MESSAGE);
+
                 }
             }
 
@@ -388,7 +406,21 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
         String s = node.getNumber().toString();
         s = s.replaceAll("\\s", "");
         int size = Integer.parseInt(s);
-        grid(size, size);
+//        System.out.println("init  size "+s);
+//        System.out.println("THe valus of size "+size);
+        if (size < 0 ){
+            JOptionPane.showMessageDialog(null,
+                    "\"Size\" command can not be negative",
+                    "RIGHT error",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+        if (size > 100){
+            init_size = 1;
+        }
+        else {
+            init_size = 10;
+        }
+        grid(size*init_size, size*init_size);
 
         window.setTitle("Drawing");
         window.setLocationRelativeTo(null);

@@ -46,5 +46,6 @@ public interface Analysis extends Switch
     void caseTOpsemicolon(TOpsemicolon node);
     void caseTOpequal(TOpequal node);
     void caseTBlank(TBlank node);
+    void caseTMinus(TMinus node);
     void caseEOF(EOF node);
 }

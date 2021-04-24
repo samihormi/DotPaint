@@ -1,3 +1,4 @@
-grid 1000
-left 100
-up 10
+grid 700
+choose BLUE
+RIGHT 80
+UP 80

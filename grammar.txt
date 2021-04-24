@@ -42,13 +42,15 @@ Tokens
 	keywordcircle = c i r c l e;
 	keyworderase = e r a s e;
 	direction = u p | d o w n | l e f t | r i g h t;
-	color = r e d | b l u e | g r e e n;
+	color = r e d | b l u e | g r e e n |;
 	shape = s t r a i g h t | c u r v e d;
     number = ['0'..'9']+;
     identifier =  letter+;
     opsemicolon = ';';
     opequal = '=';
     blank = (' ' | 13 | 10)+;
+    minus = '-';
+
 
 
 Ignored Tokens
@@ -61,7 +63,7 @@ Productions
  definegrid = {define} keywordgrid number;
  move = {move} direction number;
  draw = {conn} connect | {circ} circle | {erasecol} erase;
- circle = {makecircle} keywordcircle color number;
+ circle = {makecircle} keywordcircle color? number;
  connect = {mark} markpoint | {connectcol} connectcolor | {choosecol} choosecolor;
  connectcolor = {connectcolor} keywordconnect color shape;
  choosecolor = {choose} keywordchoose color;

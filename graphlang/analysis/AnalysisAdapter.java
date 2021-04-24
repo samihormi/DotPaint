@@ -234,6 +234,11 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseTMinus(TMinus node)
+    {
+        defaultCase(node);
+    }
+
     public void caseEOF(EOF node)
     {
         defaultCase(node);
