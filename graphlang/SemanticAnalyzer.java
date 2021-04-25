@@ -437,7 +437,6 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
 
                     path.closePath();
                     g2.draw(path);
-                    g2.fill(path);
 
                 }
                 g2.setColor(curColor.getCol());
