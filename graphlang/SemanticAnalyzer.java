@@ -272,7 +272,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                         if (curY - z < 0) {
                             JOptionPane.showMessageDialog(null,
                                     "\"LEFT\" command goes beyond the frame size",
-                                    "DOWN error",
+                                    "LEFT error",
                                     JOptionPane.WARNING_MESSAGE);
                             break;
                         }
