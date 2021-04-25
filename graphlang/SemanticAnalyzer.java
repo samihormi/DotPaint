@@ -111,6 +111,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
     public static Colors curColor = Colors.RED;
 	public static boolean up = false;
 	private static int calls = 0;
+	public static boolean popupEnabled = true;
 
     static ArrayList<ArrayList<Coordinate>> points = new ArrayList<>(); // Colors, Coordinates
     static ArrayList<String> callStack = new ArrayList<>();
@@ -168,6 +169,29 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 // Vertical / Horizontal axis
                 g2.drawLine(frameX / 2, 0, frameX / 2, frameY);
                 g2.drawLine(0, frameY / 2, frameX, frameY / 2);
+
+
+                Font currentFont = g2.getFont();
+                Font newFont = currentFont.deriveFont(currentFont.getSize() * 0.7F);
+                g2.setFont(newFont);
+
+                for(int i=1;i<4;i++){
+                    g2.drawLine(frameX / 2 - 5, frameY * i / 8, frameX / 2 + 5, frameY * i / 8);
+                    g2.drawLine(frameX / 2 - 5, frameY-(frameY * i / 8), frameX / 2 + 5, frameY-(frameY * i / 8));
+                    g2.drawString(Integer.toString(frameY * i / 8 / 10), frameX / 2 + 10, frameY/2+frameY * i / 8 + 5);
+                    g2.drawString(Integer.toString(frameY * i / 8 / 10), frameX / 2 + 10, frameY/2-frameY * i / 8 + 5);
+                }
+
+                for(int i=1;i<4;i++){
+                    g2.drawLine(frameX-frameX*i/8, frameY / 2-5, frameX-frameX*i/8, frameY / 2+5);
+                    g2.drawLine(frameX * i/8, frameY / 2-5, frameX*i/8, frameY / 2+5);
+                    g2.drawString(Integer.toString((frameX*i/8)/10), frameX/2-frameX*i/8-7, frameY/2+18);
+                    g2.drawString(Integer.toString((frameX*i/8)/10), frameX/2+frameX * i/8-7, frameY/2+18);
+                }
+//
+//                g2.drawString("X", 5, frameY / 2+12);
+//                g2.drawString("Y", frameX/2+10, 15);
+
 
                 calls++;
 				
@@ -324,19 +348,27 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
             public boolean isValidMovement(int curXY, int z, int frameXY, String operation,String direction) {
                 if (operation.equals("-")) {
                     if (curXY - z < 0) {
-                        JOptionPane.showMessageDialog(null,
+			if(popupEnabled){
+				JOptionPane.showMessageDialog(null,
                                 direction + " command goes beyond the frame size",
                                 direction + " error",
                                 JOptionPane.WARNING_MESSAGE);
+				popupEnabled = false;
+			}
+                       
                         return false;
 
                     }
                 } else {
                     if (curXY + z > frameXY) {
-                        JOptionPane.showMessageDialog(null,
+			if(popupEnabled){
+				JOptionPane.showMessageDialog(null,
                                 direction + " command goes beyond the frame size",
                                 direction + " error",
                                 JOptionPane.WARNING_MESSAGE);
+				popupEnabled = false;
+			}
+                        
                         return false;
 
                     }
@@ -686,10 +718,12 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 DrawRhombus(color,di);
             }
 
-            public void DrawRhombus(Colors color, String di) {
+            public void DrawCircle(Colors color, String di) {
                 int diameter = Integer.parseInt(di) * init_size;
                 System.out.printf("values are %d %d %d %d %d\n", diameter, curY, curX, frameY, frameX);
-                if ((curY + diameter >= 0 && curY + diameter <= frameY) && (curX + diameter >= 0 && curX + diameter <= frameX)) {
+                int half_diameter = diameter / 2;
+		int max_diameter = half_diameter + (half_diameter/100*20);
+		if ((curY + max_diameter >= 0 && curY + max_diameter <= frameY) && (curX + max_diameter >= 0 && curX + max_diameter <= frameX)) {
                     MarkPoint();
                     if(!points.get(color.getNum()).isEmpty()) {
                         Coordinate position = points.get(color.getNum()).get(0);
@@ -700,12 +734,16 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                     }
 
                 } else {
-                    JOptionPane.showMessageDialog(null,
+		    if(popupEnabled){
+		    	JOptionPane.showMessageDialog(null,
                             "\"Circle\" is beyond the window boundaries ",
                             "RIGHT error",
                             JOptionPane.WARNING_MESSAGE);
+			    popupEnabled = false;
+		    }
 
                 }
+		g2.setColor(curColor.getCol());
             }
 
             public void EraseShape(String col) {
@@ -713,21 +751,23 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 g2.setColor(new Color(0, 0, 0, 0));
                 g2.setComposite(AlphaComposite.Clear);
 
-                ConnectStraight(col);
+		String colorStr = col.toUpperCase();
+                ConnectStraight(colorStr);
                 g2.setColor(curColor.getCol());
 
                 ArrayList<String> newStack = new ArrayList<>();
                 boolean in = false;
 
                 for (String s : callStack) {
-                    if (s.contains(col) && s.contains("ERASE")) {
+		    String sStr = s.toUpperCase();
+                    if (sStr.contains(colorStr) && sStr.contains("ERASE")) {
                         continue;
-                    } else if (s.contains(col)) {
+                    } else if (sStr.contains(colorStr)) {
                         in = true;
-                    } else if (in && s.contains("MARK")) {
+                    } else if (in && sStr.contains("MARK")) {
                         in = true;
                     } else {
-                        if (s.contains("CHOOSE") || s.contains("CONNECT")) {
+                        if (sStr.contains("CHOOSE") || sStr.contains("CONNECT")) {
                             in = false;
                         }
                         newStack.add(s);
@@ -737,6 +777,11 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 initPoints();
                 curX = frameX / 2;
                 curY = frameY / 2;
+
+		for(int i=0;i<callStack.size();i++){
+			System.out.println(callStack.get(i));
+		}
+
                 repaint();
             }
         };
@@ -748,10 +793,14 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
 //        System.out.println("init  size "+s);
 //        System.out.println("THe valus of size "+size);
         if (size < 0 ){
-            JOptionPane.showMessageDialog(null,
+	    if(popupEnabled){
+	    	JOptionPane.showMessageDialog(null,
                     "\"Size\" command can not be negative",
                     "RIGHT error",
                     JOptionPane.WARNING_MESSAGE);
+		    popupEnabled = false;
+	    }
+
         }
         if (size > 100){
             init_size = 10;
