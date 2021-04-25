@@ -176,7 +176,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                         case "CONNECT": {
                             String col = st.nextToken();
                             String type = st.nextToken();
-                            if (type.equals("CURVED")) {
+                            if (type.toUpperCase().equals("CURVED")) {
                                 ConnectCurved(col);
                             } else {
                                 ConnectStraight(col);
@@ -272,7 +272,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                         if (curY - z < 0) {
                             JOptionPane.showMessageDialog(null,
                                     "\"LEFT\" command goes beyond the frame size",
-                                    "DOWN error",
+                                    "LEFT error",
                                     JOptionPane.WARNING_MESSAGE);
                             break;
                         }
@@ -291,7 +291,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                         break;
                     }
                 }
-                if (newX > frameX || newY > frameY) {
+                if (newX > frameX || newY > frameY || newX < 0 || newY < 0) {
                     System.out.println("Index out of frame");
                 } else {
                     curX = newX;
@@ -303,7 +303,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 points.get(curColor.getNum()).add(new Coordinate(curX, curY));
             }
             public void Fill(String str) {
-                Colors color = Colors.valueOf(str);
+                Colors color = Colors.valueOf(str.toUpperCase());
                 g2.setColor(color.getCol());
                 if (points.get(color.getNum()).size() != 0) {
                     //g2.setColor(curColor);
@@ -323,7 +323,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
             }
 
             public void ConnectStraight(String str) {
-                Colors color = Colors.valueOf(str);
+                Colors color = Colors.valueOf(str.toUpperCase());
                 g2.setColor(color.getCol());
                 if (points.get(color.getNum()).size() != 0) {
                     //g2.setColor(curColor);
@@ -343,7 +343,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 g2.setColor(curColor.getCol());
             }
             public void ConnectCurved(String str) {
-                Colors color = Colors.valueOf(str);
+                Colors color = Colors.valueOf(str.toUpperCase());
                 g2.setStroke(new BasicStroke(2.0f));
                 g2.setColor(color.getCol());
 
@@ -468,8 +468,22 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
 
 
     public static void grid(int x, int y){
-        frameX = x;
-        frameY = y;
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+	screenWidth = gd.getDisplayMode().getWidth();
+	screenHeight = gd.getDisplayMode().getHeight();
+
+	if(x < 150 || y < 150){
+		frameX = 150;
+		frameY = 150;
+	}
+	else if(x > screenWidth || y > screenHeight){
+		frameX = screenHeight - 10;
+		frameY = screenHeight - 10;
+	}
+	else{
+		frameX = x;
+		frameY = y;
+	}
         window.setSize(frameX,frameY);
 
     }
