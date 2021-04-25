@@ -67,7 +67,11 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
     enum Colors{
         RED(0, Color.RED),
         BLUE(1, Color.BLUE),
-        GREEN(2, Color.GREEN);
+        GREEN(2, Color.GREEN),
+	ORANGE(3,Color.ORANGE),
+        PINK(4,Color.PINK),
+        BLACK(5, Color.BLACK),
+        YELLOW(6,Color.YELLOW);
 
         private int num;
         private Color col;
