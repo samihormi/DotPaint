@@ -291,7 +291,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                         break;
                     }
                 }
-                if (newX > frameX || newY > frameY) {
+                if (newX > frameX || newY > frameY || newX < 0 || newY < 0) {
                     System.out.println("Index out of frame");
                 } else {
                     curX = newX;
@@ -468,8 +468,22 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
 
 
     public static void grid(int x, int y){
-        frameX = x;
-        frameY = y;
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+	screenWidth = gd.getDisplayMode().getWidth();
+	screenHeight = gd.getDisplayMode().getHeight();
+
+	if(x < 150 || y < 150){
+		frameX = 150;
+		frameY = 150;
+	}
+	else if(x > screenWidth || y > screenHeight){
+		frameX = screenHeight - 10;
+		frameY = screenHeight - 10;
+	}
+	else{
+		frameX = x;
+		frameY = y;
+	}
         window.setSize(frameX,frameY);
 
     }
