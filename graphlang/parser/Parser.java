@@ -205,88 +205,112 @@ public class Parser
 			push(goTo(2), list, false);
 		    }
 		    break;
-                    case 5: /* reduce ADefineDefinegrid */
+                    case 5: /* reduce AFillStmt */
 		    {
 			ArrayList list = new5();
+			push(goTo(2), list, false);
+		    }
+		    break;
+                    case 6: /* reduce ADefineDefinegrid */
+		    {
+			ArrayList list = new6();
 			push(goTo(3), list, false);
 		    }
 		    break;
-                    case 6: /* reduce AMoveMove */
+                    case 7: /* reduce AMoveMove */
 		    {
-			ArrayList list = new6();
+			ArrayList list = new7();
 			push(goTo(4), list, false);
 		    }
 		    break;
-                    case 7: /* reduce AConnDraw */
-		    {
-			ArrayList list = new7();
-			push(goTo(5), list, false);
-		    }
-		    break;
-                    case 8: /* reduce ACircDraw */
+                    case 8: /* reduce AConnDraw */
 		    {
 			ArrayList list = new8();
 			push(goTo(5), list, false);
 		    }
 		    break;
-                    case 9: /* reduce AErasecolDraw */
+                    case 9: /* reduce ACircDraw */
 		    {
 			ArrayList list = new9();
 			push(goTo(5), list, false);
 		    }
 		    break;
-                    case 10: /* reduce AAmakecirclecircle1Circle */
+                    case 10: /* reduce AErasecolDraw */
 		    {
 			ArrayList list = new10();
-			push(goTo(6), list, false);
+			push(goTo(5), list, false);
 		    }
 		    break;
-                    case 11: /* reduce AAmakecirclecircle2Circle */
+                    case 11: /* reduce AFillrColorize */
 		    {
 			ArrayList list = new11();
 			push(goTo(6), list, false);
 		    }
 		    break;
-                    case 12: /* reduce AMarkConnect */
+                    case 12: /* reduce AAmakecirclecircle1Circle */
 		    {
 			ArrayList list = new12();
 			push(goTo(7), list, false);
 		    }
 		    break;
-                    case 13: /* reduce AConnectcolConnect */
+                    case 13: /* reduce AAmakecirclecircle2Circle */
 		    {
 			ArrayList list = new13();
 			push(goTo(7), list, false);
 		    }
 		    break;
-                    case 14: /* reduce AChoosecolConnect */
+                    case 14: /* reduce AMarkConnect */
 		    {
 			ArrayList list = new14();
-			push(goTo(7), list, false);
+			push(goTo(8), list, false);
 		    }
 		    break;
-                    case 15: /* reduce AConnectcolorConnectcolor */
+                    case 15: /* reduce AConnectcolConnect */
 		    {
 			ArrayList list = new15();
 			push(goTo(8), list, false);
 		    }
 		    break;
-                    case 16: /* reduce AChooseChoosecolor */
+                    case 16: /* reduce AChoosecolConnect */
 		    {
 			ArrayList list = new16();
+			push(goTo(8), list, false);
+		    }
+		    break;
+                    case 17: /* reduce AConnectcolorConnectcolor */
+		    {
+			ArrayList list = new17();
 			push(goTo(9), list, false);
 		    }
 		    break;
-                    case 17: /* reduce AMarkpoint */
+                    case 18: /* reduce AChooseChoosecolor */
 		    {
-			ArrayList list = new17();
+			ArrayList list = new18();
 			push(goTo(10), list, false);
 		    }
 		    break;
-                    case 18: /* reduce AErasecolorErase */
+                    case 19: /* reduce AMarkpoint */
 		    {
-			ArrayList list = new18();
+			ArrayList list = new19();
 			push(goTo(11), list, false);
+		    }
+		    break;
+                    case 20: /* reduce AErasecolorErase */
+		    {
+			ArrayList list = new20();
+			push(goTo(12), list, false);
+		    }
+		    break;
+                    case 21: /* reduce ATerminal$Color */
+		    {
+			ArrayList list = new21();
+			push(goTo(13), list, true);
+		    }
+		    break;
+                    case 22: /* reduce ANonTerminal$Color */
+		    {
+			ArrayList list = new22();
+			push(goTo(13), list, true);
 		    }
 		    break;
                     }
@@ -415,7 +439,27 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new5() /* reduce ADefineDefinegrid */
+    ArrayList new5() /* reduce AFillStmt */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        PStmt pstmtNode1;
+        {
+            // Block
+        PColorize pcolorizeNode2;
+        pcolorizeNode2 = (PColorize)nodeArrayList1.get(0);
+
+        pstmtNode1 = new AFillStmt(pcolorizeNode2);
+        }
+	nodeList.add(pstmtNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new6() /* reduce ADefineDefinegrid */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -438,7 +482,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new6() /* reduce AMoveMove */
+    ArrayList new7() /* reduce AMoveMove */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -461,7 +505,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new7() /* reduce AConnDraw */
+    ArrayList new8() /* reduce AConnDraw */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -481,7 +525,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new8() /* reduce ACircDraw */
+    ArrayList new9() /* reduce ACircDraw */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -501,7 +545,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new9() /* reduce AErasecolDraw */
+    ArrayList new10() /* reduce AErasecolDraw */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -521,7 +565,38 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new10() /* reduce AAmakecirclecircle1Circle */
+    ArrayList new11() /* reduce AFillrColorize */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        PColorize pcolorizeNode1;
+        {
+            // Block
+        TKeywordfill tkeywordfillNode2;
+        LinkedList listNode4 = new LinkedList();
+        tkeywordfillNode2 = (TKeywordfill)nodeArrayList1.get(0);
+        {
+            // Block
+        LinkedList listNode3 = new LinkedList();
+        listNode3 = (LinkedList)nodeArrayList2.get(0);
+	if(listNode3 != null)
+	{
+	  listNode4.addAll(listNode3);
+	}
+        }
+
+        pcolorizeNode1 = new AFillrColorize(tkeywordfillNode2, listNode4);
+        }
+	nodeList.add(pcolorizeNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new12() /* reduce AAmakecirclecircle1Circle */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -545,7 +620,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new11() /* reduce AAmakecirclecircle2Circle */
+    ArrayList new13() /* reduce AAmakecirclecircle2Circle */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -571,7 +646,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new12() /* reduce AMarkConnect */
+    ArrayList new14() /* reduce AMarkConnect */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -591,7 +666,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new13() /* reduce AConnectcolConnect */
+    ArrayList new15() /* reduce AConnectcolConnect */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -611,7 +686,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new14() /* reduce AChoosecolConnect */
+    ArrayList new16() /* reduce AChoosecolConnect */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -631,7 +706,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new15() /* reduce AConnectcolorConnectcolor */
+    ArrayList new17() /* reduce AConnectcolorConnectcolor */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -657,7 +732,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new16() /* reduce AChooseChoosecolor */
+    ArrayList new18() /* reduce AChooseChoosecolor */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -680,7 +755,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new17() /* reduce AMarkpoint */
+    ArrayList new19() /* reduce AMarkpoint */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -700,7 +775,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new18() /* reduce AErasecolorErase */
+    ArrayList new20() /* reduce AErasecolorErase */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -722,46 +797,101 @@ public class Parser
 
 
 
+    @SuppressWarnings("unchecked")
+    ArrayList new21() /* reduce ATerminal$Color */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        LinkedList listNode2 = new LinkedList();
+        {
+            // Block
+        TColor tcolorNode1;
+        tcolorNode1 = (TColor)nodeArrayList1.get(0);
+	if(tcolorNode1 != null)
+	{
+	  listNode2.add(tcolorNode1);
+	}
+        }
+	nodeList.add(listNode2);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new22() /* reduce ANonTerminal$Color */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        LinkedList listNode3 = new LinkedList();
+        {
+            // Block
+        LinkedList listNode1 = new LinkedList();
+        TColor tcolorNode2;
+        listNode1 = (LinkedList)nodeArrayList1.get(0);
+        tcolorNode2 = (TColor)nodeArrayList2.get(0);
+	if(listNode1 != null)
+	{
+	  listNode3.addAll(listNode1);
+	}
+	if(tcolorNode2 != null)
+	{
+	  listNode3.add(tcolorNode2);
+	}
+        }
+	nodeList.add(listNode3);
+        return nodeList;
+    }
+
+
+
     private static int[][][] actionTable;
 /*      {
 			{{-1, ERROR, 0}, {0, SHIFT, 1}, },
-			{{-1, ERROR, 1}, {10, SHIFT, 4}, },
-			{{-1, ERROR, 2}, {15, ACCEPT, -1}, },
-			{{-1, ERROR, 3}, {2, SHIFT, 5}, {3, SHIFT, 6}, {4, SHIFT, 7}, {5, SHIFT, 8}, {6, SHIFT, 9}, {7, SHIFT, 10}, },
-			{{-1, REDUCE, 5}, },
-			{{-1, REDUCE, 17}, },
-			{{-1, ERROR, 6}, {8, SHIFT, 21}, },
-			{{-1, ERROR, 7}, {8, SHIFT, 22}, },
-			{{-1, ERROR, 8}, {8, SHIFT, 23}, {10, SHIFT, 24}, },
-			{{-1, ERROR, 9}, {8, SHIFT, 25}, },
-			{{-1, ERROR, 10}, {10, SHIFT, 26}, },
+			{{-1, ERROR, 1}, {12, SHIFT, 4}, },
+			{{-1, ERROR, 2}, {17, ACCEPT, -1}, },
+			{{-1, ERROR, 3}, {2, SHIFT, 5}, {3, SHIFT, 6}, {4, SHIFT, 7}, {5, SHIFT, 8}, {6, SHIFT, 9}, {7, SHIFT, 10}, {8, SHIFT, 11}, },
+			{{-1, REDUCE, 6}, },
+			{{-1, REDUCE, 19}, },
+			{{-1, ERROR, 6}, {9, SHIFT, 23}, },
+			{{-1, ERROR, 7}, {9, SHIFT, 24}, },
+			{{-1, ERROR, 8}, {9, SHIFT, 25}, {12, SHIFT, 26}, },
+			{{-1, ERROR, 9}, {9, SHIFT, 27}, },
+			{{-1, ERROR, 10}, {9, SHIFT, 29}, },
+			{{-1, ERROR, 11}, {12, SHIFT, 30}, },
 			{{-1, REDUCE, 0}, },
-			{{-1, REDUCE, 1}, {2, SHIFT, 5}, {3, SHIFT, 6}, {4, SHIFT, 7}, {5, SHIFT, 8}, {6, SHIFT, 9}, {7, SHIFT, 10}, },
+			{{-1, REDUCE, 1}, {2, SHIFT, 5}, {3, SHIFT, 6}, {4, SHIFT, 7}, {5, SHIFT, 8}, {6, SHIFT, 9}, {7, SHIFT, 10}, {8, SHIFT, 11}, },
 			{{-1, REDUCE, 3}, },
 			{{-1, REDUCE, 4}, },
-			{{-1, REDUCE, 8}, },
-			{{-1, REDUCE, 7}, },
-			{{-1, REDUCE, 13}, },
-			{{-1, REDUCE, 14}, },
-			{{-1, REDUCE, 12}, },
+			{{-1, REDUCE, 5}, },
 			{{-1, REDUCE, 9}, },
+			{{-1, REDUCE, 8}, },
+			{{-1, REDUCE, 15}, },
 			{{-1, REDUCE, 16}, },
-			{{-1, ERROR, 22}, {9, SHIFT, 28}, },
-			{{-1, ERROR, 23}, {10, SHIFT, 29}, },
+			{{-1, REDUCE, 14}, },
 			{{-1, REDUCE, 10}, },
 			{{-1, REDUCE, 18}, },
-			{{-1, REDUCE, 6}, },
+			{{-1, ERROR, 24}, {11, SHIFT, 32}, },
+			{{-1, ERROR, 25}, {12, SHIFT, 33}, },
+			{{-1, REDUCE, 12}, },
+			{{-1, REDUCE, 21}, },
+			{{-1, REDUCE, 11}, {9, SHIFT, 34}, },
+			{{-1, REDUCE, 20}, },
+			{{-1, REDUCE, 7}, },
 			{{-1, REDUCE, 2}, },
-			{{-1, REDUCE, 15}, },
-			{{-1, REDUCE, 11}, },
+			{{-1, REDUCE, 17}, },
+			{{-1, REDUCE, 13}, },
+			{{-1, REDUCE, 22}, },
         };*/
     private static int[][][] gotoTable;
 /*      {
 			{{-1, 2}, },
-			{{-1, 11}, {12, 27}, },
-			{{-1, 12}, },
-			{{-1, 3}, },
+			{{-1, 12}, {13, 31}, },
 			{{-1, 13}, },
+			{{-1, 3}, },
 			{{-1, 14}, },
 			{{-1, 15}, },
 			{{-1, 16}, },
@@ -769,21 +899,25 @@ public class Parser
 			{{-1, 18}, },
 			{{-1, 19}, },
 			{{-1, 20}, },
+			{{-1, 21}, },
+			{{-1, 22}, },
+			{{-1, 28}, },
         };*/
     private static String[] errorMessages;
 /*      {
 			"expecting: keywordgrid",
 			"expecting: number",
 			"expecting: EOF",
-			"expecting: keywordmark, keywordchoose, keywordconnect, keywordcircle, keyworderase, direction",
-			"expecting: keywordmark, keywordchoose, keywordconnect, keywordcircle, keyworderase, direction, EOF",
+			"expecting: keywordmark, keywordchoose, keywordconnect, keywordcircle, keywordfill, keyworderase, direction",
+			"expecting: keywordmark, keywordchoose, keywordconnect, keywordcircle, keywordfill, keyworderase, direction, EOF",
 			"expecting: color",
 			"expecting: color, number",
 			"expecting: shape",
+			"expecting: keywordmark, keywordchoose, keywordconnect, keywordcircle, keywordfill, keyworderase, direction, color, EOF",
         };*/
     private static int[] errors;
 /*      {
-			0, 1, 2, 3, 3, 4, 5, 5, 6, 5, 1, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 7, 1, 4, 4, 4, 2, 4, 4, 
+			0, 1, 2, 3, 3, 4, 5, 5, 6, 5, 5, 1, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 7, 1, 4, 8, 8, 4, 4, 2, 4, 4, 8, 
         };*/
 
     static 

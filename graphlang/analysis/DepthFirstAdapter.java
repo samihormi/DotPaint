@@ -149,6 +149,27 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outADrawStmt(node);
     }
 
+    public void inAFillStmt(AFillStmt node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAFillStmt(AFillStmt node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAFillStmt(AFillStmt node)
+    {
+        inAFillStmt(node);
+        if(node.getColorize() != null)
+        {
+            node.getColorize().apply(this);
+        }
+        outAFillStmt(node);
+    }
+
     public void inADefineDefinegrid(ADefineDefinegrid node)
     {
         defaultIn(node);
@@ -260,6 +281,34 @@ public class DepthFirstAdapter extends AnalysisAdapter
             node.getErase().apply(this);
         }
         outAErasecolDraw(node);
+    }
+
+    public void inAFillrColorize(AFillrColorize node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAFillrColorize(AFillrColorize node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAFillrColorize(AFillrColorize node)
+    {
+        inAFillrColorize(node);
+        if(node.getKeywordfill() != null)
+        {
+            node.getKeywordfill().apply(this);
+        }
+        {
+            List<TColor> copy = new ArrayList<TColor>(node.getColor());
+            for(TColor e : copy)
+            {
+                e.apply(this);
+            }
+        }
+        outAFillrColorize(node);
     }
 
     public void inAMakecircleCircle(AMakecircleCircle node)

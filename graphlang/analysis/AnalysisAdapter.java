@@ -94,6 +94,11 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseAFillStmt(AFillStmt node)
+    {
+        defaultCase(node);
+    }
+
     public void caseADefineDefinegrid(ADefineDefinegrid node)
     {
         defaultCase(node);
@@ -115,6 +120,11 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseAErasecolDraw(AErasecolDraw node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAFillrColorize(AFillrColorize node)
     {
         defaultCase(node);
     }
@@ -189,6 +199,11 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseTKeywordfill(TKeywordfill node)
+    {
+        defaultCase(node);
+    }
+
     public void caseTKeyworderase(TKeyworderase node)
     {
         defaultCase(node);
@@ -200,6 +215,11 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseTColor(TColor node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTColoropt(TColoropt node)
     {
         defaultCase(node);
     }

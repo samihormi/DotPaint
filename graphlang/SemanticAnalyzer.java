@@ -3,6 +3,7 @@ package graphlang;
 import graphlang.node.*;
 import graphlang.analysis.*;
 
+import java.awt.geom.Point2D;
 import java.util.*;
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +13,8 @@ import java.awt.geom.QuadCurve2D;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.IntStream;
 
 // todo: if(!up) is problematic, since it stops the first run but it maybe valid.
 //  Have to ensure that paintComponent only runs when necessary
@@ -49,6 +52,10 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
 
         public int getY() {
             return y;
+        }
+
+        public double distance(Coordinate c2){
+            return Math.sqrt((c2.getX()-this.getX())*(c2.getX()-this.getX()) + (c2.getY()-this.getY())*(c2.getY()-this.getY()));
         }
     }
 
@@ -108,9 +115,9 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
     static ArrayList<String> callStack = new ArrayList<>();
     static Graphics2D g2;
 
-//    public void outAFillFill(AFillFill node){
-//        callStack.add(node.toString());
-//    }
+    public void outAFillrColorize(AFillrColorize node){
+        callStack.add(node.toString());
+    }
 
     public void outAConnectcolorConnectcolor(AConnectcolorConnectcolor node){
 		callStack.add(node.toString());	
@@ -188,7 +195,30 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                             break;
                         }
                         case "FILL":{
-                            Fill(st.nextToken());
+                            System.out.println("Token count "+st.countTokens());
+
+                            switch (st.countTokens()) {
+                                case 1: {
+                                    Fill(st.nextToken());
+                                    break;
+                                }
+                                case 2:{
+                                    Fill(st.nextToken(), st.nextToken());
+                                    break;
+                                } case 3:{
+                                    Fill(st.nextToken(), st.nextToken(), st.nextToken(),new ArrayList<>());
+                                    break;
+                                }
+                                default:{
+                                    List<String> list_colors = new ArrayList<>();
+
+                                    while (st.hasMoreTokens()){
+                                        list_colors.add(st.nextToken());
+                                    }
+                                    Fill(list_colors.get(0),list_colors.get(1),list_colors.get(2), list_colors.subList(1,list_colors.size()));
+                                    break;
+                                }
+                            }
                             break;
                         }
                         case "LEFT":
@@ -203,7 +233,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                             break;
                         }
                         case "CIRCLE": {
-//                            System.out.println("as "+st.countTokens());
+//                            System.out.println("Token count "+st.countTokens());
 //                            System.out.println("too"+current_token);
 //                            System.out.println("ne"+st.nextToken());
                             if (st.countTokens() == 1){
@@ -232,9 +262,9 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 //callStack = new ArrayList<>();
             }
 
-            public void ChooseColor(String str) {
-                System.out.println("co "+str);
-                curColor = Colors.valueOf(str.toUpperCase());
+            public void ChooseColor(String color) {
+                System.out.println("co "+color);
+                curColor = Colors.valueOf(color.toUpperCase());
                 g2.setColor(curColor.getCol());
             }
 
@@ -261,7 +291,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                         if (curY + z > frameY) {
                             JOptionPane.showMessageDialog(null,
                                     "\"DOWN\" command goes beyond the frame size",
-                                    "DOWN eroro",
+                                    "DOWN error",
                                     JOptionPane.WARNING_MESSAGE);
                             break;
                         }
@@ -302,29 +332,93 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
             public void MarkPoint() {
                 points.get(curColor.getNum()).add(new Coordinate(curX, curY));
             }
-            public void Fill(String str) {
-                Colors color = Colors.valueOf(str.toUpperCase());
-                g2.setColor(color.getCol());
-                if (points.get(color.getNum()).size() != 0) {
+            public void Fill(String color_path) {
+                Fill(color_path,curColor.toString());
+
+            }
+            public void Fill(String color_path, String color_fill) {
+                Fill(color_path,color_fill,color_fill,new ArrayList<>());
+            }
+            public void Fill(String color_path, String color_fill , String color_gradient, List<String> all_commands) {
+                System.out.println("outputted color is "+color_path);
+                System.out.println("outputted color is 2 "+color_fill);
+                System.out.println("outputted color is 3 "+color_fill);
+                Colors color_pa = Colors.valueOf(color_path.toUpperCase());
+                Colors color_fi = Colors.valueOf(color_fill.toUpperCase());
+                Colors color_gr = Colors.valueOf(color_gradient.toUpperCase());
+                g2.setColor(color_pa.getCol());
+                g2.setPaint(color_fi.getCol());
+                if (points.get(color_pa.getNum()).size() != 0) {
                     //g2.setColor(curColor);
                     g2.setStroke(new BasicStroke(2.0f));
                     GeneralPath path = new GeneralPath(GeneralPath.WIND_NON_ZERO);
 
-                    path.moveTo(points.get(color.getNum()).get(0).getX(), points.get(color.getNum()).get(0).getY());
+                    Coordinate first_point = points.get(color_pa.getNum()).get(0);
 
-                    for (int i = 1; i < points.get(color.getNum()).size(); i++) {
-                        path.lineTo(points.get(color.getNum()).get(i).getX(), points.get(color.getNum()).get(i).getY());
+                    Coordinate largest_point1 = points.get(color_pa.getNum()).get(0);
+                    Coordinate largest_point2 = points.get(color_pa.getNum()).get(0);
+                    double distance_points = 0;
+
+                    path.moveTo(first_point.getX(), first_point.getY());
+
+
+
+                    for (int i = 1, j= 0; i < points.get(color_pa.getNum()).size(); i++) {
+                        Coordinate current_point = points.get(color_pa.getNum()).get(i);
+                        if (j == 0){
+                            distance_points = first_point.distance(current_point);
+                            largest_point1 = first_point;
+                            largest_point2 = current_point;
+                            j=1;
+                        }
+                        System.out.printf("FIll %d %d\n", points.get(color_pa.getNum()).get(i).getX(),points.get(color_pa.getNum()).get(i).getY());
+                        path.lineTo(current_point.getX(), current_point.getY());
+
+                        Coordinate buffer_point = new Coordinate((int) path.getCurrentPoint().getX(), (int) path.getCurrentPoint().getY());
+                        if (buffer_point.distance(current_point) > distance_points) {
+                            distance_points = buffer_point.distance(current_point);
+                            largest_point1 = buffer_point;
+                            largest_point2 = current_point;
+                        }
                     }
 
                     path.closePath();
-                    g2.draw(path);
+                    if (!(color_fi == color_gr)){
+                        System.out.println("GRADIENT");
+                        System.out.printf("%d %d\n",largest_point1.getX(),largest_point1.getY());
+                        System.out.printf("%d %d\n",largest_point2.getX(),largest_point2.getY());
+                        System.out.println(distance_points);
+                        if(all_commands.isEmpty()){
+                            g2.setPaint(new GradientPaint(largest_point1.getX(),largest_point1.getY(),color_fi.getCol(),largest_point2.getX(),largest_point2.getY(),color_gr.getCol()));
+                        }else{
+                            IntStream intStream = IntStream.range(0, all_commands.size());
+                            int [] values_range = intStream.toArray();
+                            System.out.println("the range "+Arrays.toString(values_range));
+                            float [] updated_range = new float[values_range.length];
+                            for (int i = 0; i < values_range.length; i++) {
+                                updated_range[i] = (float) values_range[i] / (all_commands.size());
+                            }
+                            System.out.println("the updated range "+Arrays.toString(values_range));
+                            Color [] colors = new Color[updated_range.length];
+                            for (int i = 0; i < colors.length; i++) {
+                                colors[i] = Colors.valueOf(all_commands.get(i).toUpperCase()).getCol();
+                            }
+                            System.out.println("the colors used "+ Arrays.toString(colors));
+                            g2.setPaint(new RadialGradientPaint(new Point2D.Float((float) largest_point1.getX(),(float)largest_point1.getY()), (float) distance_points, updated_range,colors));
+                        }
+
+                    }
+                    g2.fill(path);
+
                 }
                 g2.setColor(curColor.getCol());
+                g2.setPaint(curColor.getCol());
             }
 
             public void ConnectStraight(String str) {
                 Colors color = Colors.valueOf(str.toUpperCase());
                 g2.setColor(color.getCol());
+//                g2.setPaint(new GradientPaint(0,0,Color.RED,100, 0,Color.WHITE));
                 if (points.get(color.getNum()).size() != 0) {
                     //g2.setColor(curColor);
                     g2.setStroke(new BasicStroke(2.0f));
@@ -333,17 +427,19 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                     path.moveTo(points.get(color.getNum()).get(0).getX(), points.get(color.getNum()).get(0).getY());
 
                     for (int i = 1; i < points.get(color.getNum()).size(); i++) {
+                        System.out.printf("Connect %d %d\n", points.get(color.getNum()).get(i).getX(),points.get(color.getNum()).get(i).getY());
                         path.lineTo(points.get(color.getNum()).get(i).getX(), points.get(color.getNum()).get(i).getY());
                     }
 
                     path.closePath();
                     g2.draw(path);
                     g2.fill(path);
+
                 }
                 g2.setColor(curColor.getCol());
             }
-            public void ConnectCurved(String str) {
-                Colors color = Colors.valueOf(str.toUpperCase());
+            public void ConnectCurved(String color_path) {
+                Colors color = Colors.valueOf(color_path.toUpperCase());
                 g2.setStroke(new BasicStroke(2.0f));
                 g2.setColor(color.getCol());
 
@@ -467,24 +563,22 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
 
 
 
-    public static void grid(int x, int y){
+    public static void grid(int x, int y) {
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-	screenWidth = gd.getDisplayMode().getWidth();
-	screenHeight = gd.getDisplayMode().getHeight();
+        int screenWidth = gd.getDisplayMode().getWidth();
+        int screenHeight = gd.getDisplayMode().getHeight();
 
-	if(x < 150 || y < 150){
-		frameX = 150;
-		frameY = 150;
-	}
-	else if(x > screenWidth || y > screenHeight){
-		frameX = screenHeight - 10;
-		frameY = screenHeight - 10;
-	}
-	else{
-		frameX = x;
-		frameY = y;
-	}
-        window.setSize(frameX,frameY);
+        if (x < 150 || y < 150) {
+            frameX = 150;
+            frameY = 150;
+        } else if (x > screenWidth || y > screenHeight) {
+            frameX = screenHeight - 10;
+            frameY = screenHeight - 10;
+        } else {
+            frameX = x;
+            frameY = y;
+        }
+        window.setSize(frameX, frameY);
 
     }
 	
