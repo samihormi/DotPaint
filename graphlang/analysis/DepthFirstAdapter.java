@@ -283,6 +283,90 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outAErasecolDraw(node);
     }
 
+    public void inASqDraw(ASqDraw node)
+    {
+        defaultIn(node);
+    }
+
+    public void outASqDraw(ASqDraw node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseASqDraw(ASqDraw node)
+    {
+        inASqDraw(node);
+        if(node.getSquare() != null)
+        {
+            node.getSquare().apply(this);
+        }
+        outASqDraw(node);
+    }
+
+    public void inATriDraw(ATriDraw node)
+    {
+        defaultIn(node);
+    }
+
+    public void outATriDraw(ATriDraw node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseATriDraw(ATriDraw node)
+    {
+        inATriDraw(node);
+        if(node.getTriangle() != null)
+        {
+            node.getTriangle().apply(this);
+        }
+        outATriDraw(node);
+    }
+
+    public void inARectDraw(ARectDraw node)
+    {
+        defaultIn(node);
+    }
+
+    public void outARectDraw(ARectDraw node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseARectDraw(ARectDraw node)
+    {
+        inARectDraw(node);
+        if(node.getRectangle() != null)
+        {
+            node.getRectangle().apply(this);
+        }
+        outARectDraw(node);
+    }
+
+    public void inARhoDraw(ARhoDraw node)
+    {
+        defaultIn(node);
+    }
+
+    public void outARhoDraw(ARhoDraw node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseARhoDraw(ARhoDraw node)
+    {
+        inARhoDraw(node);
+        if(node.getRhombus() != null)
+        {
+            node.getRhombus().apply(this);
+        }
+        outARhoDraw(node);
+    }
+
     public void inAFillrColorize(AFillrColorize node)
     {
         defaultIn(node);
@@ -329,15 +413,139 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getKeywordcircle().apply(this);
         }
+        if(node.getNumber() != null)
+        {
+            node.getNumber().apply(this);
+        }
         if(node.getColor() != null)
         {
             node.getColor().apply(this);
+        }
+        outAMakecircleCircle(node);
+    }
+
+    public void inAMakesquareSquare(AMakesquareSquare node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAMakesquareSquare(AMakesquareSquare node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAMakesquareSquare(AMakesquareSquare node)
+    {
+        inAMakesquareSquare(node);
+        if(node.getKeywordsquare() != null)
+        {
+            node.getKeywordsquare().apply(this);
         }
         if(node.getNumber() != null)
         {
             node.getNumber().apply(this);
         }
-        outAMakecircleCircle(node);
+        if(node.getColor() != null)
+        {
+            node.getColor().apply(this);
+        }
+        outAMakesquareSquare(node);
+    }
+
+    public void inAMaketriangleTriangle(AMaketriangleTriangle node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAMaketriangleTriangle(AMaketriangleTriangle node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAMaketriangleTriangle(AMaketriangleTriangle node)
+    {
+        inAMaketriangleTriangle(node);
+        if(node.getKeywordtriangle() != null)
+        {
+            node.getKeywordtriangle().apply(this);
+        }
+        if(node.getNumber() != null)
+        {
+            node.getNumber().apply(this);
+        }
+        if(node.getColor() != null)
+        {
+            node.getColor().apply(this);
+        }
+        if(node.getTritype() != null)
+        {
+            node.getTritype().apply(this);
+        }
+        outAMaketriangleTriangle(node);
+    }
+
+    public void inAMakerectangleRectangle(AMakerectangleRectangle node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAMakerectangleRectangle(AMakerectangleRectangle node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAMakerectangleRectangle(AMakerectangleRectangle node)
+    {
+        inAMakerectangleRectangle(node);
+        if(node.getKeywordrectangle() != null)
+        {
+            node.getKeywordrectangle().apply(this);
+        }
+        if(node.getNumber() != null)
+        {
+            node.getNumber().apply(this);
+        }
+        if(node.getParameter() != null)
+        {
+            node.getParameter().apply(this);
+        }
+        if(node.getColor() != null)
+        {
+            node.getColor().apply(this);
+        }
+        outAMakerectangleRectangle(node);
+    }
+
+    public void inAMakerhombusRhombus(AMakerhombusRhombus node)
+    {
+        defaultIn(node);
+    }
+
+    public void outAMakerhombusRhombus(AMakerhombusRhombus node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseAMakerhombusRhombus(AMakerhombusRhombus node)
+    {
+        inAMakerhombusRhombus(node);
+        if(node.getKeywordrhombus() != null)
+        {
+            node.getKeywordrhombus().apply(this);
+        }
+        if(node.getNumber() != null)
+        {
+            node.getNumber().apply(this);
+        }
+        if(node.getColor() != null)
+        {
+            node.getColor().apply(this);
+        }
+        outAMakerhombusRhombus(node);
     }
 
     public void inAMarkConnect(AMarkConnect node)

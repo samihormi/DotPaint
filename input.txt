@@ -6,16 +6,19 @@ mark
 UP 10
 mark
 connect blue straight
-fill blue green blue green blue blue green blue green red blue green
 
-choose red
-up 30
-mark
-down 5
-mark
-left 10
-mark
-connect red curved
+circle 10
+
+square 5 red
+triangle 6 green ri
+triangle 10 orange iso
+triangle 12 red equi
+triangle 7 blue
+
+triangle 10
+
+fill blue red
+
 
 
 

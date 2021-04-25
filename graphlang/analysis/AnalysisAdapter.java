@@ -124,12 +124,52 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseASqDraw(ASqDraw node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseATriDraw(ATriDraw node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseARectDraw(ARectDraw node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseARhoDraw(ARhoDraw node)
+    {
+        defaultCase(node);
+    }
+
     public void caseAFillrColorize(AFillrColorize node)
     {
         defaultCase(node);
     }
 
     public void caseAMakecircleCircle(AMakecircleCircle node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAMakesquareSquare(AMakesquareSquare node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAMaketriangleTriangle(AMaketriangleTriangle node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAMakerectangleRectangle(AMakerectangleRectangle node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseAMakerhombusRhombus(AMakerhombusRhombus node)
     {
         defaultCase(node);
     }
@@ -199,6 +239,26 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseTKeywordsquare(TKeywordsquare node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTKeywordtriangle(TKeywordtriangle node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTKeywordrectangle(TKeywordrectangle node)
+    {
+        defaultCase(node);
+    }
+
+    public void caseTKeywordrhombus(TKeywordrhombus node)
+    {
+        defaultCase(node);
+    }
+
     public void caseTKeywordfill(TKeywordfill node)
     {
         defaultCase(node);
@@ -219,12 +279,12 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseTColoropt(TColoropt node)
+    public void caseTShape(TShape node)
     {
         defaultCase(node);
     }
 
-    public void caseTShape(TShape node)
+    public void caseTTritype(TTritype node)
     {
         defaultCase(node);
     }

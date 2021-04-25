@@ -14,6 +14,7 @@ import java.awt.geom.QuadCurve2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
 // todo: if(!up) is problematic, since it stops the first run but it maybe valid.
@@ -75,7 +76,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
         RED(0, Color.RED),
         BLUE(1, Color.BLUE),
         GREEN(2, Color.GREEN),
-	ORANGE(3,Color.ORANGE),
+	    ORANGE(3,Color.ORANGE),
         PINK(4,Color.PINK),
         BLACK(5, Color.BLACK),
         YELLOW(6,Color.YELLOW);
@@ -133,10 +134,22 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
 	public void outAChooseChoosecolor(AChooseChoosecolor node){
 		callStack.add(node.toString());
 	}
-
-	public void outAMakecircleCircle(AMakecircleCircle node){
+    public void outAMakecircleCircle(AMakecircleCircle node){
+        callStack.add(node.toString());
+    }
+	public void outAMakesquareSquare(AMakesquareSquare node){
 		callStack.add(node.toString());
 	}
+    public void outAMaketriangleTriangle(AMaketriangleTriangle node){
+        callStack.add(node.toString());
+    }
+    public void outAMakerectangleRectangle(AMakerectangleRectangle node){
+        callStack.add(node.toString());
+    }
+    public void outAMakerhombusRhombus(AMakerhombusRhombus node){
+        callStack.add(node.toString());
+    }
+
 	
 	public void outAErasecolorErase(AErasecolorErase node){
 		callStack.add(node.toString());
@@ -233,17 +246,57 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                             break;
                         }
                         case "CIRCLE": {
-//                            System.out.println("Token count "+st.countTokens());
-//                            System.out.println("too"+current_token);
-//                            System.out.println("ne"+st.nextToken());
-                            if (st.countTokens() == 1){
-                                DrawCircle(curColor,st.nextToken());
+                            if (st.countTokens() == 1) {
+                                DrawCircle(st.nextToken(),curColor);
                                 break;
-                            }else {
+                            } else {
                                 DrawCircle(st.nextToken(), st.nextToken());
-                             
                             }
-			    break;
+                            g2.setColor(curColor.getCol());
+                            break;
+                        }
+                        case "SQUARE": {
+                            if (st.countTokens() == 1) {
+                                DrawSquare(st.nextToken(), curColor);
+                                break;
+                            } else {
+                                DrawSquare(st.nextToken(), st.nextToken());
+                            }
+                            g2.setColor(curColor.getCol());
+                            break;
+                        }
+                        case "TRIANGLE": {
+                            if (st.countTokens() == 1) {
+                                DrawTriangle(st.nextToken(), curColor);
+                                break;
+                            }else if (st.countTokens() == 2) {
+                                DrawTriangle(st.nextToken(), st.nextToken());
+                                break;
+                            } else {
+                                DrawTriangle(st.nextToken(), Colors.valueOf(st.nextToken().toUpperCase()), st.nextToken().toUpperCase());
+                            }
+                            g2.setColor(curColor.getCol());
+                            break;
+                        }
+                        case "RECTANGLE": {
+                            if (st.countTokens() == 2) {
+                                DrawRectangle(st.nextToken(), st.nextToken(), curColor);
+                                break;
+                            } else {
+                                DrawRectangle(st.nextToken(), st.nextToken(),st.nextToken());
+                            }
+                            g2.setColor(curColor.getCol());
+                            break;
+                        }
+                        case "RHOMBUS": {
+                            if (st.countTokens() == 1) {
+                                DrawRhombus(curColor, st.nextToken());
+                                break;
+                            } else {
+                                DrawRhombus(st.nextToken(), st.nextToken());
+                            }
+                            g2.setColor(curColor.getCol());
+                            break;
                         }
                         case "ERASE": {
                             EraseShape(st.nextToken());
@@ -291,8 +344,6 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 return true;
             }
 
-
-
             public void Move(String dir, String s) {
                 int z = Integer.parseInt(s) * init_size ;
 
@@ -336,6 +387,12 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
             public void MarkPoint() {
                 points.get(curColor.getNum()).add(new Coordinate(curX, curY));
             }
+            public void MarkPoint(int x, int y) {
+                points.get(curColor.getNum()).add(new Coordinate(x,y));
+            }
+            public void MarkPoint(Colors color,int x, int y) {
+                points.get(color.getNum()).add(new Coordinate(x,y));
+            }
             public void Fill(String color_path) {
                 Fill(color_path,curColor.toString());
 
@@ -375,7 +432,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                             largest_point2 = current_point;
                             j=1;
                         }
-                        System.out.printf("FIll %d %d\n", points.get(color_pa.getNum()).get(i).getX(),points.get(color_pa.getNum()).get(i).getY());
+//                        System.out.printf("Fill %d %d\n", points.get(color_pa.getNum()).get(i).getX(),points.get(color_pa.getNum()).get(i).getY());
                         path.lineTo(current_point.getX(), current_point.getY());
 
                         Coordinate buffer_point = new Coordinate((int) path.getCurrentPoint().getX(), (int) path.getCurrentPoint().getY());
@@ -429,16 +486,23 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                     GeneralPath path = new GeneralPath(GeneralPath.WIND_NON_ZERO);
 
                     path.moveTo(points.get(color.getNum()).get(0).getX(), points.get(color.getNum()).get(0).getY());
+                    Coordinate cord1,cord2,cord3;
 
-                    for (int i = 1; i < points.get(color.getNum()).size(); i++) {
+                    for (int i = 2; i < points.get(color.getNum()).size(); i++) {
                         System.out.printf("Connect %d %d\n", points.get(color.getNum()).get(i).getX(),points.get(color.getNum()).get(i).getY());
-                        path.lineTo(points.get(color.getNum()).get(i).getX(), points.get(color.getNum()).get(i).getY());
-                    }
+//                        cord1 = points.get(color.getNum()).get(i - 2);
+//                        cord2 = points.get(color.getNum()).get(i - 1);
+//                        cord3 = points.get(color.getNum()).get(i);
 
+                        path.lineTo(points.get(color.getNum()).get(i).getX(), points.get(color.getNum()).get(i).getY());
+//                        path.curveTo((float) cord2.getX(), (float) cord2.getY(), (float) cord2.getX(), (float) cord2.getY(), (float) cord3.getX(), (float) cord3.getY());
+
+                    }
                     path.closePath();
                     g2.draw(path);
 
                 }
+                System.out.println();
                 g2.setColor(curColor.getCol());
             }
             public void ConnectCurved(String color_path) {
@@ -460,11 +524,26 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                             if (i % 2 == 0) {
                                 cord2 = points.get(color.getNum()).get(i - 1);
                                 cord3 = points.get(color.getNum()).get(i);
-                                q.setCurve(cord1.getX(), cord1.getY(), cord2.getX(), cord2.getY(), cord3.getX(), cord3.getY());
+                                System.out.printf("Connect 1: %d %d\n", cord1.getX(),cord1.getY());
+                                System.out.printf("Connect 2: %d %d\n", cord2.getX(),cord2.getY());
+                                System.out.printf("Connect 3: %d %d\n", cord3.getX(),cord3.getY());
+//                                int r = (int)Math.sqrt((cord2.getX()-cord1.getX())*(cord2.getX()-cord1.getX()) + (cord2.getY()-cord1.getY())*(cord2.getY()-cord1.getY()));
+//                                int x = cord1.getX()-r;
+//                                int y = cord1.getY()-r;
+//                                int width = 2*r;
+//                                int height = 2*r;
+//                                int startAngle = (int) (180/Math.PI*Math.atan2((cord2.getY()-cord1.getY()), (cord2.getX()-cord1.getX())));
+//                                int endAngle = (int) (180/Math.PI*Math.atan2((cord3.getY()-cord1.getY()), (cord3.getX()-cord1.getX())));
+//                                g2.drawArc(x, y, width, height, startAngle, endAngle);
+//                                q.setCurve(cord1.getX(), cord1.getY(), (float)(cord1.getX() + cord2.getX())/2+ 25, (float)(cord1.getY() + cord2.getY())/2, cord2.getX(), cord2.getY());
+                                q.setCurve(cord1.getX(), cord1.getY(), cord2.getX(), cord2.getY(),cord3.getX(),cord3.getY());
                                 g2.draw(q);
+//                                break;
+
 
                                 cord1 = cord3;
                             }
+                            System.out.println();
                         }
                     }
                 } else {
@@ -475,12 +554,139 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
 
             }
 
-            public void DrawCircle(String col, String di) {
+            public void DrawCircle(String di, String col) {
                 Colors color = Colors.valueOf(col.toUpperCase());
-                DrawCircle(color,di);
+                DrawCircle(di,color);
+            }
+            public void DrawCircle(String di, Colors color) {
+                int diameter = Integer.parseInt(di) * init_size;
+                System.out.printf("values are %d %d %d %d %d\n", diameter, curY, curX, frameY, frameX);
+                if ((curY + diameter >= 0 && curY + diameter <= frameY) && (curX + diameter >= 0 && curX + diameter <= frameX)) {
+                    MarkPoint();
+                    if(!points.get(color.getNum()).isEmpty()) {
+                        Coordinate position = points.get(color.getNum()).get(0);
+                        int half_diameter = diameter / 2;
+                        System.out.printf("values are %d %d %d\n", half_diameter, position.getX(), position.getY());
+                        Ellipse2D.Double circle = new Ellipse2D.Double(position.getX() - half_diameter, position.getY() - half_diameter, diameter, diameter);
+                        g2.draw(circle);
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null,
+                            "\"Circle\" is beyond the window boundaries ",
+                            "RIGHT error",
+                            JOptionPane.WARNING_MESSAGE);
+
+                }
+            }
+            public void DrawSquare(String di, String col) {
+                Colors color = Colors.valueOf(col.toUpperCase());
+                DrawSquare(di,color);
+            }
+            public void DrawSquare(String di, Colors color) {
+                int side_length = Integer.parseInt(di) * init_size;
+
+                if ((curY + side_length <= frameY) && (curX + side_length <= frameX)) {
+//                    MarkPoint(color,curX+half_side,curY+half_side);
+//                    MarkPoint(color,curX+half_side,curY-half_side);
+//                    MarkPoint(color,curX-half_side,curY+half_side);
+//                    MarkPoint(color,curX-half_side,curY-half_side);
+//                    ConnectStraight(color.toString());
+                    g2.setColor(color.getCol());
+                    g2.drawRect(curX,curY,side_length,side_length);
+
+                } else {
+                    JOptionPane.showMessageDialog(null,
+                            "\"Square\" is beyond the window boundaries ",
+                            "RIGHT error",
+                            JOptionPane.WARNING_MESSAGE);
+
+                }
+            }
+            public boolean isInteger(String s, int radix) {
+                Scanner sc = new Scanner(s.trim());
+                if(!sc.hasNextInt(radix)) return false;
+                // we know it starts with a valid int, now make sure
+                // there's nothing left!
+                sc.nextInt(radix);
+                return !sc.hasNext();
+            }
+            public void DrawTriangle(String di, String col) {
+                Colors color = Colors.valueOf(col.toUpperCase());
+                DrawTriangle(di, color);
+            }
+            public void DrawTriangle(String di, Colors color) {
+                DrawTriangle(di, color, "");
             }
 
-            public void DrawCircle(Colors color, String di) {
+            public void DrawTriangle(String di, Colors color, String tritype) {
+                int side_length = Integer.parseInt(di) * init_size;
+
+                if ((curY + 1.5*side_length <= frameY) && (curX + side_length <= frameX)) {
+                    g2.setColor(color.getCol());
+                    if (tritype.equals("RI") || tritype.equals("RIGHT")) {
+                        System.out.println("RIg");
+                        g2.drawPolygon(new int[]{curX, curX, curX + side_length}, new int[]{curY, curY - side_length, curY}, 3);
+                    }else if (tritype.equals("EQUI") || tritype.equals("EQUILATERAL")) {
+                        g2.drawPolygon(new int[]{curX, curX + side_length / 2, curX + side_length}, new int[]{curY, curY - side_length, curY}, 3);
+                    }
+                    else if (tritype.equals("ISO") || tritype.equals("ISOCELES")) {
+                        g2.drawPolygon(new int[]{curX, curX + side_length / 2, curX + side_length}, new int[]{curY, (int) (curY - 1.5*side_length), curY}, 3);
+                    }else {
+                        g2.drawPolygon(new int[]{curX, curX + ThreadLocalRandom.current().nextInt(0,side_length), curX + ThreadLocalRandom.current().nextInt(0,side_length)}, new int[]{curY, curY + ThreadLocalRandom.current().nextInt(0,side_length), curY + ThreadLocalRandom.current().nextInt(0,side_length)}, 3);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null,
+                            "\"Triangle\" is beyond the window boundaries ",
+                            "RIGHT error",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            }
+
+            public void DrawRectangle(String height, String width, String col) {
+                Colors color = Colors.valueOf(col.toUpperCase());
+                DrawRectangle(height,width, color);
+            }
+            public void DrawRectangle(String height, String width, Colors color) {
+                int H = Integer.parseInt(height) * init_size;
+                int W = Integer.parseInt(width) * init_size;
+
+                if ((curY + W <= frameY) && (curX + H <= frameX)) {
+                    g2.setColor(color.getCol());
+                    g2.drawRect(curX, curY, W, H);
+                }
+            }
+            public void DrawRectangle(String col, String di) {
+                Colors color = Colors.valueOf(col.toUpperCase());
+                DrawRectangle(color,di);
+            }
+            public void DrawRectangle(Colors color, String di) {
+                int diameter = Integer.parseInt(di) * init_size;
+                System.out.printf("values are %d %d %d %d %d\n", diameter, curY, curX, frameY, frameX);
+                if ((curY + diameter >= 0 && curY + diameter <= frameY) && (curX + diameter >= 0 && curX + diameter <= frameX)) {
+                    MarkPoint();
+                    if(!points.get(color.getNum()).isEmpty()) {
+                        Coordinate position = points.get(color.getNum()).get(0);
+                        int half_diameter = diameter / 2;
+                        System.out.printf("values are %d %d %d\n", half_diameter, position.getX(), position.getY());
+                        Ellipse2D.Double circle = new Ellipse2D.Double(position.getX() - half_diameter, position.getY() - half_diameter, diameter, diameter);
+                        g2.draw(circle);
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null,
+                            "\"Circle\" is beyond the window boundaries ",
+                            "RIGHT error",
+                            JOptionPane.WARNING_MESSAGE);
+
+                }
+            }
+            public void DrawRhombus(String col, String di) {
+                Colors color = Colors.valueOf(col.toUpperCase());
+                DrawRhombus(color,di);
+            }
+
+            public void DrawRhombus(Colors color, String di) {
                 int diameter = Integer.parseInt(di) * init_size;
                 System.out.printf("values are %d %d %d %d %d\n", diameter, curY, curX, frameY, frameX);
                 if ((curY + diameter >= 0 && curY + diameter <= frameY) && (curX + diameter >= 0 && curX + diameter <= frameX)) {

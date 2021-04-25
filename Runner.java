@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.swing.*;
 
@@ -137,6 +138,8 @@ public class Runner {
                     Process pr = rt.exec("java graphlang.Compiler input.txt");
                 }
                 catch (Exception err) {
+                    System.out.println("ERROR");
+                    System.out.println(Arrays.toString(err.getStackTrace()));
                     err.getStackTrace();
                 }
             }

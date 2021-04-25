@@ -8,8 +8,8 @@ import graphlang.analysis.*;
 public final class AMakecircleCircle extends PCircle
 {
     private TKeywordcircle _keywordcircle_;
-    private TColor _color_;
     private TNumber _number_;
+    private TColor _color_;
 
     public AMakecircleCircle()
     {
@@ -18,15 +18,15 @@ public final class AMakecircleCircle extends PCircle
 
     public AMakecircleCircle(
         @SuppressWarnings("hiding") TKeywordcircle _keywordcircle_,
-        @SuppressWarnings("hiding") TColor _color_,
-        @SuppressWarnings("hiding") TNumber _number_)
+        @SuppressWarnings("hiding") TNumber _number_,
+        @SuppressWarnings("hiding") TColor _color_)
     {
         // Constructor
         setKeywordcircle(_keywordcircle_);
 
-        setColor(_color_);
-
         setNumber(_number_);
+
+        setColor(_color_);
 
     }
 
@@ -35,8 +35,8 @@ public final class AMakecircleCircle extends PCircle
     {
         return new AMakecircleCircle(
             cloneNode(this._keywordcircle_),
-            cloneNode(this._color_),
-            cloneNode(this._number_));
+            cloneNode(this._number_),
+            cloneNode(this._color_));
     }
 
     public void apply(Switch sw)
@@ -69,31 +69,6 @@ public final class AMakecircleCircle extends PCircle
         this._keywordcircle_ = node;
     }
 
-    public TColor getColor()
-    {
-        return this._color_;
-    }
-
-    public void setColor(TColor node)
-    {
-        if(this._color_ != null)
-        {
-            this._color_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._color_ = node;
-    }
-
     public TNumber getNumber()
     {
         return this._number_;
@@ -119,13 +94,38 @@ public final class AMakecircleCircle extends PCircle
         this._number_ = node;
     }
 
+    public TColor getColor()
+    {
+        return this._color_;
+    }
+
+    public void setColor(TColor node)
+    {
+        if(this._color_ != null)
+        {
+            this._color_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._color_ = node;
+    }
+
     @Override
     public String toString()
     {
         return ""
             + toString(this._keywordcircle_)
-            + toString(this._color_)
-            + toString(this._number_);
+            + toString(this._number_)
+            + toString(this._color_);
     }
 
     @Override
@@ -138,15 +138,15 @@ public final class AMakecircleCircle extends PCircle
             return;
         }
 
-        if(this._color_ == child)
-        {
-            this._color_ = null;
-            return;
-        }
-
         if(this._number_ == child)
         {
             this._number_ = null;
+            return;
+        }
+
+        if(this._color_ == child)
+        {
+            this._color_ = null;
             return;
         }
 
@@ -163,15 +163,15 @@ public final class AMakecircleCircle extends PCircle
             return;
         }
 
-        if(this._color_ == oldChild)
-        {
-            setColor((TColor) newChild);
-            return;
-        }
-
         if(this._number_ == oldChild)
         {
             setNumber((TNumber) newChild);
+            return;
+        }
+
+        if(this._color_ == oldChild)
+        {
+            setColor((TColor) newChild);
             return;
         }
 
