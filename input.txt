@@ -1,2 +1,2 @@
 grid 100
-circle 50
+circle 10
