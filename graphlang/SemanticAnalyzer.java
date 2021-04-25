@@ -501,11 +501,12 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
             public void DrawCircle(Colors color, String di) {
                 int diameter = Integer.parseInt(di) * init_size;
                 System.out.printf("values are %d %d %d %d %d\n", diameter, curY, curX, frameY, frameX);
-                if ((curY + diameter >= 0 && curY + diameter <= frameY) && (curX + diameter >= 0 && curX + diameter <= frameX)) {
+                int half_diameter = diameter / 2;
+		int max_diameter = half_diameter + (half_diameter/100*20);
+		if ((curY + max_diameter >= 0 && curY + max_diameter <= frameY) && (curX + max_diameter >= 0 && curX + max_diameter <= frameX)) {
                     MarkPoint();
                     if(!points.get(color.getNum()).isEmpty()) {
                         Coordinate position = points.get(color.getNum()).get(0);
-                        int half_diameter = diameter / 2;
                         System.out.printf("values are %d %d %d\n", half_diameter, position.getX(), position.getY());
                         Ellipse2D.Double circle = new Ellipse2D.Double(position.getX() - half_diameter, position.getY() - half_diameter, diameter, diameter);
                         g2.draw(circle);
