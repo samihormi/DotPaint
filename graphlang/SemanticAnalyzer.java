@@ -377,7 +377,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
             }
 
             public void DrawCircle(String col, String di) {
-                Colors color = Colors.valueOf(col);
+                Colors color = Colors.valueOf(col.toUpperCase());
                 DrawCircle(color,di);
             }
 
