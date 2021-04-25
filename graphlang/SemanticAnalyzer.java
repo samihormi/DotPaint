@@ -176,7 +176,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                         case "CONNECT": {
                             String col = st.nextToken();
                             String type = st.nextToken();
-                            if (type.equals("CURVED")) {
+                            if (type.toUpperCase().equals("CURVED")) {
                                 ConnectCurved(col);
                             } else {
                                 ConnectStraight(col);
