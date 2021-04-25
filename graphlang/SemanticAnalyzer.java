@@ -499,6 +499,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
             }
 
             public void DrawCircle(Colors color, String di) {
+		g2.setColor(color.getCol());
                 int diameter = Integer.parseInt(di) * init_size;
                 System.out.printf("values are %d %d %d %d %d\n", diameter, curY, curX, frameY, frameX);
                 int half_diameter = diameter / 2;
@@ -519,6 +520,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                             JOptionPane.WARNING_MESSAGE);
 
                 }
+		g2.setColor(curColor.getCol());
             }
 
             public void EraseShape(String col) {
@@ -526,21 +528,23 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 g2.setColor(new Color(0, 0, 0, 0));
                 g2.setComposite(AlphaComposite.Clear);
 
-                ConnectStraight(col);
+		String colorStr = col.toUpperCase();
+                ConnectStraight(colorStr);
                 g2.setColor(curColor.getCol());
 
                 ArrayList<String> newStack = new ArrayList<>();
                 boolean in = false;
 
                 for (String s : callStack) {
-                    if (s.contains(col) && s.contains("ERASE")) {
+		    String sStr = s.toUpperCase();
+                    if (sStr.contains(colorStr) && sStr.contains("ERASE")) {
                         continue;
-                    } else if (s.contains(col)) {
+                    } else if (sStr.contains(colorStr)) {
                         in = true;
-                    } else if (in && s.contains("MARK")) {
+                    } else if (in && sStr.contains("MARK")) {
                         in = true;
                     } else {
-                        if (s.contains("CHOOSE") || s.contains("CONNECT")) {
+                        if (sStr.contains("CHOOSE") || sStr.contains("CONNECT")) {
                             in = false;
                         }
                         newStack.add(s);
@@ -550,6 +554,11 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 initPoints();
                 curX = frameX / 2;
                 curY = frameY / 2;
+				
+		for(int i=0;i<callStack.size();i++){
+			System.out.println(callStack.get(i));
+		}
+				
                 repaint();
             }
         };
