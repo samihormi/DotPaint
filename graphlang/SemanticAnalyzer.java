@@ -303,7 +303,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 points.get(curColor.getNum()).add(new Coordinate(curX, curY));
             }
             public void Fill(String str) {
-                Colors color = Colors.valueOf(str);
+                Colors color = Colors.valueOf(str.toUpperCase());
                 g2.setColor(color.getCol());
                 if (points.get(color.getNum()).size() != 0) {
                     //g2.setColor(curColor);
@@ -323,7 +323,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
             }
 
             public void ConnectStraight(String str) {
-                Colors color = Colors.valueOf(str);
+                Colors color = Colors.valueOf(str.toUpperCase());
                 g2.setColor(color.getCol());
                 if (points.get(color.getNum()).size() != 0) {
                     //g2.setColor(curColor);
@@ -343,7 +343,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 g2.setColor(curColor.getCol());
             }
             public void ConnectCurved(String str) {
-                Colors color = Colors.valueOf(str);
+                Colors color = Colors.valueOf(str.toUpperCase());
                 g2.setStroke(new BasicStroke(2.0f));
                 g2.setColor(color.getCol());
 
