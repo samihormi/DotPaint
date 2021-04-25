@@ -157,21 +157,24 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 g2.drawLine(0, frameY / 2, frameX, frameY / 2);
 
 
-                g2.drawLine(frameX / 2-5, frameY / 4, frameX/2+5, frameY / 4);
-                g2.drawString(Integer.toString(frameY / 4/10), frameX/2+10, frameY / 4 + 5);
+                Font currentFont = g2.getFont();
+                Font newFont = currentFont.deriveFont(currentFont.getSize() * 0.7F);
+                g2.setFont(newFont);
 
-                g2.drawLine(frameX / 2-5, 3*frameY/4, frameX/2+5, 3*frameY/4);
-                g2.drawString(Integer.toString(3*frameY/4/10), frameX/2+10, 3*frameY/4 + 5);
+                for(int i=1;i<8;i++){
+                    if(i!=4) {
+                        g2.drawLine(frameX / 2 - 5, frameY * i / 8, frameX / 2 + 5, frameY * i / 8);
+                        g2.drawString(Integer.toString(frameY * i / 8 / 10), frameX / 2 + 10, frameY * i / 8 + 5);
+                    }
+                }
 
+                for(int i=1;i<8;i++){
+                    g2.drawLine(frameX * i/8, frameY / 2-5, frameX*i/8, frameY / 2+5);
+                    g2.drawString(Integer.toString(frameX * i/8/10), frameX * i/8-7, frameY/2+18);
+                }
 
-                g2.drawLine(frameX / 4, frameY / 2-5, frameX/4, frameY / 2+5);
-                g2.drawString(Integer.toString(frameX / 4/10), frameX/4-5, frameY / 2+20);
-
-                g2.drawLine(3*frameX / 4, frameY / 2-5, 3*frameX / 4, frameY/2+5);
-                g2.drawString(Integer.toString(3*frameX / 4/10), 3*frameX / 4-5, frameY/2+20);
-
-
-
+                g2.drawString("X", 5, frameY / 2+12);
+                g2.drawString("Y", frameX/2+10, 15);
 
 
                 calls++;
