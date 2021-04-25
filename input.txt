@@ -1,2 +1,22 @@
-grid 10000
-circle 10
+grid 1000
+choose BLUE
+mark
+RIGHT 30
+mark
+UP 10
+mark
+connect blue straight
+fill blue green blue green blue blue green blue green red blue green
+
+choose red
+up 30
+mark
+down 5
+mark
+left 10
+mark
+connect red curved
+
+
+
+

@@ -46,62 +46,74 @@ class TokenIndex extends AnalysisAdapter
     }
 
     @Override
-    public void caseTKeyworderase(@SuppressWarnings("unused") TKeyworderase node)
+    public void caseTKeywordfill(@SuppressWarnings("unused") TKeywordfill node)
     {
         this.index = 6;
     }
 
     @Override
-    public void caseTDirection(@SuppressWarnings("unused") TDirection node)
+    public void caseTKeyworderase(@SuppressWarnings("unused") TKeyworderase node)
     {
         this.index = 7;
     }
 
     @Override
-    public void caseTColor(@SuppressWarnings("unused") TColor node)
+    public void caseTDirection(@SuppressWarnings("unused") TDirection node)
     {
         this.index = 8;
     }
 
     @Override
-    public void caseTShape(@SuppressWarnings("unused") TShape node)
+    public void caseTColor(@SuppressWarnings("unused") TColor node)
     {
         this.index = 9;
     }
 
     @Override
-    public void caseTNumber(@SuppressWarnings("unused") TNumber node)
+    public void caseTColoropt(@SuppressWarnings("unused") TColoropt node)
     {
         this.index = 10;
     }
 
     @Override
-    public void caseTIdentifier(@SuppressWarnings("unused") TIdentifier node)
+    public void caseTShape(@SuppressWarnings("unused") TShape node)
     {
         this.index = 11;
     }
 
     @Override
-    public void caseTOpsemicolon(@SuppressWarnings("unused") TOpsemicolon node)
+    public void caseTNumber(@SuppressWarnings("unused") TNumber node)
     {
         this.index = 12;
     }
 
     @Override
-    public void caseTOpequal(@SuppressWarnings("unused") TOpequal node)
+    public void caseTIdentifier(@SuppressWarnings("unused") TIdentifier node)
     {
         this.index = 13;
     }
 
     @Override
-    public void caseTMinus(@SuppressWarnings("unused") TMinus node)
+    public void caseTOpsemicolon(@SuppressWarnings("unused") TOpsemicolon node)
     {
         this.index = 14;
     }
 
     @Override
-    public void caseEOF(@SuppressWarnings("unused") EOF node)
+    public void caseTOpequal(@SuppressWarnings("unused") TOpequal node)
     {
         this.index = 15;
+    }
+
+    @Override
+    public void caseTMinus(@SuppressWarnings("unused") TMinus node)
+    {
+        this.index = 16;
+    }
+
+    @Override
+    public void caseEOF(@SuppressWarnings("unused") EOF node)
+    {
+        this.index = 17;
     }
 }

@@ -17,11 +17,13 @@ public interface Analysis extends Switch
     void caseAListStmtlist(AListStmtlist node);
     void caseAMoveStmt(AMoveStmt node);
     void caseADrawStmt(ADrawStmt node);
+    void caseAFillStmt(AFillStmt node);
     void caseADefineDefinegrid(ADefineDefinegrid node);
     void caseAMoveMove(AMoveMove node);
     void caseAConnDraw(AConnDraw node);
     void caseACircDraw(ACircDraw node);
     void caseAErasecolDraw(AErasecolDraw node);
+    void caseAFillrColorize(AFillrColorize node);
     void caseAMakecircleCircle(AMakecircleCircle node);
     void caseAMarkConnect(AMarkConnect node);
     void caseAConnectcolConnect(AConnectcolConnect node);
@@ -37,9 +39,11 @@ public interface Analysis extends Switch
     void caseTKeywordchoose(TKeywordchoose node);
     void caseTKeywordconnect(TKeywordconnect node);
     void caseTKeywordcircle(TKeywordcircle node);
+    void caseTKeywordfill(TKeywordfill node);
     void caseTKeyworderase(TKeyworderase node);
     void caseTDirection(TDirection node);
     void caseTColor(TColor node);
+    void caseTColoropt(TColoropt node);
     void caseTShape(TShape node);
     void caseTNumber(TNumber node);
     void caseTIdentifier(TIdentifier node);
