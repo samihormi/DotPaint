@@ -43,7 +43,7 @@ Tokens
 	keywordfill = f i l l;
 	keyworderase = e r a s e;
 	direction = u p | d o w n | l e f t | r i g h t;
-	color = r e d | b l u e | g r e e n;
+	color = r e d | b l u e | g r e e n | o r a n g e | p i n k | b l a c k | y e l l o w;
 	shape = s t r a i g h t | c u r v e d;
     number = ['0'..'9']+;
     identifier =  letter+;
