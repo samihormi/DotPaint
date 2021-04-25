@@ -110,6 +110,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
     public static Colors curColor = Colors.RED;
 	public static boolean up = false;
 	private static int calls = 0;
+	public static boolean popupEnabled = true;
 
     static ArrayList<ArrayList<Coordinate>> points = new ArrayList<>(); // Colors, Coordinates
     static ArrayList<String> callStack = new ArrayList<>();
@@ -292,19 +293,27 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
             public boolean isValidMovement(int curXY, int z, int frameXY, String operation,String direction) {
                 if (operation.equals("-")) {
                     if (curXY - z < 0) {
-                        JOptionPane.showMessageDialog(null,
+			if(popupEnabled){
+				JOptionPane.showMessageDialog(null,
                                 direction + " command goes beyond the frame size",
                                 direction + " error",
                                 JOptionPane.WARNING_MESSAGE);
+				popupEnabled = false;
+			}
+                       
                         return false;
 
                     }
                 } else {
                     if (curXY + z > frameXY) {
-                        JOptionPane.showMessageDialog(null,
+			if(popupEnabled){
+				JOptionPane.showMessageDialog(null,
                                 direction + " command goes beyond the frame size",
                                 direction + " error",
                                 JOptionPane.WARNING_MESSAGE);
+				popupEnabled = false;
+			}
+                        
                         return false;
 
                     }
@@ -517,11 +526,14 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                     }
 
                 } else {
-                    JOptionPane.showMessageDialog(null,
+		    if(popupEnabled){
+		    	JOptionPane.showMessageDialog(null,
                             "\"Circle\" is beyond the window boundaries ",
                             "RIGHT error",
                             JOptionPane.WARNING_MESSAGE);
-
+			    popupEnabled = false;
+		    }
+                    
                 }
 		g2.setColor(curColor.getCol());
             }
@@ -573,10 +585,14 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
 //        System.out.println("init  size "+s);
 //        System.out.println("THe valus of size "+size);
         if (size < 0 ){
-            JOptionPane.showMessageDialog(null,
+	    if(popupEnabled){
+	    	JOptionPane.showMessageDialog(null,
                     "\"Size\" command can not be negative",
                     "RIGHT error",
                     JOptionPane.WARNING_MESSAGE);
+		    popupEnabled = false;
+	    }
+            
         }
         if (size > 100){
             init_size = 10;
