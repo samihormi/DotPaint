@@ -58,7 +58,7 @@ Ignored Tokens
  blank;
 
 Productions
- program = definegrid stmtlist;
+ program = definegrid stmtlist | {def} definegrid;
  stmtlist = {stmt} stmt | {list} stmt stmtlist;
  stmt = {move} move | {draw} draw | {fill} colorize;
  definegrid = {define} keywordgrid number;
