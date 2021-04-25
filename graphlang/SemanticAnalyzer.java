@@ -156,6 +156,24 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 g2.drawLine(frameX / 2, 0, frameX / 2, frameY);
                 g2.drawLine(0, frameY / 2, frameX, frameY / 2);
 
+
+                g2.drawLine(frameX / 2-5, frameY / 4, frameX/2+5, frameY / 4);
+                g2.drawString(Integer.toString(frameY / 4/10), frameX/2+10, frameY / 4 + 5);
+
+                g2.drawLine(frameX / 2-5, 3*frameY/4, frameX/2+5, 3*frameY/4);
+                g2.drawString(Integer.toString(3*frameY/4/10), frameX/2+10, 3*frameY/4 + 5);
+
+
+                g2.drawLine(frameX / 4, frameY / 2-5, frameX/4, frameY / 2+5);
+                g2.drawString(Integer.toString(frameX / 4/10), frameX/4-5, frameY / 2+20);
+
+                g2.drawLine(3*frameX / 4, frameY / 2-5, 3*frameX / 4, frameY/2+5);
+                g2.drawString(Integer.toString(3*frameX / 4/10), 3*frameX / 4-5, frameY/2+20);
+
+
+
+
+
                 calls++;
 				
 				/*if(calls % 2 == 0){
