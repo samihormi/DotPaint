@@ -1,23 +1,45 @@
 grid 1000
+
 choose BLUE
 mark
+circle 20
 RIGHT 30
 mark
 UP 10
 mark
 connect blue straight
 
-circle 10
 
-square 5 red
+
+left 20
+triangle 10
 triangle 6 green ri
 triangle 10 orange iso
-triangle 12 red equi
-triangle 7 blue
+triangle 12 red equi black
+tri 7 pink
 
-triangle 10
+left 40
+up 20
+square 20
+square 15 red
+square 10 green pink
+sqr 12 black
+
+down 50
+rectangle 15 8
+rectangle 11 7 red
+rectangle 10 5 blue yellow
+rect 20 10 black black
+
+right 50
+rhombus 18
+rhombus 15 green
+left 20
+rhombus 18 black pink
 
 fill blue red
+
+circle 10 black orange
 
 
 

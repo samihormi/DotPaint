@@ -10,6 +10,7 @@ public final class AMakecircleCircle extends PCircle
     private TKeywordcircle _keywordcircle_;
     private TNumber _number_;
     private TColor _color_;
+    private TColor _parameter_;
 
     public AMakecircleCircle()
     {
@@ -19,7 +20,8 @@ public final class AMakecircleCircle extends PCircle
     public AMakecircleCircle(
         @SuppressWarnings("hiding") TKeywordcircle _keywordcircle_,
         @SuppressWarnings("hiding") TNumber _number_,
-        @SuppressWarnings("hiding") TColor _color_)
+        @SuppressWarnings("hiding") TColor _color_,
+        @SuppressWarnings("hiding") TColor _parameter_)
     {
         // Constructor
         setKeywordcircle(_keywordcircle_);
@@ -27,6 +29,8 @@ public final class AMakecircleCircle extends PCircle
         setNumber(_number_);
 
         setColor(_color_);
+
+        setParameter(_parameter_);
 
     }
 
@@ -36,7 +40,8 @@ public final class AMakecircleCircle extends PCircle
         return new AMakecircleCircle(
             cloneNode(this._keywordcircle_),
             cloneNode(this._number_),
-            cloneNode(this._color_));
+            cloneNode(this._color_),
+            cloneNode(this._parameter_));
     }
 
     public void apply(Switch sw)
@@ -119,13 +124,39 @@ public final class AMakecircleCircle extends PCircle
         this._color_ = node;
     }
 
+    public TColor getParameter()
+    {
+        return this._parameter_;
+    }
+
+    public void setParameter(TColor node)
+    {
+        if(this._parameter_ != null)
+        {
+            this._parameter_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._parameter_ = node;
+    }
+
     @Override
     public String toString()
     {
         return ""
             + toString(this._keywordcircle_)
             + toString(this._number_)
-            + toString(this._color_);
+            + toString(this._color_)
+            + toString(this._parameter_);
     }
 
     @Override
@@ -147,6 +178,12 @@ public final class AMakecircleCircle extends PCircle
         if(this._color_ == child)
         {
             this._color_ = null;
+            return;
+        }
+
+        if(this._parameter_ == child)
+        {
+            this._parameter_ = null;
             return;
         }
 
@@ -172,6 +209,12 @@ public final class AMakecircleCircle extends PCircle
         if(this._color_ == oldChild)
         {
             setColor((TColor) newChild);
+            return;
+        }
+
+        if(this._parameter_ == oldChild)
+        {
+            setParameter((TColor) newChild);
             return;
         }
 

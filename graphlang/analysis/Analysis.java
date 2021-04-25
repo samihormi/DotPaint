@@ -13,6 +13,7 @@ public interface Analysis extends Switch
 
     void caseStart(Start node);
     void caseAProgram(AProgram node);
+    void caseADefProgram(ADefProgram node);
     void caseAStmtStmtlist(AStmtStmtlist node);
     void caseAListStmtlist(AListStmtlist node);
     void caseAMoveStmt(AMoveStmt node);
@@ -21,12 +22,12 @@ public interface Analysis extends Switch
     void caseADefineDefinegrid(ADefineDefinegrid node);
     void caseAMoveMove(AMoveMove node);
     void caseAConnDraw(AConnDraw node);
-    void caseACircDraw(ACircDraw node);
+    void caseACirclDraw(ACirclDraw node);
     void caseAErasecolDraw(AErasecolDraw node);
-    void caseASqDraw(ASqDraw node);
-    void caseATriDraw(ATriDraw node);
-    void caseARectDraw(ARectDraw node);
-    void caseARhoDraw(ARhoDraw node);
+    void caseASquaDraw(ASquaDraw node);
+    void caseATriaDraw(ATriaDraw node);
+    void caseARectaDraw(ARectaDraw node);
+    void caseARhomDraw(ARhomDraw node);
     void caseAFillrColorize(AFillrColorize node);
     void caseAMakecircleCircle(AMakecircleCircle node);
     void caseAMakesquareSquare(AMakesquareSquare node);

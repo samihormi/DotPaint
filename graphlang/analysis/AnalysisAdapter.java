@@ -74,6 +74,11 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
+    public void caseADefProgram(ADefProgram node)
+    {
+        defaultCase(node);
+    }
+
     public void caseAStmtStmtlist(AStmtStmtlist node)
     {
         defaultCase(node);
@@ -114,7 +119,7 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseACircDraw(ACircDraw node)
+    public void caseACirclDraw(ACirclDraw node)
     {
         defaultCase(node);
     }
@@ -124,22 +129,22 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseASqDraw(ASqDraw node)
+    public void caseASquaDraw(ASquaDraw node)
     {
         defaultCase(node);
     }
 
-    public void caseATriDraw(ATriDraw node)
+    public void caseATriaDraw(ATriaDraw node)
     {
         defaultCase(node);
     }
 
-    public void caseARectDraw(ARectDraw node)
+    public void caseARectaDraw(ARectaDraw node)
     {
         defaultCase(node);
     }
 
-    public void caseARhoDraw(ARhoDraw node)
+    public void caseARhomDraw(ARhomDraw node)
     {
         defaultCase(node);
     }

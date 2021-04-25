@@ -151,7 +151,6 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
         callStack.add(node.toString());
     }
 
-	
 	public void outAErasecolorErase(AErasecolorErase node){
 		callStack.add(node.toString());
 	}
@@ -175,18 +174,18 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 Font newFont = currentFont.deriveFont(currentFont.getSize() * 0.7F);
                 g2.setFont(newFont);
 
-                for(int i=1;i<4;i++){
+                for (int i = 1; i < 4; i++) {
                     g2.drawLine(frameX / 2 - 5, frameY * i / 8, frameX / 2 + 5, frameY * i / 8);
-                    g2.drawLine(frameX / 2 - 5, frameY-(frameY * i / 8), frameX / 2 + 5, frameY-(frameY * i / 8));
-                    g2.drawString(Integer.toString(frameY * i / 8 / 10), frameX / 2 + 10, frameY/2+frameY * i / 8 + 5);
-                    g2.drawString(Integer.toString(frameY * i / 8 / 10), frameX / 2 + 10, frameY/2-frameY * i / 8 + 5);
+                    g2.drawLine(frameX / 2 - 5, frameY - (frameY * i / 8), frameX / 2 + 5, frameY - (frameY * i / 8));
+                    g2.drawString(Integer.toString(frameY * i / 8 / 10), frameX / 2 + 10, frameY / 2 + frameY * i / 8 + 5);
+                    g2.drawString(Integer.toString(frameY * i / 8 / 10), frameX / 2 + 10, frameY / 2 - frameY * i / 8 + 5);
                 }
 
-                for(int i=1;i<4;i++){
-                    g2.drawLine(frameX-frameX*i/8, frameY / 2-5, frameX-frameX*i/8, frameY / 2+5);
-                    g2.drawLine(frameX * i/8, frameY / 2-5, frameX*i/8, frameY / 2+5);
-                    g2.drawString(Integer.toString((frameX*i/8)/10), frameX/2-frameX*i/8-7, frameY/2+18);
-                    g2.drawString(Integer.toString((frameX*i/8)/10), frameX/2+frameX * i/8-7, frameY/2+18);
+                for (int i = 1; i < 4; i++) {
+                    g2.drawLine(frameX - frameX * i / 8, frameY / 2 - 5, frameX - frameX * i / 8, frameY / 2 + 5);
+                    g2.drawLine(frameX * i / 8, frameY / 2 - 5, frameX * i / 8, frameY / 2 + 5);
+                    g2.drawString(Integer.toString((frameX * i / 8) / 10), frameX / 2 - frameX * i / 8 - 7, frameY / 2 + 18);
+                    g2.drawString(Integer.toString((frameX * i / 8) / 10), frameX / 2 + frameX * i / 8 - 7, frameY / 2 + 18);
                 }
 //
 //                g2.drawString("X", 5, frameY / 2+12);
@@ -231,28 +230,29 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                             MarkPoint();
                             break;
                         }
-                        case "FILL":{
-                            System.out.println("Token count "+st.countTokens());
+                        case "FILL": {
+                            System.out.println("Token count " + st.countTokens());
 
                             switch (st.countTokens()) {
                                 case 1: {
                                     Fill(st.nextToken());
                                     break;
                                 }
-                                case 2:{
+                                case 2: {
                                     Fill(st.nextToken(), st.nextToken());
                                     break;
-                                } case 3:{
-                                    Fill(st.nextToken(), st.nextToken(), st.nextToken(),new ArrayList<>());
+                                }
+                                case 3: {
+                                    Fill(st.nextToken(), st.nextToken(), st.nextToken(), new ArrayList<>());
                                     break;
                                 }
-                                default:{
+                                default: {
                                     List<String> list_colors = new ArrayList<>();
 
-                                    while (st.hasMoreTokens()){
+                                    while (st.hasMoreTokens()) {
                                         list_colors.add(st.nextToken());
                                     }
-                                    Fill(list_colors.get(0),list_colors.get(1),list_colors.get(2), list_colors.subList(1,list_colors.size()));
+                                    Fill(list_colors.get(0), list_colors.get(1), list_colors.get(2), list_colors.subList(1, list_colors.size()));
                                     break;
                                 }
                             }
@@ -271,53 +271,69 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                         }
                         case "CIRCLE": {
                             if (st.countTokens() == 1) {
-                                DrawCircle(st.nextToken(),curColor);
+                                DrawCircle(st.nextToken(), curColor.toString());
+                                break;
+                            } else if (st.countTokens() == 2) {
+                                DrawCircle(st.nextToken(), st.nextToken());
                                 break;
                             } else {
-                                DrawCircle(st.nextToken(), st.nextToken());
+                                DrawCircle(st.nextToken(), st.nextToken(), st.nextToken());
                             }
                             g2.setColor(curColor.getCol());
                             break;
                         }
                         case "SQUARE": {
+                            System.out.println("Sq"+st.countTokens());
                             if (st.countTokens() == 1) {
-                                DrawSquare(st.nextToken(), curColor);
+                                DrawSquare(st.nextToken(), curColor.toString());
+                                break;
+                            } else if (st.countTokens() == 2) {
+                                DrawSquare(st.nextToken(), st.nextToken());
                                 break;
                             } else {
-                                DrawSquare(st.nextToken(), st.nextToken());
+                                DrawSquare(st.nextToken(), st.nextToken(), st.nextToken());
                             }
                             g2.setColor(curColor.getCol());
                             break;
                         }
                         case "TRIANGLE": {
                             if (st.countTokens() == 1) {
-                                DrawTriangle(st.nextToken(), curColor);
+                                DrawTriangle(st.nextToken(), curColor.toString());
                                 break;
-                            }else if (st.countTokens() == 2) {
+                            } else if (st.countTokens() == 2) {
                                 DrawTriangle(st.nextToken(), st.nextToken());
                                 break;
+                            } else if (st.countTokens() == 3) {
+                                DrawTriangle(st.nextToken(), st.nextToken(), st.nextToken());
+                                break;
                             } else {
-                                DrawTriangle(st.nextToken(), Colors.valueOf(st.nextToken().toUpperCase()), st.nextToken().toUpperCase());
+                                DrawTriangle(st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken());
                             }
                             g2.setColor(curColor.getCol());
                             break;
                         }
                         case "RECTANGLE": {
                             if (st.countTokens() == 2) {
-                                DrawRectangle(st.nextToken(), st.nextToken(), curColor);
+                                DrawRectangle(st.nextToken(), st.nextToken(), curColor.toString());
+                                break;
+                            } else if (st.countTokens() == 3) {
+                                DrawRectangle(st.nextToken(), st.nextToken(), st.nextToken());
                                 break;
                             } else {
-                                DrawRectangle(st.nextToken(), st.nextToken(),st.nextToken());
+                                DrawRectangle(st.nextToken(), st.nextToken(), st.nextToken(), st.nextToken());
                             }
                             g2.setColor(curColor.getCol());
                             break;
                         }
                         case "RHOMBUS": {
                             if (st.countTokens() == 1) {
-                                DrawRhombus(curColor, st.nextToken());
+                                DrawRhombus(st.nextToken(), curColor.toString());
+                                break;
+                            } else if (st.countTokens() == 2) {
+                                DrawRhombus(st.nextToken(), st.nextToken());
                                 break;
                             } else {
-                                DrawRhombus(st.nextToken(), st.nextToken());
+                                DrawRhombus(st.nextToken(), st.nextToken(), st.nextToken());
                             }
                             g2.setColor(curColor.getCol());
                             break;
@@ -331,7 +347,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 }
                 // Show current position
                 g2.setColor(Color.BLACK);
-                g2.setStroke(new  BasicStroke(8.0f,BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
+                g2.setStroke(new BasicStroke(8.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL));
                 g2.drawLine(curX, curY, curX, curY);
                 g2.setColor(curColor.getCol());
                 g2.setStroke(new BasicStroke(6.0f));
@@ -340,35 +356,35 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
             }
 
             public void ChooseColor(String color) {
-                System.out.println("co "+color);
+                System.out.println("co " + color);
                 curColor = Colors.valueOf(color.toUpperCase());
                 g2.setColor(curColor.getCol());
             }
 
-            public boolean isValidMovement(int curXY, int z, int frameXY, String operation,String direction) {
+            public boolean isValidMovement(int curXY, int z, int frameXY, String operation, String direction) {
                 if (operation.equals("-")) {
                     if (curXY - z < 0) {
-			if(popupEnabled){
-				JOptionPane.showMessageDialog(null,
-                                direction + " command goes beyond the frame size",
-                                direction + " error",
-                                JOptionPane.WARNING_MESSAGE);
-				popupEnabled = false;
-			}
-                       
+                        if (popupEnabled) {
+                            JOptionPane.showMessageDialog(null,
+                                    direction + " command goes beyond the frame size",
+                                    direction + " error",
+                                    JOptionPane.WARNING_MESSAGE);
+                            popupEnabled = false;
+                        }
+
                         return false;
 
                     }
                 } else {
                     if (curXY + z > frameXY) {
-			if(popupEnabled){
-				JOptionPane.showMessageDialog(null,
-                                direction + " command goes beyond the frame size",
-                                direction + " error",
-                                JOptionPane.WARNING_MESSAGE);
-				popupEnabled = false;
-			}
-                        
+                        if (popupEnabled) {
+                            JOptionPane.showMessageDialog(null,
+                                    direction + " command goes beyond the frame size",
+                                    direction + " error",
+                                    JOptionPane.WARNING_MESSAGE);
+                            popupEnabled = false;
+                        }
+
                         return false;
 
                     }
@@ -377,32 +393,32 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
             }
 
             public void Move(String dir, String s) {
-                int z = Integer.parseInt(s) * init_size ;
+                int z = Integer.parseInt(s) * init_size;
 
                 int newX = curX;
                 int newY = curY;
 
                 switch (dir.toUpperCase()) {
-                    case "UP" : {
-                        if (isValidMovement(curY,z,0,"-","UP")){
+                    case "UP": {
+                        if (isValidMovement(curY, z, 0, "-", "UP")) {
                             newY = curY - z;
                         }
                         break;
                     }
-                    case "DOWN" : {
-                        if (isValidMovement(curY,z,frameY,"+","DOWN")){
+                    case "DOWN": {
+                        if (isValidMovement(curY, z, frameY, "+", "DOWN")) {
                             newY = curY + z;
                         }
                         break;
                     }
-                    case "LEFT" : {
-                        if (isValidMovement(curX,z,0,"-","LEFT")){
+                    case "LEFT": {
+                        if (isValidMovement(curX, z, 0, "-", "LEFT")) {
                             newX = curX - z;
                         }
                         break;
                     }
-                    case "RIGHT" : {
-                        if (isValidMovement(curX,z,frameX,"+","RIGHT")){
+                    case "RIGHT": {
+                        if (isValidMovement(curX, z, frameX, "+", "RIGHT")) {
                             newX = curX + z;
                         }
                         break;
@@ -419,23 +435,28 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
             public void MarkPoint() {
                 points.get(curColor.getNum()).add(new Coordinate(curX, curY));
             }
+
             public void MarkPoint(int x, int y) {
-                points.get(curColor.getNum()).add(new Coordinate(x,y));
+                points.get(curColor.getNum()).add(new Coordinate(x, y));
             }
-            public void MarkPoint(Colors color,int x, int y) {
-                points.get(color.getNum()).add(new Coordinate(x,y));
+
+            public void MarkPoint(Colors color, int x, int y) {
+                points.get(color.getNum()).add(new Coordinate(x, y));
             }
+
             public void Fill(String color_path) {
-                Fill(color_path,curColor.toString());
+                Fill(color_path, curColor.toString());
 
             }
+
             public void Fill(String color_path, String color_fill) {
-                Fill(color_path,color_fill,color_fill,new ArrayList<>());
+                Fill(color_path, color_fill, color_fill, new ArrayList<>());
             }
-            public void Fill(String color_path, String color_fill , String color_gradient, List<String> all_commands) {
-                System.out.println("outputted color is "+color_path);
-                System.out.println("outputted color is 2 "+color_fill);
-                System.out.println("outputted color is 3 "+color_fill);
+
+            public void Fill(String color_path, String color_fill, String color_gradient, List<String> all_commands) {
+                System.out.println("outputted color is " + color_path);
+                System.out.println("outputted color is 2 " + color_fill);
+                System.out.println("outputted color is 3 " + color_fill);
                 Colors color_pa = Colors.valueOf(color_path.toUpperCase());
                 Colors color_fi = Colors.valueOf(color_fill.toUpperCase());
                 Colors color_gr = Colors.valueOf(color_gradient.toUpperCase());
@@ -455,14 +476,13 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                     path.moveTo(first_point.getX(), first_point.getY());
 
 
-
-                    for (int i = 1, j= 0; i < points.get(color_pa.getNum()).size(); i++) {
+                    for (int i = 1, j = 0; i < points.get(color_pa.getNum()).size(); i++) {
                         Coordinate current_point = points.get(color_pa.getNum()).get(i);
-                        if (j == 0){
+                        if (j == 0) {
                             distance_points = first_point.distance(current_point);
                             largest_point1 = first_point;
                             largest_point2 = current_point;
-                            j=1;
+                            j = 1;
                         }
 //                        System.out.printf("Fill %d %d\n", points.get(color_pa.getNum()).get(i).getX(),points.get(color_pa.getNum()).get(i).getY());
                         path.lineTo(current_point.getX(), current_point.getY());
@@ -476,28 +496,28 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                     }
 
                     path.closePath();
-                    if (!(color_fi == color_gr)){
+                    if (!(color_fi == color_gr)) {
                         System.out.println("GRADIENT");
-                        System.out.printf("%d %d\n",largest_point1.getX(),largest_point1.getY());
-                        System.out.printf("%d %d\n",largest_point2.getX(),largest_point2.getY());
+                        System.out.printf("%d %d\n", largest_point1.getX(), largest_point1.getY());
+                        System.out.printf("%d %d\n", largest_point2.getX(), largest_point2.getY());
                         System.out.println(distance_points);
-                        if(all_commands.isEmpty()){
-                            g2.setPaint(new GradientPaint(largest_point1.getX(),largest_point1.getY(),color_fi.getCol(),largest_point2.getX(),largest_point2.getY(),color_gr.getCol()));
-                        }else{
+                        if (all_commands.isEmpty()) {
+                            g2.setPaint(new GradientPaint(largest_point1.getX(), largest_point1.getY(), color_fi.getCol(), largest_point2.getX(), largest_point2.getY(), color_gr.getCol()));
+                        } else {
                             IntStream intStream = IntStream.range(0, all_commands.size());
-                            int [] values_range = intStream.toArray();
-                            System.out.println("the range "+Arrays.toString(values_range));
-                            float [] updated_range = new float[values_range.length];
+                            int[] values_range = intStream.toArray();
+                            System.out.println("the range " + Arrays.toString(values_range));
+                            float[] updated_range = new float[values_range.length];
                             for (int i = 0; i < values_range.length; i++) {
                                 updated_range[i] = (float) values_range[i] / (all_commands.size());
                             }
-                            System.out.println("the updated range "+Arrays.toString(values_range));
-                            Color [] colors = new Color[updated_range.length];
+                            System.out.println("the updated range " + Arrays.toString(values_range));
+                            Color[] colors = new Color[updated_range.length];
                             for (int i = 0; i < colors.length; i++) {
                                 colors[i] = Colors.valueOf(all_commands.get(i).toUpperCase()).getCol();
                             }
-                            System.out.println("the colors used "+ Arrays.toString(colors));
-                            g2.setPaint(new RadialGradientPaint(new Point2D.Float((float) largest_point1.getX(),(float)largest_point1.getY()), (float) distance_points, updated_range,colors));
+                            System.out.println("the colors used " + Arrays.toString(colors));
+                            g2.setPaint(new RadialGradientPaint(new Point2D.Float((float) largest_point1.getX(), (float) largest_point1.getY()), (float) distance_points, updated_range, colors));
                         }
 
                     }
@@ -518,10 +538,10 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                     GeneralPath path = new GeneralPath(GeneralPath.WIND_NON_ZERO);
 
                     path.moveTo(points.get(color.getNum()).get(0).getX(), points.get(color.getNum()).get(0).getY());
-                    Coordinate cord1,cord2,cord3;
+                    Coordinate cord1, cord2, cord3;
 
                     for (int i = 2; i < points.get(color.getNum()).size(); i++) {
-                        System.out.printf("Connect %d %d\n", points.get(color.getNum()).get(i).getX(),points.get(color.getNum()).get(i).getY());
+                        System.out.printf("Connect %d %d\n", points.get(color.getNum()).get(i).getX(), points.get(color.getNum()).get(i).getY());
 //                        cord1 = points.get(color.getNum()).get(i - 2);
 //                        cord2 = points.get(color.getNum()).get(i - 1);
 //                        cord3 = points.get(color.getNum()).get(i);
@@ -537,6 +557,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 System.out.println();
                 g2.setColor(curColor.getCol());
             }
+
             public void ConnectCurved(String color_path) {
                 Colors color = Colors.valueOf(color_path.toUpperCase());
                 g2.setStroke(new BasicStroke(2.0f));
@@ -556,9 +577,9 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                             if (i % 2 == 0) {
                                 cord2 = points.get(color.getNum()).get(i - 1);
                                 cord3 = points.get(color.getNum()).get(i);
-                                System.out.printf("Connect 1: %d %d\n", cord1.getX(),cord1.getY());
-                                System.out.printf("Connect 2: %d %d\n", cord2.getX(),cord2.getY());
-                                System.out.printf("Connect 3: %d %d\n", cord3.getX(),cord3.getY());
+                                System.out.printf("Connect 1: %d %d\n", cord1.getX(), cord1.getY());
+                                System.out.printf("Connect 2: %d %d\n", cord2.getX(), cord2.getY());
+                                System.out.printf("Connect 3: %d %d\n", cord3.getX(), cord3.getY());
 //                                int r = (int)Math.sqrt((cord2.getX()-cord1.getX())*(cord2.getX()-cord1.getX()) + (cord2.getY()-cord1.getY())*(cord2.getY()-cord1.getY()));
 //                                int x = cord1.getX()-r;
 //                                int y = cord1.getY()-r;
@@ -568,7 +589,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
 //                                int endAngle = (int) (180/Math.PI*Math.atan2((cord3.getY()-cord1.getY()), (cord3.getX()-cord1.getX())));
 //                                g2.drawArc(x, y, width, height, startAngle, endAngle);
 //                                q.setCurve(cord1.getX(), cord1.getY(), (float)(cord1.getX() + cord2.getX())/2+ 25, (float)(cord1.getY() + cord2.getY())/2, cord2.getX(), cord2.getY());
-                                q.setCurve(cord1.getX(), cord1.getY(), cord2.getX(), cord2.getY(),cord3.getX(),cord3.getY());
+                                q.setCurve(cord1.getX(), cord1.getY(), cord2.getX(), cord2.getY(), cord3.getX(), cord3.getY());
                                 g2.draw(q);
 //                                break;
 
@@ -586,36 +607,44 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
 
             }
 
-            public void DrawCircle(String di, String col) {
-                Colors color = Colors.valueOf(col.toUpperCase());
-                DrawCircle(di,color);
+            public void DrawCircle(String di, String color) {
+                DrawCircle(di, color, "");
             }
-            public void DrawCircle(String di, Colors color) {
-                int diameter = Integer.parseInt(di) * init_size;
-                System.out.printf("values are %d %d %d %d %d\n", diameter, curY, curX, frameY, frameX);
-                if ((curY + diameter >= 0 && curY + diameter <= frameY) && (curX + diameter >= 0 && curX + diameter <= frameX)) {
-                    MarkPoint();
-                    if(!points.get(color.getNum()).isEmpty()) {
-                        Coordinate position = points.get(color.getNum()).get(0);
-                        int half_diameter = diameter / 2;
-                        System.out.printf("values are %d %d %d\n", half_diameter, position.getX(), position.getY());
-                        Ellipse2D.Double circle = new Ellipse2D.Double(position.getX() - half_diameter, position.getY() - half_diameter, diameter, diameter);
-                        g2.draw(circle);
-                    }
 
+            public void DrawCircle(String di, String colr, String color_fill) {
+                Colors color = Colors.valueOf(colr.toUpperCase());
+                int diameter = Integer.parseInt(di) * init_size;
+                int half_diameter = diameter / 2;
+//               System.out.printf("values are %d %d %d %d %d\n", diameter, curY, curX, frameY, frameX);
+                int max_diameter = half_diameter + (half_diameter / 100 * 20);
+                if ((curY + max_diameter >= 0 && curY + max_diameter <= frameY) && (curX + max_diameter >= 0 && curX + max_diameter <= frameX)) {
+                    Ellipse2D.Double circle = new Ellipse2D.Double(curX - half_diameter, curY - half_diameter, diameter, diameter);
+                    g2.setColor(color.getCol());
+                    g2.draw(circle);
+
+                    if (!color_fill.isEmpty()) {
+                        System.out.println("fill circle");
+                        g2.setPaint(Colors.valueOf(color_fill.toUpperCase()).getCol());
+                        g2.fill(circle);
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null,
-                            "\"Circle\" is beyond the window boundaries ",
-                            "RIGHT error",
-                            JOptionPane.WARNING_MESSAGE);
+                    if (popupEnabled) {
+                        JOptionPane.showMessageDialog(null,
+                                "\"Circle\" is beyond the window boundaries ",
+                                "RIGHT error",
+                                JOptionPane.WARNING_MESSAGE);
+                        popupEnabled = false;
+                    }
 
                 }
             }
-            public void DrawSquare(String di, String col) {
-                Colors color = Colors.valueOf(col.toUpperCase());
-                DrawSquare(di,color);
+
+            public void DrawSquare(String di, String color) {
+                DrawSquare(di, color, "");
             }
-            public void DrawSquare(String di, Colors color) {
+
+            public void DrawSquare(String di, String colr, String color_fill) {
+                Colors color = Colors.valueOf(colr.toUpperCase());
                 int side_length = Integer.parseInt(di) * init_size;
 
                 if ((curY + side_length <= frameY) && (curX + side_length <= frameX)) {
@@ -625,7 +654,11 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
 //                    MarkPoint(color,curX-half_side,curY-half_side);
 //                    ConnectStraight(color.toString());
                     g2.setColor(color.getCol());
-                    g2.drawRect(curX,curY,side_length,side_length);
+                    g2.drawRect(curX, curY, side_length, side_length);
+                    if (!color_fill.isEmpty()) {
+                        g2.setPaint(Colors.valueOf(color_fill.toUpperCase()).getCol());
+                        g2.fillRect(curX, curY, side_length, side_length);
+                    }
 
                 } else {
                     JOptionPane.showMessageDialog(null,
@@ -635,37 +668,56 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
 
                 }
             }
+
             public boolean isInteger(String s, int radix) {
                 Scanner sc = new Scanner(s.trim());
-                if(!sc.hasNextInt(radix)) return false;
+                if (!sc.hasNextInt(radix)) return false;
                 // we know it starts with a valid int, now make sure
                 // there's nothing left!
                 sc.nextInt(radix);
                 return !sc.hasNext();
             }
-            public void DrawTriangle(String di, String col) {
-                Colors color = Colors.valueOf(col.toUpperCase());
-                DrawTriangle(di, color);
-            }
-            public void DrawTriangle(String di, Colors color) {
+
+            public void DrawTriangle(String di, String color) {
                 DrawTriangle(di, color, "");
             }
 
-            public void DrawTriangle(String di, Colors color, String tritype) {
+            public void DrawTriangle(String di, String color, String tritype) {
+                DrawTriangle(di, color, tritype, "");
+            }
+
+            public void DrawTriangle(String di, String colr, String tritype, String color_fill) {
+                Colors color = Colors.valueOf(colr.toUpperCase());
+                tritype = tritype.toUpperCase();
                 int side_length = Integer.parseInt(di) * init_size;
 
-                if ((curY + 1.5*side_length <= frameY) && (curX + side_length <= frameX)) {
+                if ((curY + 1.5 * side_length <= frameY) && (curX + side_length <= frameX)) {
                     g2.setColor(color.getCol());
                     if (tritype.equals("RI") || tritype.equals("RIGHT")) {
-                        System.out.println("RIg");
+                        System.out.println("RIGHT");
                         g2.drawPolygon(new int[]{curX, curX, curX + side_length}, new int[]{curY, curY - side_length, curY}, 3);
-                    }else if (tritype.equals("EQUI") || tritype.equals("EQUILATERAL")) {
+                        if (!color_fill.isEmpty()) {
+                            g2.setPaint(Colors.valueOf(color_fill.toUpperCase()).getCol());
+                            g2.fillPolygon(new int[]{curX, curX, curX + side_length}, new int[]{curY, curY - side_length, curY}, 3);
+                        }
+                    } else if (tritype.equals("EQUI") || tritype.equals("EQUILATERAL")) {
                         g2.drawPolygon(new int[]{curX, curX + side_length / 2, curX + side_length}, new int[]{curY, curY - side_length, curY}, 3);
-                    }
-                    else if (tritype.equals("ISO") || tritype.equals("ISOCELES")) {
-                        g2.drawPolygon(new int[]{curX, curX + side_length / 2, curX + side_length}, new int[]{curY, (int) (curY - 1.5*side_length), curY}, 3);
-                    }else {
-                        g2.drawPolygon(new int[]{curX, curX + ThreadLocalRandom.current().nextInt(0,side_length), curX + ThreadLocalRandom.current().nextInt(0,side_length)}, new int[]{curY, curY + ThreadLocalRandom.current().nextInt(0,side_length), curY + ThreadLocalRandom.current().nextInt(0,side_length)}, 3);
+                        if (!color_fill.isEmpty()) {
+                            g2.setPaint(Colors.valueOf(color_fill.toUpperCase()).getCol());
+                            g2.fillPolygon(new int[]{curX, curX + side_length / 2, curX + side_length}, new int[]{curY, curY - side_length, curY}, 3);
+                        }
+                    } else if (tritype.equals("ISO") || tritype.equals("ISOCELES")) {
+                        g2.drawPolygon(new int[]{curX, curX + side_length / 2, curX + side_length}, new int[]{curY, (int) (curY - 1.5 * side_length), curY}, 3);
+                        if (!color_fill.isEmpty()) {
+                            g2.setPaint(Colors.valueOf(color_fill.toUpperCase()).getCol());
+                            g2.fillPolygon(new int[]{curX, curX + side_length / 2, curX + side_length}, new int[]{curY, (int) (curY - 1.5 * side_length), curY}, 3);
+                        }
+                    } else {
+                        g2.drawPolygon(new int[]{curX, curX + ThreadLocalRandom.current().nextInt(0, side_length), curX + ThreadLocalRandom.current().nextInt(0, side_length)}, new int[]{curY, curY + ThreadLocalRandom.current().nextInt(0, side_length), curY + ThreadLocalRandom.current().nextInt(0, side_length)}, 3);
+                        if (!color_fill.isEmpty()) {
+                            g2.setPaint(Colors.valueOf(color_fill.toUpperCase()).getCol());
+                            g2.fillPolygon(new int[]{curX, curX + ThreadLocalRandom.current().nextInt(0, side_length), curX + ThreadLocalRandom.current().nextInt(0, side_length)}, new int[]{curY, curY + ThreadLocalRandom.current().nextInt(0, side_length), curY + ThreadLocalRandom.current().nextInt(0, side_length)}, 3);
+                        }
                     }
                 } else {
                     JOptionPane.showMessageDialog(null,
@@ -675,83 +727,62 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 }
             }
 
-            public void DrawRectangle(String height, String width, String col) {
-                Colors color = Colors.valueOf(col.toUpperCase());
-                DrawRectangle(height,width, color);
+            public void DrawRectangle(String height, String width, String color) {
+                DrawRectangle(height, width, color, "");
             }
-            public void DrawRectangle(String height, String width, Colors color) {
+
+            public void DrawRectangle(String height, String width, String colr, String color_fill) {
+                Colors color = Colors.valueOf(colr.toUpperCase());
                 int H = Integer.parseInt(height) * init_size;
                 int W = Integer.parseInt(width) * init_size;
 
                 if ((curY + W <= frameY) && (curX + H <= frameX)) {
                     g2.setColor(color.getCol());
                     g2.drawRect(curX, curY, W, H);
-                }
-            }
-            public void DrawRectangle(String col, String di) {
-                Colors color = Colors.valueOf(col.toUpperCase());
-                DrawRectangle(color,di);
-            }
-            public void DrawRectangle(Colors color, String di) {
-                int diameter = Integer.parseInt(di) * init_size;
-                System.out.printf("values are %d %d %d %d %d\n", diameter, curY, curX, frameY, frameX);
-                if ((curY + diameter >= 0 && curY + diameter <= frameY) && (curX + diameter >= 0 && curX + diameter <= frameX)) {
-                    MarkPoint();
-                    if(!points.get(color.getNum()).isEmpty()) {
-                        Coordinate position = points.get(color.getNum()).get(0);
-                        int half_diameter = diameter / 2;
-                        System.out.printf("values are %d %d %d\n", half_diameter, position.getX(), position.getY());
-                        Ellipse2D.Double circle = new Ellipse2D.Double(position.getX() - half_diameter, position.getY() - half_diameter, diameter, diameter);
-                        g2.draw(circle);
+                    if (!color_fill.isEmpty()) {
+                        g2.setPaint(Colors.valueOf(color_fill.toUpperCase()).getCol());
+                        g2.fillRect(curX, curY, W, H);
                     }
-
                 } else {
                     JOptionPane.showMessageDialog(null,
-                            "\"Circle\" is beyond the window boundaries ",
+                            "\"Rectangle\" is beyond the window boundaries ",
                             "RIGHT error",
                             JOptionPane.WARNING_MESSAGE);
-
                 }
             }
-            public void DrawRhombus(String col, String di) {
-                Colors color = Colors.valueOf(col.toUpperCase());
-                DrawRhombus(color,di);
+
+
+            public void DrawRhombus(String di, String col) {
+                DrawRhombus(di, col, "");
             }
 
-            public void DrawCircle(Colors color, String di) {
-                int diameter = Integer.parseInt(di) * init_size;
-                System.out.printf("values are %d %d %d %d %d\n", diameter, curY, curX, frameY, frameX);
-                int half_diameter = diameter / 2;
-		int max_diameter = half_diameter + (half_diameter/100*20);
-		if ((curY + max_diameter >= 0 && curY + max_diameter <= frameY) && (curX + max_diameter >= 0 && curX + max_diameter <= frameX)) {
-                    MarkPoint();
-                    if(!points.get(color.getNum()).isEmpty()) {
-                        Coordinate position = points.get(color.getNum()).get(0);
-                        int half_diameter = diameter / 2;
-                        System.out.printf("values are %d %d %d\n", half_diameter, position.getX(), position.getY());
-                        Ellipse2D.Double circle = new Ellipse2D.Double(position.getX() - half_diameter, position.getY() - half_diameter, diameter, diameter);
-                        g2.draw(circle);
+
+            public void DrawRhombus(String di, String colr, String color_fill) {
+                Colors color;
+                color = Colors.valueOf(colr.toUpperCase());
+                int side = Integer.parseInt(di) * init_size;
+                if ((curY + side <= frameY && curY - side >= 0) && (curX + side <= frameX)) {
+                    g2.setColor(color.getCol());
+                    g2.drawPolygon(new int[]{curX + (side / 2), curX + side, curX + (side / 2), curX}, new int[]{curY, curY + (side / 2), curY + side, curY + (side / 2) }, 4);
+                    if (!color_fill.isEmpty()) {
+                        g2.setPaint(Colors.valueOf(color_fill.toUpperCase()).getCol());
+                        g2.fillPolygon(new int[]{curX + (side / 2), curX + side, curX + (side / 2), curX}, new int[]{curY, curY + (side / 2), curY + side, curY + (side / 2) }, 4);
                     }
-
                 } else {
-		    if(popupEnabled){
-		    	JOptionPane.showMessageDialog(null,
-                            "\"Circle\" is beyond the window boundaries ",
+                    JOptionPane.showMessageDialog(null,
+                            "\"Rhombus\" is beyond the window boundaries ",
                             "RIGHT error",
                             JOptionPane.WARNING_MESSAGE);
-			    popupEnabled = false;
-		    }
-
                 }
-		g2.setColor(curColor.getCol());
             }
+
 
             public void EraseShape(String col) {
                 //Colors color = Colors.valueOf(col);
                 g2.setColor(new Color(0, 0, 0, 0));
                 g2.setComposite(AlphaComposite.Clear);
 
-		String colorStr = col.toUpperCase();
+                String colorStr = col.toUpperCase();
                 ConnectStraight(colorStr);
                 g2.setColor(curColor.getCol());
 
@@ -759,7 +790,7 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 boolean in = false;
 
                 for (String s : callStack) {
-		    String sStr = s.toUpperCase();
+                    String sStr = s.toUpperCase();
                     if (sStr.contains(colorStr) && sStr.contains("ERASE")) {
                         continue;
                     } else if (sStr.contains(colorStr)) {
@@ -778,9 +809,9 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
                 curX = frameX / 2;
                 curY = frameY / 2;
 
-		for(int i=0;i<callStack.size();i++){
-			System.out.println(callStack.get(i));
-		}
+                for (int i = 0; i < callStack.size(); i++) {
+                    System.out.println(callStack.get(i));
+                }
 
                 repaint();
             }
@@ -792,24 +823,23 @@ public class SemanticAnalyzer extends DepthFirstAdapter {
         int size = Integer.parseInt(s);
 //        System.out.println("init  size "+s);
 //        System.out.println("THe valus of size "+size);
-        if (size < 0 ){
-	    if(popupEnabled){
-	    	JOptionPane.showMessageDialog(null,
-                    "\"Size\" command can not be negative",
-                    "RIGHT error",
-                    JOptionPane.WARNING_MESSAGE);
-		    popupEnabled = false;
-	    }
+        if (size < 0) {
+            if (popupEnabled) {
+                JOptionPane.showMessageDialog(null,
+                        "\"Size\" command can not be negative",
+                        "RIGHT error",
+                        JOptionPane.WARNING_MESSAGE);
+                popupEnabled = false;
+            }
 
         }
-        if (size > 100){
+        if (size > 100) {
             init_size = 10;
             size = 100;
-        }
-        else {
+        } else {
             init_size = 10;
         }
-        grid(size*init_size, size*init_size);
+        grid(size * init_size, size * init_size);
 
         window.setTitle("Drawing");
         window.setLocationRelativeTo(null);

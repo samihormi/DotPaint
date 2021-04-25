@@ -36,19 +36,10 @@ public class Parser
         this.lexer = lexer;
     }
 
-    protected void filter() throws ParserException, LexerException, IOException
-    {
-        // Empty body
-    }
-
-    private void push(int numstate, ArrayList listNode, boolean hidden) throws ParserException, LexerException, IOException
+    @SuppressWarnings({"unchecked","unused"})
+    private void push(int numstate, ArrayList listNode) throws ParserException, LexerException, IOException
     {
         this.nodeList = listNode;
-
-        if(!hidden)
-        {
-            filter();
-        }
 
         if(!this.stack.hasNext())
         {
@@ -112,7 +103,7 @@ public class Parser
     @SuppressWarnings("unchecked")
     public Start parse() throws ParserException, LexerException, IOException
     {
-        push(0, null, true);
+        push(0, null);
         List<Node> ign = null;
         while(true)
         {
@@ -169,7 +160,7 @@ public class Parser
 		    {
 		        ArrayList list = new ArrayList();
 		        list.add(this.lexer.next());
-                        push(this.action[1], list, false);
+                        push(this.action[1], list);
                     }
 		    break;
                 case REDUCE:
@@ -178,223 +169,241 @@ public class Parser
                     case 0: /* reduce AProgram */
 		    {
 			ArrayList list = new0();
-			push(goTo(0), list, false);
+			push(goTo(0), list);
 		    }
 		    break;
-                    case 1: /* reduce AStmtStmtlist */
+                    case 1: /* reduce ADefProgram */
 		    {
 			ArrayList list = new1();
-			push(goTo(1), list, false);
+			push(goTo(0), list);
 		    }
 		    break;
-                    case 2: /* reduce AListStmtlist */
+                    case 2: /* reduce AStmtStmtlist */
 		    {
 			ArrayList list = new2();
-			push(goTo(1), list, false);
+			push(goTo(1), list);
 		    }
 		    break;
-                    case 3: /* reduce AMoveStmt */
+                    case 3: /* reduce AListStmtlist */
 		    {
 			ArrayList list = new3();
-			push(goTo(2), list, false);
+			push(goTo(1), list);
 		    }
 		    break;
-                    case 4: /* reduce ADrawStmt */
+                    case 4: /* reduce AMoveStmt */
 		    {
 			ArrayList list = new4();
-			push(goTo(2), list, false);
+			push(goTo(2), list);
 		    }
 		    break;
-                    case 5: /* reduce AFillStmt */
+                    case 5: /* reduce ADrawStmt */
 		    {
 			ArrayList list = new5();
-			push(goTo(2), list, false);
+			push(goTo(2), list);
 		    }
 		    break;
-                    case 6: /* reduce ADefineDefinegrid */
+                    case 6: /* reduce AFillStmt */
 		    {
 			ArrayList list = new6();
-			push(goTo(3), list, false);
+			push(goTo(2), list);
 		    }
 		    break;
-                    case 7: /* reduce AMoveMove */
+                    case 7: /* reduce ADefineDefinegrid */
 		    {
 			ArrayList list = new7();
-			push(goTo(4), list, false);
+			push(goTo(3), list);
 		    }
 		    break;
-                    case 8: /* reduce AConnDraw */
+                    case 8: /* reduce AMoveMove */
 		    {
 			ArrayList list = new8();
-			push(goTo(5), list, false);
+			push(goTo(4), list);
 		    }
 		    break;
-                    case 9: /* reduce ACircDraw */
+                    case 9: /* reduce AConnDraw */
 		    {
 			ArrayList list = new9();
-			push(goTo(5), list, false);
+			push(goTo(5), list);
 		    }
 		    break;
-                    case 10: /* reduce AErasecolDraw */
+                    case 10: /* reduce ACircl$Amakecirclecircle11Draw */
 		    {
 			ArrayList list = new10();
-			push(goTo(5), list, false);
+			push(goTo(5), list);
 		    }
 		    break;
-                    case 11: /* reduce ASqDraw */
+                    case 11: /* reduce ACircl$Amakecirclecircle31Draw */
 		    {
 			ArrayList list = new11();
-			push(goTo(5), list, false);
+			push(goTo(5), list);
 		    }
 		    break;
-                    case 12: /* reduce ATriDraw */
+                    case 12: /* reduce ACircl$Amakecirclecircle41Draw */
 		    {
 			ArrayList list = new12();
-			push(goTo(5), list, false);
+			push(goTo(5), list);
 		    }
 		    break;
-                    case 13: /* reduce ARectDraw */
+                    case 13: /* reduce AErasecolDraw */
 		    {
 			ArrayList list = new13();
-			push(goTo(5), list, false);
+			push(goTo(5), list);
 		    }
 		    break;
-                    case 14: /* reduce ARhoDraw */
+                    case 14: /* reduce ASqua$Amakesquaresquare11Draw */
 		    {
 			ArrayList list = new14();
-			push(goTo(5), list, false);
+			push(goTo(5), list);
 		    }
 		    break;
-                    case 15: /* reduce AFillrColorize */
+                    case 15: /* reduce ASqua$Amakesquaresquare31Draw */
 		    {
 			ArrayList list = new15();
-			push(goTo(6), list, false);
+			push(goTo(5), list);
 		    }
 		    break;
-                    case 16: /* reduce AAmakecirclecircle1Circle */
+                    case 16: /* reduce ASqua$Amakesquaresquare41Draw */
 		    {
 			ArrayList list = new16();
-			push(goTo(7), list, false);
+			push(goTo(5), list);
 		    }
 		    break;
-                    case 17: /* reduce AAmakecirclecircle2Circle */
+                    case 17: /* reduce ATria$Amaketriangletriangle11Draw */
 		    {
 			ArrayList list = new17();
-			push(goTo(7), list, false);
+			push(goTo(5), list);
 		    }
 		    break;
-                    case 18: /* reduce AAmakesquaresquare1Square */
+                    case 18: /* reduce ATria$Amaketriangletriangle31Draw */
 		    {
 			ArrayList list = new18();
-			push(goTo(8), list, false);
+			push(goTo(5), list);
 		    }
 		    break;
-                    case 19: /* reduce AAmakesquaresquare2Square */
+                    case 19: /* reduce ATria$Amaketriangletriangle41Draw */
 		    {
 			ArrayList list = new19();
-			push(goTo(8), list, false);
+			push(goTo(5), list);
 		    }
 		    break;
-                    case 20: /* reduce AAmaketriangletriangle1Triangle */
+                    case 20: /* reduce ATria$Amaketriangletriangle51Draw */
 		    {
 			ArrayList list = new20();
-			push(goTo(9), list, false);
+			push(goTo(5), list);
 		    }
 		    break;
-                    case 21: /* reduce AAmaketriangletriangle2Triangle */
+                    case 21: /* reduce ATria$Amaketriangletriangle61Draw */
 		    {
 			ArrayList list = new21();
-			push(goTo(9), list, false);
+			push(goTo(5), list);
 		    }
 		    break;
-                    case 22: /* reduce AAmaketriangletriangle3Triangle */
+                    case 22: /* reduce ATria$Amaketriangletriangle71Draw */
 		    {
 			ArrayList list = new22();
-			push(goTo(9), list, false);
+			push(goTo(5), list);
 		    }
 		    break;
-                    case 23: /* reduce AAmaketriangletriangle4Triangle */
+                    case 23: /* reduce ATria$Amaketriangletriangle81Draw */
 		    {
 			ArrayList list = new23();
-			push(goTo(9), list, false);
+			push(goTo(5), list);
 		    }
 		    break;
-                    case 24: /* reduce AAmakerectanglerectangle1Rectangle */
+                    case 24: /* reduce ARecta$Amakerectanglerectangle11Draw */
 		    {
 			ArrayList list = new24();
-			push(goTo(10), list, false);
+			push(goTo(5), list);
 		    }
 		    break;
-                    case 25: /* reduce AAmakerectanglerectangle2Rectangle */
+                    case 25: /* reduce ARecta$Amakerectanglerectangle31Draw */
 		    {
 			ArrayList list = new25();
-			push(goTo(10), list, false);
+			push(goTo(5), list);
 		    }
 		    break;
-                    case 26: /* reduce AAmakerhombusrhombus1Rhombus */
+                    case 26: /* reduce ARecta$Amakerectanglerectangle41Draw */
 		    {
 			ArrayList list = new26();
-			push(goTo(11), list, false);
+			push(goTo(5), list);
 		    }
 		    break;
-                    case 27: /* reduce AAmakerhombusrhombus2Rhombus */
+                    case 27: /* reduce ARhom$Amakerhombusrhombus11Draw */
 		    {
 			ArrayList list = new27();
-			push(goTo(11), list, false);
+			push(goTo(5), list);
 		    }
 		    break;
-                    case 28: /* reduce AMarkConnect */
+                    case 28: /* reduce ARhom$Amakerhombusrhombus31Draw */
 		    {
 			ArrayList list = new28();
-			push(goTo(12), list, false);
+			push(goTo(5), list);
 		    }
 		    break;
-                    case 29: /* reduce AConnectcolConnect */
+                    case 29: /* reduce ARhom$Amakerhombusrhombus41Draw */
 		    {
 			ArrayList list = new29();
-			push(goTo(12), list, false);
+			push(goTo(5), list);
 		    }
 		    break;
-                    case 30: /* reduce AChoosecolConnect */
+                    case 30: /* reduce AFillrColorize */
 		    {
 			ArrayList list = new30();
-			push(goTo(12), list, false);
+			push(goTo(6), list);
 		    }
 		    break;
-                    case 31: /* reduce AConnectcolorConnectcolor */
+                    case 31: /* reduce AMarkConnect */
 		    {
 			ArrayList list = new31();
-			push(goTo(13), list, false);
+			push(goTo(7), list);
 		    }
 		    break;
-                    case 32: /* reduce AChooseChoosecolor */
+                    case 32: /* reduce AConnectcolConnect */
 		    {
 			ArrayList list = new32();
-			push(goTo(14), list, false);
+			push(goTo(7), list);
 		    }
 		    break;
-                    case 33: /* reduce AMarkpoint */
+                    case 33: /* reduce AChoosecolConnect */
 		    {
 			ArrayList list = new33();
-			push(goTo(15), list, false);
+			push(goTo(7), list);
 		    }
 		    break;
-                    case 34: /* reduce AErasecolorErase */
+                    case 34: /* reduce AConnectcolorConnectcolor */
 		    {
 			ArrayList list = new34();
-			push(goTo(16), list, false);
+			push(goTo(8), list);
 		    }
 		    break;
-                    case 35: /* reduce ATerminal$Color */
+                    case 35: /* reduce AChooseChoosecolor */
 		    {
 			ArrayList list = new35();
-			push(goTo(17), list, true);
+			push(goTo(9), list);
 		    }
 		    break;
-                    case 36: /* reduce ANonTerminal$Color */
+                    case 36: /* reduce AMarkpoint */
 		    {
 			ArrayList list = new36();
-			push(goTo(17), list, true);
+			push(goTo(10), list);
+		    }
+		    break;
+                    case 37: /* reduce AErasecolorErase */
+		    {
+			ArrayList list = new37();
+			push(goTo(11), list);
+		    }
+		    break;
+                    case 38: /* reduce ATerminal$Color */
+		    {
+			ArrayList list = new38();
+			push(goTo(12), list);
+		    }
+		    break;
+                    case 39: /* reduce ANonTerminal$Color */
+		    {
+			ArrayList list = new39();
+			push(goTo(12), list);
 		    }
 		    break;
                     }
@@ -440,7 +449,27 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new1() /* reduce AStmtStmtlist */
+    ArrayList new1() /* reduce ADefProgram */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        PProgram pprogramNode1;
+        {
+            // Block
+        PDefinegrid pdefinegridNode2;
+        pdefinegridNode2 = (PDefinegrid)nodeArrayList1.get(0);
+
+        pprogramNode1 = new ADefProgram(pdefinegridNode2);
+        }
+	nodeList.add(pprogramNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new2() /* reduce AStmtStmtlist */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -460,7 +489,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new2() /* reduce AListStmtlist */
+    ArrayList new3() /* reduce AListStmtlist */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -483,7 +512,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new3() /* reduce AMoveStmt */
+    ArrayList new4() /* reduce AMoveStmt */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -503,7 +532,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new4() /* reduce ADrawStmt */
+    ArrayList new5() /* reduce ADrawStmt */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -523,7 +552,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new5() /* reduce AFillStmt */
+    ArrayList new6() /* reduce AFillStmt */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -543,7 +572,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new6() /* reduce ADefineDefinegrid */
+    ArrayList new7() /* reduce ADefineDefinegrid */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -566,7 +595,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new7() /* reduce AMoveMove */
+    ArrayList new8() /* reduce AMoveMove */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -589,7 +618,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new8() /* reduce AConnDraw */
+    ArrayList new9() /* reduce AConnDraw */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -609,18 +638,29 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new9() /* reduce ACircDraw */
+    ArrayList new10() /* reduce ACircl$Amakecirclecircle11Draw */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
         @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
         PDraw pdrawNode1;
         {
             // Block
         PCircle pcircleNode2;
-        pcircleNode2 = (PCircle)nodeArrayList1.get(0);
+        {
+            // Block
+        TKeywordcircle tkeywordcircleNode3;
+        TNumber tnumberNode4;
+        @SuppressWarnings("unused") Object nullNode5 = null;
+        @SuppressWarnings("unused") Object nullNode6 = null;
+        tkeywordcircleNode3 = (TKeywordcircle)nodeArrayList1.get(0);
+        tnumberNode4 = (TNumber)nodeArrayList2.get(0);
 
-        pdrawNode1 = new ACircDraw(pcircleNode2);
+        pcircleNode2 = new AMakecircleCircle(tkeywordcircleNode3, tnumberNode4, null, null);
+        }
+
+        pdrawNode1 = new ACirclDraw(pcircleNode2);
         }
 	nodeList.add(pdrawNode1);
         return nodeList;
@@ -629,7 +669,75 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new10() /* reduce AErasecolDraw */
+    ArrayList new11() /* reduce ACircl$Amakecirclecircle31Draw */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        PDraw pdrawNode1;
+        {
+            // Block
+        PCircle pcircleNode2;
+        {
+            // Block
+        TKeywordcircle tkeywordcircleNode3;
+        TNumber tnumberNode4;
+        @SuppressWarnings("unused") Object nullNode5 = null;
+        TColor tcolorNode6;
+        tkeywordcircleNode3 = (TKeywordcircle)nodeArrayList1.get(0);
+        tnumberNode4 = (TNumber)nodeArrayList2.get(0);
+        tcolorNode6 = (TColor)nodeArrayList3.get(0);
+
+        pcircleNode2 = new AMakecircleCircle(tkeywordcircleNode3, tnumberNode4, null, tcolorNode6);
+        }
+
+        pdrawNode1 = new ACirclDraw(pcircleNode2);
+        }
+	nodeList.add(pdrawNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new12() /* reduce ACircl$Amakecirclecircle41Draw */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        PDraw pdrawNode1;
+        {
+            // Block
+        PCircle pcircleNode2;
+        {
+            // Block
+        TKeywordcircle tkeywordcircleNode3;
+        TNumber tnumberNode4;
+        TColor tcolorNode5;
+        TColor tcolorNode6;
+        tkeywordcircleNode3 = (TKeywordcircle)nodeArrayList1.get(0);
+        tnumberNode4 = (TNumber)nodeArrayList2.get(0);
+        tcolorNode5 = (TColor)nodeArrayList3.get(0);
+        tcolorNode6 = (TColor)nodeArrayList4.get(0);
+
+        pcircleNode2 = new AMakecircleCircle(tkeywordcircleNode3, tnumberNode4, tcolorNode5, tcolorNode6);
+        }
+
+        pdrawNode1 = new ACirclDraw(pcircleNode2);
+        }
+	nodeList.add(pdrawNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new13() /* reduce AErasecolDraw */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -649,18 +757,29 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new11() /* reduce ASqDraw */
+    ArrayList new14() /* reduce ASqua$Amakesquaresquare11Draw */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
         @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
         PDraw pdrawNode1;
         {
             // Block
         PSquare psquareNode2;
-        psquareNode2 = (PSquare)nodeArrayList1.get(0);
+        {
+            // Block
+        TKeywordsquare tkeywordsquareNode3;
+        TNumber tnumberNode4;
+        @SuppressWarnings("unused") Object nullNode5 = null;
+        @SuppressWarnings("unused") Object nullNode6 = null;
+        tkeywordsquareNode3 = (TKeywordsquare)nodeArrayList1.get(0);
+        tnumberNode4 = (TNumber)nodeArrayList2.get(0);
 
-        pdrawNode1 = new ASqDraw(psquareNode2);
+        psquareNode2 = new AMakesquareSquare(tkeywordsquareNode3, tnumberNode4, null, null);
+        }
+
+        pdrawNode1 = new ASquaDraw(psquareNode2);
         }
 	nodeList.add(pdrawNode1);
         return nodeList;
@@ -669,18 +788,98 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new12() /* reduce ATriDraw */
+    ArrayList new15() /* reduce ASqua$Amakesquaresquare31Draw */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
+        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        PDraw pdrawNode1;
+        {
+            // Block
+        PSquare psquareNode2;
+        {
+            // Block
+        TKeywordsquare tkeywordsquareNode3;
+        TNumber tnumberNode4;
+        @SuppressWarnings("unused") Object nullNode5 = null;
+        TColor tcolorNode6;
+        tkeywordsquareNode3 = (TKeywordsquare)nodeArrayList1.get(0);
+        tnumberNode4 = (TNumber)nodeArrayList2.get(0);
+        tcolorNode6 = (TColor)nodeArrayList3.get(0);
+
+        psquareNode2 = new AMakesquareSquare(tkeywordsquareNode3, tnumberNode4, null, tcolorNode6);
+        }
+
+        pdrawNode1 = new ASquaDraw(psquareNode2);
+        }
+	nodeList.add(pdrawNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new16() /* reduce ASqua$Amakesquaresquare41Draw */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        PDraw pdrawNode1;
+        {
+            // Block
+        PSquare psquareNode2;
+        {
+            // Block
+        TKeywordsquare tkeywordsquareNode3;
+        TNumber tnumberNode4;
+        TColor tcolorNode5;
+        TColor tcolorNode6;
+        tkeywordsquareNode3 = (TKeywordsquare)nodeArrayList1.get(0);
+        tnumberNode4 = (TNumber)nodeArrayList2.get(0);
+        tcolorNode5 = (TColor)nodeArrayList3.get(0);
+        tcolorNode6 = (TColor)nodeArrayList4.get(0);
+
+        psquareNode2 = new AMakesquareSquare(tkeywordsquareNode3, tnumberNode4, tcolorNode5, tcolorNode6);
+        }
+
+        pdrawNode1 = new ASquaDraw(psquareNode2);
+        }
+	nodeList.add(pdrawNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new17() /* reduce ATria$Amaketriangletriangle11Draw */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
         @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
         PDraw pdrawNode1;
         {
             // Block
         PTriangle ptriangleNode2;
-        ptriangleNode2 = (PTriangle)nodeArrayList1.get(0);
+        {
+            // Block
+        TKeywordtriangle tkeywordtriangleNode3;
+        TNumber tnumberNode4;
+        @SuppressWarnings("unused") Object nullNode5 = null;
+        @SuppressWarnings("unused") Object nullNode6 = null;
+        @SuppressWarnings("unused") Object nullNode7 = null;
+        tkeywordtriangleNode3 = (TKeywordtriangle)nodeArrayList1.get(0);
+        tnumberNode4 = (TNumber)nodeArrayList2.get(0);
 
-        pdrawNode1 = new ATriDraw(ptriangleNode2);
+        ptriangleNode2 = new AMaketriangleTriangle(tkeywordtriangleNode3, tnumberNode4, null, null, null);
+        }
+
+        pdrawNode1 = new ATriaDraw(ptriangleNode2);
         }
 	nodeList.add(pdrawNode1);
         return nodeList;
@@ -689,18 +888,246 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new13() /* reduce ARectDraw */
+    ArrayList new18() /* reduce ATria$Amaketriangletriangle31Draw */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
+        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        PDraw pdrawNode1;
+        {
+            // Block
+        PTriangle ptriangleNode2;
+        {
+            // Block
+        TKeywordtriangle tkeywordtriangleNode3;
+        TNumber tnumberNode4;
+        @SuppressWarnings("unused") Object nullNode5 = null;
+        TTritype ttritypeNode6;
+        @SuppressWarnings("unused") Object nullNode7 = null;
+        tkeywordtriangleNode3 = (TKeywordtriangle)nodeArrayList1.get(0);
+        tnumberNode4 = (TNumber)nodeArrayList2.get(0);
+        ttritypeNode6 = (TTritype)nodeArrayList3.get(0);
+
+        ptriangleNode2 = new AMaketriangleTriangle(tkeywordtriangleNode3, tnumberNode4, null, ttritypeNode6, null);
+        }
+
+        pdrawNode1 = new ATriaDraw(ptriangleNode2);
+        }
+	nodeList.add(pdrawNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new19() /* reduce ATria$Amaketriangletriangle41Draw */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        PDraw pdrawNode1;
+        {
+            // Block
+        PTriangle ptriangleNode2;
+        {
+            // Block
+        TKeywordtriangle tkeywordtriangleNode3;
+        TNumber tnumberNode4;
+        TColor tcolorNode5;
+        TTritype ttritypeNode6;
+        @SuppressWarnings("unused") Object nullNode7 = null;
+        tkeywordtriangleNode3 = (TKeywordtriangle)nodeArrayList1.get(0);
+        tnumberNode4 = (TNumber)nodeArrayList2.get(0);
+        tcolorNode5 = (TColor)nodeArrayList3.get(0);
+        ttritypeNode6 = (TTritype)nodeArrayList4.get(0);
+
+        ptriangleNode2 = new AMaketriangleTriangle(tkeywordtriangleNode3, tnumberNode4, tcolorNode5, ttritypeNode6, null);
+        }
+
+        pdrawNode1 = new ATriaDraw(ptriangleNode2);
+        }
+	nodeList.add(pdrawNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new20() /* reduce ATria$Amaketriangletriangle51Draw */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        PDraw pdrawNode1;
+        {
+            // Block
+        PTriangle ptriangleNode2;
+        {
+            // Block
+        TKeywordtriangle tkeywordtriangleNode3;
+        TNumber tnumberNode4;
+        @SuppressWarnings("unused") Object nullNode5 = null;
+        @SuppressWarnings("unused") Object nullNode6 = null;
+        TColor tcolorNode7;
+        tkeywordtriangleNode3 = (TKeywordtriangle)nodeArrayList1.get(0);
+        tnumberNode4 = (TNumber)nodeArrayList2.get(0);
+        tcolorNode7 = (TColor)nodeArrayList3.get(0);
+
+        ptriangleNode2 = new AMaketriangleTriangle(tkeywordtriangleNode3, tnumberNode4, null, null, tcolorNode7);
+        }
+
+        pdrawNode1 = new ATriaDraw(ptriangleNode2);
+        }
+	nodeList.add(pdrawNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new21() /* reduce ATria$Amaketriangletriangle61Draw */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        PDraw pdrawNode1;
+        {
+            // Block
+        PTriangle ptriangleNode2;
+        {
+            // Block
+        TKeywordtriangle tkeywordtriangleNode3;
+        TNumber tnumberNode4;
+        TColor tcolorNode5;
+        @SuppressWarnings("unused") Object nullNode6 = null;
+        TColor tcolorNode7;
+        tkeywordtriangleNode3 = (TKeywordtriangle)nodeArrayList1.get(0);
+        tnumberNode4 = (TNumber)nodeArrayList2.get(0);
+        tcolorNode5 = (TColor)nodeArrayList3.get(0);
+        tcolorNode7 = (TColor)nodeArrayList4.get(0);
+
+        ptriangleNode2 = new AMaketriangleTriangle(tkeywordtriangleNode3, tnumberNode4, tcolorNode5, null, tcolorNode7);
+        }
+
+        pdrawNode1 = new ATriaDraw(ptriangleNode2);
+        }
+	nodeList.add(pdrawNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new22() /* reduce ATria$Amaketriangletriangle71Draw */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        PDraw pdrawNode1;
+        {
+            // Block
+        PTriangle ptriangleNode2;
+        {
+            // Block
+        TKeywordtriangle tkeywordtriangleNode3;
+        TNumber tnumberNode4;
+        @SuppressWarnings("unused") Object nullNode5 = null;
+        TTritype ttritypeNode6;
+        TColor tcolorNode7;
+        tkeywordtriangleNode3 = (TKeywordtriangle)nodeArrayList1.get(0);
+        tnumberNode4 = (TNumber)nodeArrayList2.get(0);
+        ttritypeNode6 = (TTritype)nodeArrayList3.get(0);
+        tcolorNode7 = (TColor)nodeArrayList4.get(0);
+
+        ptriangleNode2 = new AMaketriangleTriangle(tkeywordtriangleNode3, tnumberNode4, null, ttritypeNode6, tcolorNode7);
+        }
+
+        pdrawNode1 = new ATriaDraw(ptriangleNode2);
+        }
+	nodeList.add(pdrawNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new23() /* reduce ATria$Amaketriangletriangle81Draw */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList5 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        PDraw pdrawNode1;
+        {
+            // Block
+        PTriangle ptriangleNode2;
+        {
+            // Block
+        TKeywordtriangle tkeywordtriangleNode3;
+        TNumber tnumberNode4;
+        TColor tcolorNode5;
+        TTritype ttritypeNode6;
+        TColor tcolorNode7;
+        tkeywordtriangleNode3 = (TKeywordtriangle)nodeArrayList1.get(0);
+        tnumberNode4 = (TNumber)nodeArrayList2.get(0);
+        tcolorNode5 = (TColor)nodeArrayList3.get(0);
+        ttritypeNode6 = (TTritype)nodeArrayList4.get(0);
+        tcolorNode7 = (TColor)nodeArrayList5.get(0);
+
+        ptriangleNode2 = new AMaketriangleTriangle(tkeywordtriangleNode3, tnumberNode4, tcolorNode5, ttritypeNode6, tcolorNode7);
+        }
+
+        pdrawNode1 = new ATriaDraw(ptriangleNode2);
+        }
+	nodeList.add(pdrawNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new24() /* reduce ARecta$Amakerectanglerectangle11Draw */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
         @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
         PDraw pdrawNode1;
         {
             // Block
         PRectangle prectangleNode2;
-        prectangleNode2 = (PRectangle)nodeArrayList1.get(0);
+        {
+            // Block
+        TKeywordrectangle tkeywordrectangleNode3;
+        TNumber tnumberNode4;
+        TNumber tnumberNode5;
+        @SuppressWarnings("unused") Object nullNode6 = null;
+        @SuppressWarnings("unused") Object nullNode7 = null;
+        tkeywordrectangleNode3 = (TKeywordrectangle)nodeArrayList1.get(0);
+        tnumberNode4 = (TNumber)nodeArrayList2.get(0);
+        tnumberNode5 = (TNumber)nodeArrayList3.get(0);
 
-        pdrawNode1 = new ARectDraw(prectangleNode2);
+        prectangleNode2 = new AMakerectangleRectangle(tkeywordrectangleNode3, tnumberNode4, tnumberNode5, null, null);
+        }
+
+        pdrawNode1 = new ARectaDraw(prectangleNode2);
         }
 	nodeList.add(pdrawNode1);
         return nodeList;
@@ -709,18 +1136,103 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new14() /* reduce ARhoDraw */
+    ArrayList new25() /* reduce ARecta$Amakerectanglerectangle31Draw */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
+        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        PDraw pdrawNode1;
+        {
+            // Block
+        PRectangle prectangleNode2;
+        {
+            // Block
+        TKeywordrectangle tkeywordrectangleNode3;
+        TNumber tnumberNode4;
+        TNumber tnumberNode5;
+        @SuppressWarnings("unused") Object nullNode6 = null;
+        TColor tcolorNode7;
+        tkeywordrectangleNode3 = (TKeywordrectangle)nodeArrayList1.get(0);
+        tnumberNode4 = (TNumber)nodeArrayList2.get(0);
+        tnumberNode5 = (TNumber)nodeArrayList3.get(0);
+        tcolorNode7 = (TColor)nodeArrayList4.get(0);
+
+        prectangleNode2 = new AMakerectangleRectangle(tkeywordrectangleNode3, tnumberNode4, tnumberNode5, null, tcolorNode7);
+        }
+
+        pdrawNode1 = new ARectaDraw(prectangleNode2);
+        }
+	nodeList.add(pdrawNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new26() /* reduce ARecta$Amakerectanglerectangle41Draw */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList5 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        PDraw pdrawNode1;
+        {
+            // Block
+        PRectangle prectangleNode2;
+        {
+            // Block
+        TKeywordrectangle tkeywordrectangleNode3;
+        TNumber tnumberNode4;
+        TNumber tnumberNode5;
+        TColor tcolorNode6;
+        TColor tcolorNode7;
+        tkeywordrectangleNode3 = (TKeywordrectangle)nodeArrayList1.get(0);
+        tnumberNode4 = (TNumber)nodeArrayList2.get(0);
+        tnumberNode5 = (TNumber)nodeArrayList3.get(0);
+        tcolorNode6 = (TColor)nodeArrayList4.get(0);
+        tcolorNode7 = (TColor)nodeArrayList5.get(0);
+
+        prectangleNode2 = new AMakerectangleRectangle(tkeywordrectangleNode3, tnumberNode4, tnumberNode5, tcolorNode6, tcolorNode7);
+        }
+
+        pdrawNode1 = new ARectaDraw(prectangleNode2);
+        }
+	nodeList.add(pdrawNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new27() /* reduce ARhom$Amakerhombusrhombus11Draw */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
         @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
         PDraw pdrawNode1;
         {
             // Block
         PRhombus prhombusNode2;
-        prhombusNode2 = (PRhombus)nodeArrayList1.get(0);
+        {
+            // Block
+        TKeywordrhombus tkeywordrhombusNode3;
+        TNumber tnumberNode4;
+        @SuppressWarnings("unused") Object nullNode5 = null;
+        @SuppressWarnings("unused") Object nullNode6 = null;
+        tkeywordrhombusNode3 = (TKeywordrhombus)nodeArrayList1.get(0);
+        tnumberNode4 = (TNumber)nodeArrayList2.get(0);
 
-        pdrawNode1 = new ARhoDraw(prhombusNode2);
+        prhombusNode2 = new AMakerhombusRhombus(tkeywordrhombusNode3, tnumberNode4, null, null);
+        }
+
+        pdrawNode1 = new ARhomDraw(prhombusNode2);
         }
 	nodeList.add(pdrawNode1);
         return nodeList;
@@ -729,7 +1241,75 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new15() /* reduce AFillrColorize */
+    ArrayList new28() /* reduce ARhom$Amakerhombusrhombus31Draw */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        PDraw pdrawNode1;
+        {
+            // Block
+        PRhombus prhombusNode2;
+        {
+            // Block
+        TKeywordrhombus tkeywordrhombusNode3;
+        TNumber tnumberNode4;
+        @SuppressWarnings("unused") Object nullNode5 = null;
+        TColor tcolorNode6;
+        tkeywordrhombusNode3 = (TKeywordrhombus)nodeArrayList1.get(0);
+        tnumberNode4 = (TNumber)nodeArrayList2.get(0);
+        tcolorNode6 = (TColor)nodeArrayList3.get(0);
+
+        prhombusNode2 = new AMakerhombusRhombus(tkeywordrhombusNode3, tnumberNode4, null, tcolorNode6);
+        }
+
+        pdrawNode1 = new ARhomDraw(prhombusNode2);
+        }
+	nodeList.add(pdrawNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new29() /* reduce ARhom$Amakerhombusrhombus41Draw */
+    {
+        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
+
+        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
+        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
+        PDraw pdrawNode1;
+        {
+            // Block
+        PRhombus prhombusNode2;
+        {
+            // Block
+        TKeywordrhombus tkeywordrhombusNode3;
+        TNumber tnumberNode4;
+        TColor tcolorNode5;
+        TColor tcolorNode6;
+        tkeywordrhombusNode3 = (TKeywordrhombus)nodeArrayList1.get(0);
+        tnumberNode4 = (TNumber)nodeArrayList2.get(0);
+        tcolorNode5 = (TColor)nodeArrayList3.get(0);
+        tcolorNode6 = (TColor)nodeArrayList4.get(0);
+
+        prhombusNode2 = new AMakerhombusRhombus(tkeywordrhombusNode3, tnumberNode4, tcolorNode5, tcolorNode6);
+        }
+
+        pdrawNode1 = new ARhomDraw(prhombusNode2);
+        }
+	nodeList.add(pdrawNode1);
+        return nodeList;
+    }
+
+
+
+    @SuppressWarnings("unchecked")
+    ArrayList new30() /* reduce AFillrColorize */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -760,321 +1340,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new16() /* reduce AAmakecirclecircle1Circle */
-    {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
-
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
-        PCircle pcircleNode1;
-        {
-            // Block
-        TKeywordcircle tkeywordcircleNode2;
-        TNumber tnumberNode3;
-        @SuppressWarnings("unused") Object nullNode4 = null;
-        tkeywordcircleNode2 = (TKeywordcircle)nodeArrayList1.get(0);
-        tnumberNode3 = (TNumber)nodeArrayList2.get(0);
-
-        pcircleNode1 = new AMakecircleCircle(tkeywordcircleNode2, tnumberNode3, null);
-        }
-	nodeList.add(pcircleNode1);
-        return nodeList;
-    }
-
-
-
-    @SuppressWarnings("unchecked")
-    ArrayList new17() /* reduce AAmakecirclecircle2Circle */
-    {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
-
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
-        PCircle pcircleNode1;
-        {
-            // Block
-        TKeywordcircle tkeywordcircleNode2;
-        TNumber tnumberNode3;
-        TColor tcolorNode4;
-        tkeywordcircleNode2 = (TKeywordcircle)nodeArrayList1.get(0);
-        tnumberNode3 = (TNumber)nodeArrayList2.get(0);
-        tcolorNode4 = (TColor)nodeArrayList3.get(0);
-
-        pcircleNode1 = new AMakecircleCircle(tkeywordcircleNode2, tnumberNode3, tcolorNode4);
-        }
-	nodeList.add(pcircleNode1);
-        return nodeList;
-    }
-
-
-
-    @SuppressWarnings("unchecked")
-    ArrayList new18() /* reduce AAmakesquaresquare1Square */
-    {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
-
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
-        PSquare psquareNode1;
-        {
-            // Block
-        TKeywordsquare tkeywordsquareNode2;
-        TNumber tnumberNode3;
-        @SuppressWarnings("unused") Object nullNode4 = null;
-        tkeywordsquareNode2 = (TKeywordsquare)nodeArrayList1.get(0);
-        tnumberNode3 = (TNumber)nodeArrayList2.get(0);
-
-        psquareNode1 = new AMakesquareSquare(tkeywordsquareNode2, tnumberNode3, null);
-        }
-	nodeList.add(psquareNode1);
-        return nodeList;
-    }
-
-
-
-    @SuppressWarnings("unchecked")
-    ArrayList new19() /* reduce AAmakesquaresquare2Square */
-    {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
-
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
-        PSquare psquareNode1;
-        {
-            // Block
-        TKeywordsquare tkeywordsquareNode2;
-        TNumber tnumberNode3;
-        TColor tcolorNode4;
-        tkeywordsquareNode2 = (TKeywordsquare)nodeArrayList1.get(0);
-        tnumberNode3 = (TNumber)nodeArrayList2.get(0);
-        tcolorNode4 = (TColor)nodeArrayList3.get(0);
-
-        psquareNode1 = new AMakesquareSquare(tkeywordsquareNode2, tnumberNode3, tcolorNode4);
-        }
-	nodeList.add(psquareNode1);
-        return nodeList;
-    }
-
-
-
-    @SuppressWarnings("unchecked")
-    ArrayList new20() /* reduce AAmaketriangletriangle1Triangle */
-    {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
-
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
-        PTriangle ptriangleNode1;
-        {
-            // Block
-        TKeywordtriangle tkeywordtriangleNode2;
-        TNumber tnumberNode3;
-        @SuppressWarnings("unused") Object nullNode4 = null;
-        @SuppressWarnings("unused") Object nullNode5 = null;
-        tkeywordtriangleNode2 = (TKeywordtriangle)nodeArrayList1.get(0);
-        tnumberNode3 = (TNumber)nodeArrayList2.get(0);
-
-        ptriangleNode1 = new AMaketriangleTriangle(tkeywordtriangleNode2, tnumberNode3, null, null);
-        }
-	nodeList.add(ptriangleNode1);
-        return nodeList;
-    }
-
-
-
-    @SuppressWarnings("unchecked")
-    ArrayList new21() /* reduce AAmaketriangletriangle2Triangle */
-    {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
-
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
-        PTriangle ptriangleNode1;
-        {
-            // Block
-        TKeywordtriangle tkeywordtriangleNode2;
-        TNumber tnumberNode3;
-        TColor tcolorNode4;
-        @SuppressWarnings("unused") Object nullNode5 = null;
-        tkeywordtriangleNode2 = (TKeywordtriangle)nodeArrayList1.get(0);
-        tnumberNode3 = (TNumber)nodeArrayList2.get(0);
-        tcolorNode4 = (TColor)nodeArrayList3.get(0);
-
-        ptriangleNode1 = new AMaketriangleTriangle(tkeywordtriangleNode2, tnumberNode3, tcolorNode4, null);
-        }
-	nodeList.add(ptriangleNode1);
-        return nodeList;
-    }
-
-
-
-    @SuppressWarnings("unchecked")
-    ArrayList new22() /* reduce AAmaketriangletriangle3Triangle */
-    {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
-
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
-        PTriangle ptriangleNode1;
-        {
-            // Block
-        TKeywordtriangle tkeywordtriangleNode2;
-        TNumber tnumberNode3;
-        @SuppressWarnings("unused") Object nullNode4 = null;
-        TTritype ttritypeNode5;
-        tkeywordtriangleNode2 = (TKeywordtriangle)nodeArrayList1.get(0);
-        tnumberNode3 = (TNumber)nodeArrayList2.get(0);
-        ttritypeNode5 = (TTritype)nodeArrayList3.get(0);
-
-        ptriangleNode1 = new AMaketriangleTriangle(tkeywordtriangleNode2, tnumberNode3, null, ttritypeNode5);
-        }
-	nodeList.add(ptriangleNode1);
-        return nodeList;
-    }
-
-
-
-    @SuppressWarnings("unchecked")
-    ArrayList new23() /* reduce AAmaketriangletriangle4Triangle */
-    {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
-
-        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
-        PTriangle ptriangleNode1;
-        {
-            // Block
-        TKeywordtriangle tkeywordtriangleNode2;
-        TNumber tnumberNode3;
-        TColor tcolorNode4;
-        TTritype ttritypeNode5;
-        tkeywordtriangleNode2 = (TKeywordtriangle)nodeArrayList1.get(0);
-        tnumberNode3 = (TNumber)nodeArrayList2.get(0);
-        tcolorNode4 = (TColor)nodeArrayList3.get(0);
-        ttritypeNode5 = (TTritype)nodeArrayList4.get(0);
-
-        ptriangleNode1 = new AMaketriangleTriangle(tkeywordtriangleNode2, tnumberNode3, tcolorNode4, ttritypeNode5);
-        }
-	nodeList.add(ptriangleNode1);
-        return nodeList;
-    }
-
-
-
-    @SuppressWarnings("unchecked")
-    ArrayList new24() /* reduce AAmakerectanglerectangle1Rectangle */
-    {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
-
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
-        PRectangle prectangleNode1;
-        {
-            // Block
-        TKeywordrectangle tkeywordrectangleNode2;
-        TNumber tnumberNode3;
-        TNumber tnumberNode4;
-        @SuppressWarnings("unused") Object nullNode5 = null;
-        tkeywordrectangleNode2 = (TKeywordrectangle)nodeArrayList1.get(0);
-        tnumberNode3 = (TNumber)nodeArrayList2.get(0);
-        tnumberNode4 = (TNumber)nodeArrayList3.get(0);
-
-        prectangleNode1 = new AMakerectangleRectangle(tkeywordrectangleNode2, tnumberNode3, tnumberNode4, null);
-        }
-	nodeList.add(prectangleNode1);
-        return nodeList;
-    }
-
-
-
-    @SuppressWarnings("unchecked")
-    ArrayList new25() /* reduce AAmakerectanglerectangle2Rectangle */
-    {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
-
-        @SuppressWarnings("unused") ArrayList nodeArrayList4 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
-        PRectangle prectangleNode1;
-        {
-            // Block
-        TKeywordrectangle tkeywordrectangleNode2;
-        TNumber tnumberNode3;
-        TNumber tnumberNode4;
-        TColor tcolorNode5;
-        tkeywordrectangleNode2 = (TKeywordrectangle)nodeArrayList1.get(0);
-        tnumberNode3 = (TNumber)nodeArrayList2.get(0);
-        tnumberNode4 = (TNumber)nodeArrayList3.get(0);
-        tcolorNode5 = (TColor)nodeArrayList4.get(0);
-
-        prectangleNode1 = new AMakerectangleRectangle(tkeywordrectangleNode2, tnumberNode3, tnumberNode4, tcolorNode5);
-        }
-	nodeList.add(prectangleNode1);
-        return nodeList;
-    }
-
-
-
-    @SuppressWarnings("unchecked")
-    ArrayList new26() /* reduce AAmakerhombusrhombus1Rhombus */
-    {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
-
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
-        PRhombus prhombusNode1;
-        {
-            // Block
-        TKeywordrhombus tkeywordrhombusNode2;
-        TNumber tnumberNode3;
-        @SuppressWarnings("unused") Object nullNode4 = null;
-        tkeywordrhombusNode2 = (TKeywordrhombus)nodeArrayList1.get(0);
-        tnumberNode3 = (TNumber)nodeArrayList2.get(0);
-
-        prhombusNode1 = new AMakerhombusRhombus(tkeywordrhombusNode2, tnumberNode3, null);
-        }
-	nodeList.add(prhombusNode1);
-        return nodeList;
-    }
-
-
-
-    @SuppressWarnings("unchecked")
-    ArrayList new27() /* reduce AAmakerhombusrhombus2Rhombus */
-    {
-        @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
-
-        @SuppressWarnings("unused") ArrayList nodeArrayList3 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList2 = pop();
-        @SuppressWarnings("unused") ArrayList nodeArrayList1 = pop();
-        PRhombus prhombusNode1;
-        {
-            // Block
-        TKeywordrhombus tkeywordrhombusNode2;
-        TNumber tnumberNode3;
-        TColor tcolorNode4;
-        tkeywordrhombusNode2 = (TKeywordrhombus)nodeArrayList1.get(0);
-        tnumberNode3 = (TNumber)nodeArrayList2.get(0);
-        tcolorNode4 = (TColor)nodeArrayList3.get(0);
-
-        prhombusNode1 = new AMakerhombusRhombus(tkeywordrhombusNode2, tnumberNode3, tcolorNode4);
-        }
-	nodeList.add(prhombusNode1);
-        return nodeList;
-    }
-
-
-
-    @SuppressWarnings("unchecked")
-    ArrayList new28() /* reduce AMarkConnect */
+    ArrayList new31() /* reduce AMarkConnect */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -1094,7 +1360,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new29() /* reduce AConnectcolConnect */
+    ArrayList new32() /* reduce AConnectcolConnect */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -1114,7 +1380,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new30() /* reduce AChoosecolConnect */
+    ArrayList new33() /* reduce AChoosecolConnect */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -1134,7 +1400,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new31() /* reduce AConnectcolorConnectcolor */
+    ArrayList new34() /* reduce AConnectcolorConnectcolor */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -1160,7 +1426,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new32() /* reduce AChooseChoosecolor */
+    ArrayList new35() /* reduce AChooseChoosecolor */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -1183,7 +1449,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new33() /* reduce AMarkpoint */
+    ArrayList new36() /* reduce AMarkpoint */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -1203,7 +1469,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new34() /* reduce AErasecolorErase */
+    ArrayList new37() /* reduce AErasecolorErase */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -1226,7 +1492,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new35() /* reduce ATerminal$Color */
+    ArrayList new38() /* reduce ATerminal$Color */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -1248,7 +1514,7 @@ public class Parser
 
 
     @SuppressWarnings("unchecked")
-    ArrayList new36() /* reduce ANonTerminal$Color */
+    ArrayList new39() /* reduce ANonTerminal$Color */
     {
         @SuppressWarnings("hiding") ArrayList nodeList = new ArrayList();
 
@@ -1281,61 +1547,63 @@ public class Parser
 			{{-1, ERROR, 0}, {0, SHIFT, 1}, },
 			{{-1, ERROR, 1}, {16, SHIFT, 4}, },
 			{{-1, ERROR, 2}, {21, ACCEPT, -1}, },
-			{{-1, ERROR, 3}, {2, SHIFT, 5}, {3, SHIFT, 6}, {4, SHIFT, 7}, {5, SHIFT, 8}, {6, SHIFT, 9}, {7, SHIFT, 10}, {8, SHIFT, 11}, {9, SHIFT, 12}, {10, SHIFT, 13}, {11, SHIFT, 14}, {12, SHIFT, 15}, },
-			{{-1, REDUCE, 6}, },
-			{{-1, REDUCE, 33}, },
-			{{-1, ERROR, 6}, {13, SHIFT, 31}, },
-			{{-1, ERROR, 7}, {13, SHIFT, 32}, },
-			{{-1, ERROR, 8}, {16, SHIFT, 33}, },
-			{{-1, ERROR, 9}, {16, SHIFT, 34}, },
-			{{-1, ERROR, 10}, {16, SHIFT, 35}, },
-			{{-1, ERROR, 11}, {16, SHIFT, 36}, },
-			{{-1, ERROR, 12}, {16, SHIFT, 37}, },
-			{{-1, ERROR, 13}, {13, SHIFT, 38}, },
-			{{-1, ERROR, 14}, {13, SHIFT, 40}, },
-			{{-1, ERROR, 15}, {16, SHIFT, 41}, },
-			{{-1, REDUCE, 0}, },
 			{{-1, REDUCE, 1}, {2, SHIFT, 5}, {3, SHIFT, 6}, {4, SHIFT, 7}, {5, SHIFT, 8}, {6, SHIFT, 9}, {7, SHIFT, 10}, {8, SHIFT, 11}, {9, SHIFT, 12}, {10, SHIFT, 13}, {11, SHIFT, 14}, {12, SHIFT, 15}, },
-			{{-1, REDUCE, 3}, },
+			{{-1, REDUCE, 7}, },
+			{{-1, REDUCE, 36}, },
+			{{-1, ERROR, 6}, {13, SHIFT, 26}, },
+			{{-1, ERROR, 7}, {13, SHIFT, 27}, },
+			{{-1, ERROR, 8}, {16, SHIFT, 28}, },
+			{{-1, ERROR, 9}, {16, SHIFT, 29}, },
+			{{-1, ERROR, 10}, {16, SHIFT, 30}, },
+			{{-1, ERROR, 11}, {16, SHIFT, 31}, },
+			{{-1, ERROR, 12}, {16, SHIFT, 32}, },
+			{{-1, ERROR, 13}, {13, SHIFT, 33}, },
+			{{-1, ERROR, 14}, {13, SHIFT, 35}, },
+			{{-1, ERROR, 15}, {16, SHIFT, 36}, },
+			{{-1, REDUCE, 0}, },
+			{{-1, REDUCE, 2}, {2, SHIFT, 5}, {3, SHIFT, 6}, {4, SHIFT, 7}, {5, SHIFT, 8}, {6, SHIFT, 9}, {7, SHIFT, 10}, {8, SHIFT, 11}, {9, SHIFT, 12}, {10, SHIFT, 13}, {11, SHIFT, 14}, {12, SHIFT, 15}, },
 			{{-1, REDUCE, 4}, },
 			{{-1, REDUCE, 5}, },
+			{{-1, REDUCE, 6}, },
 			{{-1, REDUCE, 9}, },
-			{{-1, REDUCE, 11}, },
-			{{-1, REDUCE, 12}, },
-			{{-1, REDUCE, 13}, },
-			{{-1, REDUCE, 14}, },
-			{{-1, REDUCE, 8}, },
-			{{-1, REDUCE, 29}, },
-			{{-1, REDUCE, 30}, },
-			{{-1, REDUCE, 28}, },
-			{{-1, REDUCE, 10}, },
 			{{-1, REDUCE, 32}, },
-			{{-1, ERROR, 32}, {14, SHIFT, 43}, },
-			{{-1, REDUCE, 16}, {13, SHIFT, 44}, },
-			{{-1, REDUCE, 18}, {13, SHIFT, 45}, },
-			{{-1, REDUCE, 20}, {13, SHIFT, 46}, {15, SHIFT, 47}, },
-			{{-1, ERROR, 36}, {16, SHIFT, 48}, },
-			{{-1, REDUCE, 26}, {13, SHIFT, 49}, },
-			{{-1, REDUCE, 35}, },
-			{{-1, REDUCE, 15}, {13, SHIFT, 50}, },
-			{{-1, REDUCE, 34}, },
-			{{-1, REDUCE, 7}, },
-			{{-1, REDUCE, 2}, },
+			{{-1, REDUCE, 33}, },
 			{{-1, REDUCE, 31}, },
-			{{-1, REDUCE, 17}, },
-			{{-1, REDUCE, 19}, },
-			{{-1, REDUCE, 21}, {15, SHIFT, 51}, },
+			{{-1, REDUCE, 13}, },
+			{{-1, REDUCE, 35}, },
+			{{-1, ERROR, 27}, {14, SHIFT, 38}, },
+			{{-1, REDUCE, 10}, {13, SHIFT, 39}, },
+			{{-1, REDUCE, 14}, {13, SHIFT, 40}, },
+			{{-1, REDUCE, 17}, {13, SHIFT, 41}, {15, SHIFT, 42}, },
+			{{-1, ERROR, 31}, {16, SHIFT, 43}, },
+			{{-1, REDUCE, 27}, {13, SHIFT, 44}, },
+			{{-1, REDUCE, 38}, },
+			{{-1, REDUCE, 30}, {13, SHIFT, 45}, },
+			{{-1, REDUCE, 37}, },
+			{{-1, REDUCE, 8}, },
+			{{-1, REDUCE, 3}, },
+			{{-1, REDUCE, 34}, },
+			{{-1, REDUCE, 11}, {13, SHIFT, 46}, },
+			{{-1, REDUCE, 15}, {13, SHIFT, 47}, },
+			{{-1, REDUCE, 20}, {13, SHIFT, 48}, {15, SHIFT, 49}, },
+			{{-1, REDUCE, 18}, {13, SHIFT, 50}, },
+			{{-1, REDUCE, 24}, {13, SHIFT, 51}, },
+			{{-1, REDUCE, 28}, {13, SHIFT, 52}, },
+			{{-1, REDUCE, 39}, },
+			{{-1, REDUCE, 12}, },
+			{{-1, REDUCE, 16}, },
+			{{-1, REDUCE, 21}, },
+			{{-1, REDUCE, 19}, {13, SHIFT, 53}, },
 			{{-1, REDUCE, 22}, },
-			{{-1, REDUCE, 24}, {13, SHIFT, 52}, },
-			{{-1, REDUCE, 27}, },
-			{{-1, REDUCE, 36}, },
+			{{-1, REDUCE, 25}, {13, SHIFT, 54}, },
+			{{-1, REDUCE, 29}, },
 			{{-1, REDUCE, 23}, },
-			{{-1, REDUCE, 25}, },
+			{{-1, REDUCE, 26}, },
         };*/
     private static int[][][] gotoTable;
 /*      {
 			{{-1, 2}, },
-			{{-1, 16}, {17, 42}, },
+			{{-1, 16}, {17, 37}, },
 			{{-1, 17}, },
 			{{-1, 3}, },
 			{{-1, 18}, },
@@ -1346,29 +1614,22 @@ public class Parser
 			{{-1, 23}, },
 			{{-1, 24}, },
 			{{-1, 25}, },
-			{{-1, 26}, },
-			{{-1, 27}, },
-			{{-1, 28}, },
-			{{-1, 29}, },
-			{{-1, 30}, },
-			{{-1, 39}, },
+			{{-1, 34}, },
         };*/
     private static String[] errorMessages;
 /*      {
 			"expecting: keywordgrid",
 			"expecting: number",
 			"expecting: EOF",
-			"expecting: keywordmark, keywordchoose, keywordconnect, keywordcircle, keywordsquare, keywordtriangle, keywordrectangle, keywordrhombus, keywordfill, keyworderase, direction",
 			"expecting: keywordmark, keywordchoose, keywordconnect, keywordcircle, keywordsquare, keywordtriangle, keywordrectangle, keywordrhombus, keywordfill, keyworderase, direction, EOF",
 			"expecting: color",
 			"expecting: shape",
 			"expecting: keywordmark, keywordchoose, keywordconnect, keywordcircle, keywordsquare, keywordtriangle, keywordrectangle, keywordrhombus, keywordfill, keyworderase, direction, color, EOF",
 			"expecting: keywordmark, keywordchoose, keywordconnect, keywordcircle, keywordsquare, keywordtriangle, keywordrectangle, keywordrhombus, keywordfill, keyworderase, direction, color, tritype, EOF",
-			"expecting: keywordmark, keywordchoose, keywordconnect, keywordcircle, keywordsquare, keywordtriangle, keywordrectangle, keywordrhombus, keywordfill, keyworderase, direction, tritype, EOF",
         };*/
     private static int[] errors;
 /*      {
-			0, 1, 2, 3, 3, 4, 5, 5, 1, 1, 1, 1, 1, 5, 5, 1, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6, 7, 7, 8, 1, 7, 7, 7, 4, 4, 2, 4, 4, 4, 9, 4, 7, 4, 7, 4, 4, 
+			0, 1, 2, 3, 3, 3, 4, 4, 1, 1, 1, 1, 1, 4, 4, 1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 5, 6, 6, 7, 1, 6, 6, 6, 3, 3, 2, 3, 6, 6, 7, 6, 6, 6, 6, 3, 3, 3, 6, 3, 6, 3, 3, 3, 
         };*/
 
     static 

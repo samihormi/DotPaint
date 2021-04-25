@@ -61,6 +61,27 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outAProgram(node);
     }
 
+    public void inADefProgram(ADefProgram node)
+    {
+        defaultIn(node);
+    }
+
+    public void outADefProgram(ADefProgram node)
+    {
+        defaultOut(node);
+    }
+
+    @Override
+    public void caseADefProgram(ADefProgram node)
+    {
+        inADefProgram(node);
+        if(node.getDefinegrid() != null)
+        {
+            node.getDefinegrid().apply(this);
+        }
+        outADefProgram(node);
+    }
+
     public void inAStmtStmtlist(AStmtStmtlist node)
     {
         defaultIn(node);
@@ -241,25 +262,25 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outAConnDraw(node);
     }
 
-    public void inACircDraw(ACircDraw node)
+    public void inACirclDraw(ACirclDraw node)
     {
         defaultIn(node);
     }
 
-    public void outACircDraw(ACircDraw node)
+    public void outACirclDraw(ACirclDraw node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseACircDraw(ACircDraw node)
+    public void caseACirclDraw(ACirclDraw node)
     {
-        inACircDraw(node);
+        inACirclDraw(node);
         if(node.getCircle() != null)
         {
             node.getCircle().apply(this);
         }
-        outACircDraw(node);
+        outACirclDraw(node);
     }
 
     public void inAErasecolDraw(AErasecolDraw node)
@@ -283,88 +304,88 @@ public class DepthFirstAdapter extends AnalysisAdapter
         outAErasecolDraw(node);
     }
 
-    public void inASqDraw(ASqDraw node)
+    public void inASquaDraw(ASquaDraw node)
     {
         defaultIn(node);
     }
 
-    public void outASqDraw(ASqDraw node)
+    public void outASquaDraw(ASquaDraw node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseASqDraw(ASqDraw node)
+    public void caseASquaDraw(ASquaDraw node)
     {
-        inASqDraw(node);
+        inASquaDraw(node);
         if(node.getSquare() != null)
         {
             node.getSquare().apply(this);
         }
-        outASqDraw(node);
+        outASquaDraw(node);
     }
 
-    public void inATriDraw(ATriDraw node)
+    public void inATriaDraw(ATriaDraw node)
     {
         defaultIn(node);
     }
 
-    public void outATriDraw(ATriDraw node)
+    public void outATriaDraw(ATriaDraw node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseATriDraw(ATriDraw node)
+    public void caseATriaDraw(ATriaDraw node)
     {
-        inATriDraw(node);
+        inATriaDraw(node);
         if(node.getTriangle() != null)
         {
             node.getTriangle().apply(this);
         }
-        outATriDraw(node);
+        outATriaDraw(node);
     }
 
-    public void inARectDraw(ARectDraw node)
+    public void inARectaDraw(ARectaDraw node)
     {
         defaultIn(node);
     }
 
-    public void outARectDraw(ARectDraw node)
+    public void outARectaDraw(ARectaDraw node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseARectDraw(ARectDraw node)
+    public void caseARectaDraw(ARectaDraw node)
     {
-        inARectDraw(node);
+        inARectaDraw(node);
         if(node.getRectangle() != null)
         {
             node.getRectangle().apply(this);
         }
-        outARectDraw(node);
+        outARectaDraw(node);
     }
 
-    public void inARhoDraw(ARhoDraw node)
+    public void inARhomDraw(ARhomDraw node)
     {
         defaultIn(node);
     }
 
-    public void outARhoDraw(ARhoDraw node)
+    public void outARhomDraw(ARhomDraw node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseARhoDraw(ARhoDraw node)
+    public void caseARhomDraw(ARhomDraw node)
     {
-        inARhoDraw(node);
+        inARhomDraw(node);
         if(node.getRhombus() != null)
         {
             node.getRhombus().apply(this);
         }
-        outARhoDraw(node);
+        outARhomDraw(node);
     }
 
     public void inAFillrColorize(AFillrColorize node)
@@ -421,6 +442,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getColor().apply(this);
         }
+        if(node.getParameter() != null)
+        {
+            node.getParameter().apply(this);
+        }
         outAMakecircleCircle(node);
     }
 
@@ -449,6 +474,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
         if(node.getColor() != null)
         {
             node.getColor().apply(this);
+        }
+        if(node.getParameter() != null)
+        {
+            node.getParameter().apply(this);
         }
         outAMakesquareSquare(node);
     }
@@ -483,6 +512,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getTritype().apply(this);
         }
+        if(node.getParameter() != null)
+        {
+            node.getParameter().apply(this);
+        }
         outAMaketriangleTriangle(node);
     }
 
@@ -516,6 +549,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
         {
             node.getColor().apply(this);
         }
+        if(node.getParameterr() != null)
+        {
+            node.getParameterr().apply(this);
+        }
         outAMakerectangleRectangle(node);
     }
 
@@ -544,6 +581,10 @@ public class DepthFirstAdapter extends AnalysisAdapter
         if(node.getColor() != null)
         {
             node.getColor().apply(this);
+        }
+        if(node.getParameter() != null)
+        {
+            node.getParameter().apply(this);
         }
         outAMakerhombusRhombus(node);
     }

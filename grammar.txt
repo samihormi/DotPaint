@@ -40,11 +40,11 @@ Tokens
 	keywordchoose = c h o o s e;
 	keywordconnect = c o n n e c t;
 
-	keywordcircle = c i r c l e;
-	keywordsquare = s q u a r e;
-	keywordtriangle = t r i a n g l e;
-	keywordrectangle = r e c t a n g l e;
-	keywordrhombus = r h o m b u s;
+	keywordcircle = c i r | c i r c l e;
+	keywordsquare = s q r | s q u a r e;
+	keywordtriangle = t r i | t r i a n g l e;
+	keywordrectangle = r e c t | r e c t a n g l e;
+	keywordrhombus = r h o | r h o m b u s;
 
 	keywordfill = f i l l;
 	keyworderase = e r a s e;
@@ -70,14 +70,14 @@ Productions
  stmt = {move} move | {draw} draw | {fill} colorize;
  definegrid = {define} keywordgrid number;
  move = {move} direction number;
- draw = {conn} connect | {circ} circle | {erasecol} erase | {sq} square | {tri} triangle | {rect} rectangle | {rho} rhombus;
+ draw = {conn} connect | {circl} circle | {erasecol} erase | {squa} square | {tria} triangle | {recta} rectangle | {rhom} rhombus;
  colorize = {fillr} keywordfill color+;
 
- circle = {makecircle} keywordcircle number color?;
- square = {makesquare} keywordsquare number color?;
- triangle = {maketriangle} keywordtriangle number color? tritype?;
- rectangle = {makerectangle} keywordrectangle number [parameter]:number color?;
- rhombus = {makerhombus} keywordrhombus number color?;
+ circle = {makecircle} keywordcircle number color? [parameter]:color?;
+ square = {makesquare} keywordsquare number color? [parameter]:color?;
+ triangle = {maketriangle} keywordtriangle number color? tritype? [parameter]:color?;
+ rectangle = {makerectangle} keywordrectangle number [parameter]:number color? [parameterr]:color?;
+ rhombus = {makerhombus} keywordrhombus number color? [parameter]:color?;
 
  connect = {mark} markpoint | {connectcol} connectcolor | {choosecol} choosecolor;
  connectcolor = {connectcolor} keywordconnect color shape;
