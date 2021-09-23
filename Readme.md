@@ -26,5 +26,7 @@ The system works with the help of Sablecc and Java Graphics2D. Firstly, the gram
 
 ### Sample Programs
 
-
+| | | |
+|:-------------------------:|:-------------------------:|:-------------------------:|
+|<img width="1604" src="etc/Picture1.png"> |  <img width="1604" src="etc/Picture2.png">|<img width="1604" src="etc/Picture3.png">|
 
