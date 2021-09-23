@@ -17,7 +17,7 @@ The system works with the help of Sablecc and Java Graphics2D. Firstly, the gram
 * Java 16 is used to compile the project.
 * cd to the folder where the project is located
 * execute either “java Runner” or “java -jar run.jar”
-<br />
+<br /> <br />
 #### Usage:
 * Type commands in the text field
 * To run the file click on File and then Run
